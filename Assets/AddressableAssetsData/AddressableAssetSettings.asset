@@ -32,7 +32,7 @@ MonoBehaviour:
   m_RemoteCatalogBuildPath:
     m_Id: 8d294227e6e994fd3a0acbe9728872b1
   m_RemoteCatalogLoadPath:
-    m_Id: http://data.virtualbrainlab.org/AddressablesStorage/StandaloneOSX/[BuildTarget]
+    m_Id: brainlab.org/AddressablesStorage/[BuildTarget]
   m_ContentStateBuildPath: 
   m_overridePlayerVersion: 
   m_GroupAssets:
