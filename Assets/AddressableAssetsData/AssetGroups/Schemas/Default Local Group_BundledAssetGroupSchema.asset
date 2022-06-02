@@ -34,9 +34,9 @@ MonoBehaviour:
   m_RedirectLimit: -1
   m_RetryCount: 0
   m_BuildPath:
-    m_Id: b1dd0f0e9a31a4757a408904e11c81a6
+    m_Id: 8d294227e6e994fd3a0acbe9728872b1
   m_LoadPath:
-    m_Id: http://data.virtualbrainlab.org/UMData/StandaloneWindows64/brainareas_assets_assets/addressableassets/allenccf/
+    m_Id: 778b3b19aa73b43dd91db4f1321e90ed
   m_BundleMode: 0
   m_AssetBundleProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
