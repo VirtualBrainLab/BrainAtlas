@@ -314,7 +314,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c02b913cfa92c41a9642200970f6ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  texture: {fileID: 11700000, guid: 4bf3c561065f1ee48ab5437aee93d1ee, type: 2}
+  materialTexture: {fileID: 0}
+  blackTransparent:
+    r: 0
+    g: 0
+    b: 0
+    a: 0
 --- !u!1 &1367620459
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +331,7 @@ GameObject:
   - component: {fileID: 1367620461}
   - component: {fileID: 1367620460}
   - component: {fileID: 1367620462}
+  - component: {fileID: 1367620463}
   m_Layer: 0
   m_Name: main
   m_TagString: Untagged
@@ -373,6 +379,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ee425e0904ae73429913b1528c98973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1367620463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367620459}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8295b28fa4aac2d4da650549e20610a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rebuildTexture: 1
 --- !u!1 &1461802598
 GameObject:
   m_ObjectHideFlags: 0
