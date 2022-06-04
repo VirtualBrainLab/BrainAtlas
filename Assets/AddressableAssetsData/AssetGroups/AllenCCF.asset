@@ -6753,6 +6753,10 @@ MonoBehaviour:
     m_Address: Assets/AddressableAssets/AllenCCF/614454277L.obj
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 523f4b2aa92687c4ca463a70e7e8fdd2
+    m_Address: Assets/AddressableAssets/AllenCCF/ontology_structure_minimal.csv
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0971657f09fdf46b293c2b86160286ad, type: 2}
   m_SchemaSet:
