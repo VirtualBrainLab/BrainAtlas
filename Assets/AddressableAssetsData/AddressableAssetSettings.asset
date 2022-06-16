@@ -34,7 +34,7 @@ MonoBehaviour:
   m_RemoteCatalogLoadPath:
     m_Id: http://data.virtualbrainlab.org/AddressablesStorage/[BuildTarget]
   m_ContentStateBuildPath: 
-  m_overridePlayerVersion: 0.1.0
+  m_overridePlayerVersion: 0.1.1
   m_GroupAssets:
   - {fileID: 11400000, guid: 00da88e96c23d4436b4556538b52b7ed, type: 2}
   - {fileID: 11400000, guid: fb9255cf0519440f8be816d4b44d3d1f, type: 2}

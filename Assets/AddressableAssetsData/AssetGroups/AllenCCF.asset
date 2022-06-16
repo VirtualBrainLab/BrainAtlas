@@ -1581,10 +1581,6 @@ MonoBehaviour:
     m_Address: Assets/AddressableAssets/AllenCCF/310.obj
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ccd18001cecb844ff80610d0e3cec8a5
-    m_Address: Assets/AddressableAssets/AllenCCF/310L(1).obj
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 97eb43388b9bf418d9184ea2795486af
     m_Address: Assets/AddressableAssets/AllenCCF/310L.obj
     m_ReadOnly: 0
@@ -2469,16 +2465,8 @@ MonoBehaviour:
     m_Address: Assets/AddressableAssets/AllenCCF/482L.obj
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9a89d5739d61344f682f316b19ac38d2
-    m_Address: Assets/AddressableAssets/AllenCCF/483(1).obj
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: a788d0e8a91b14b2c9f5b0578c35c3e5
     m_Address: Assets/AddressableAssets/AllenCCF/483.obj
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: d13e6aec35c254fdf81b95a67d6792d6
-    m_Address: Assets/AddressableAssets/AllenCCF/483L(1).obj
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fa7df2a4ed2aa8442a27d0fecab0867b
