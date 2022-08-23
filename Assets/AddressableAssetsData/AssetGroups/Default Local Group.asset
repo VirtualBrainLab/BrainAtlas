@@ -16,7 +16,11 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 82c3456c0faac412682b12537521e593
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 604a5f8d7d36f4c4c972a69cda8175bc
+    m_Address: Assets/AddressableAssets/3D/skull.obj
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0971657f09fdf46b293c2b86160286ad, type: 2}
   m_SchemaSet:
