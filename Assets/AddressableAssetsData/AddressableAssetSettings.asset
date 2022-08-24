@@ -36,7 +36,7 @@ MonoBehaviour:
   m_RemoteCatalogBuildPath:
     m_Id: 8d294227e6e994fd3a0acbe9728872b1
   m_RemoteCatalogLoadPath:
-    m_Id: http://data.virtualbrainlab.org/AddressablesStorage/[BuildTarget]
+    m_Id: https://data.virtualbrainlab.org/AddressablesStorage/[BuildTarget]
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 2
   m_overridePlayerVersion: 0.2.0
