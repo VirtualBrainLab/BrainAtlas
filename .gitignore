@@ -65,3 +65,5 @@ sysinfo.txt
 crashlytics-build.properties
 
 Assets/AddressableAssets/*
+Assets/AddressableAssets.zip
+Assets/AddressableAssets.zip.meta
