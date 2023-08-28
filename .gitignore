@@ -69,3 +69,6 @@ Assets/AddressableAssets.zip
 Assets/AddressableAssets.zip.meta
 
 Pipelines/brainatlas-venv/*
+Pipelines/ba-venv/*
+Pipelines/data/*
+UserSettings/Layouts/default-2022.dwlt

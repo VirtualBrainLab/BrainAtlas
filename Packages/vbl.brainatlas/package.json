@@ -1,0 +1,10 @@
+{
+    "name":"vbl.brainatlas",
+    "version":"1.0.0",
+    "description":"Wrapper of the BrainGlobe Atlas for Unity",
+    "displayName":"BrainAtlas",
+    "unity":"2022.3",
+    "author":"VirtualBrainLab",
+    "changelogUrl":"https://github.com/VirtualBrainLab/BrainAtlas/",
+    "documentationUrl":"https://virtualbrainlab.org/misc/brain_atlas.html"
+}

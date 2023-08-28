@@ -1,0 +1,17 @@
+{
+    "name": "vbl.brainatlas.editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:baba835d3f6de1948879ba12c4c45295",
+        "GUID:1487851fb22c2cc4a85babd43c153c20"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
