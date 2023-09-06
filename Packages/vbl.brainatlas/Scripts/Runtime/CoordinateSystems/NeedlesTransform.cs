@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace CoordinateTransforms
+namespace BrainAtlas
 {
     public class NeedlesTransform : AffineTransform
     {

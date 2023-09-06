@@ -124,7 +124,7 @@ public class CCFModelControl : MonoBehaviour
     {
         Debug.Log("(CCFMC) Starting remote load of ontology structure file");
 
-        Task<string> ontologyTask = AddressablesRemoteLoader.LoadAllenCCFOntology();
+        Task<string> ontologyTask = BrainAtlasManager.LoadAllenCCFOntology();
         await ontologyTask;
 
         Debug.Log("(CCFMC) Ontology structure file loaded");

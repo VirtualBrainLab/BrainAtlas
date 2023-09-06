@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CoordinateTransforms
+namespace BrainAtlas
 {
     public class MRILinearTransform : AffineTransform
     {

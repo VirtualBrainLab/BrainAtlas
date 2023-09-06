@@ -136,7 +136,7 @@ public class CCFTreeNode
         if (loadFull && _nodeModelGO == null)
         {
             string path = ID + ".obj";
-            Task<Mesh> meshTask = AddressablesRemoteLoader.LoadCCFMesh(path);
+            Task<Mesh> meshTask = BrainAtlasManager.LoadCCFMesh(path);
             await meshTask;
 
             _nodeModelGO = new GameObject(Name);
@@ -163,7 +163,7 @@ public class CCFTreeNode
         if (loadSeparated && _nodeModelLeftGO == null)
         {
             string path = ID + "L.obj";
-            Task<Mesh> meshTask = AddressablesRemoteLoader.LoadCCFMesh(path);
+            Task<Mesh> meshTask = BrainAtlasManager.LoadCCFMesh(path);
             await meshTask;
 
             // Create the left/right meshes

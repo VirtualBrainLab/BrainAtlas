@@ -27,11 +27,11 @@ public class VolumeDatasetManager : MonoBehaviour
         Debug.Log("(VDManager) Annotation dataset loading");
         List<Task> dataLoaders = new List<Task>();
 
-        Task<byte[]> dataTask = AddressablesRemoteLoader.LoadVolumeIndexes();
+        Task<byte[]> dataTask = BrainAtlasManager.LoadVolumeIndexes();
         dataLoaders.Add(dataTask);
 
 
-        Task<(byte[] index, byte[] map)> annotationTask = AddressablesRemoteLoader.LoadAnnotationIndexMap();
+        Task<(byte[] index, byte[] map)> annotationTask = BrainAtlasManager.LoadAnnotationIndexMap();
         dataLoaders.Add(annotationTask);
 
         await Task.WhenAll(dataLoaders);

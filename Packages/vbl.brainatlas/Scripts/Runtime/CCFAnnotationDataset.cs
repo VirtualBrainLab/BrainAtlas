@@ -1,11 +1,11 @@
 using UnityEngine;
 using System;
-using CoordinateSpaces;
+using BrainAtlas;
 
 public class CCFAnnotationDataset : VolumetricDataset
 {
-    private CoordinateSpace _coordinateSpace;
-    public CoordinateSpace CoordinateSpace { get { return _coordinateSpace; } }
+    private ReferenceAtlas _coordinateSpace;
+    public ReferenceAtlas CoordinateSpace { get { return _coordinateSpace; } }
     private bool[,,] areaBorders;
     
     /// <summary>
@@ -17,7 +17,7 @@ public class CCFAnnotationDataset : VolumetricDataset
     /// <param name="ccfIndexMap"></param>
     public CCFAnnotationDataset((int ap, int dv, int lr) size, ushort[] data, uint[] map, byte[] ccfIndexMap) : base(size, ccfIndexMap, map, data)
     {
-        _coordinateSpace = new CCFSpace25();
+        //_coordinateSpace = new CCFSpace25();
     }
 
     public void ComputeBorders()

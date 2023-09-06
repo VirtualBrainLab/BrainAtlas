@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace CoordinateTransforms
+namespace BrainAtlas
 {
-    public abstract class AffineTransform : CoordinateTransform
+    public abstract class AffineTransform : AtlasTransform
     {
         private Vector3 _scaling;
         private Vector3 _inverseScaling;
@@ -28,7 +28,7 @@ namespace CoordinateTransforms
         /// </summary>
         /// <param name="ccfCoord"></param>
         /// <returns></returns>
-        public override Vector3 Space2Transform(Vector3 ccfCoord)
+        public override Vector3 Atlas2T(Vector3 ccfCoord)
         {
             return Vector3.Scale(_rotation*ccfCoord, _scaling);
         }
@@ -38,7 +38,7 @@ namespace CoordinateTransforms
         /// </summary>
         /// <param name="coordTransformed"></param>
         /// <returns></returns>
-        public override Vector3 Transform2Space(Vector3 coordTransformed)
+        public override Vector3 T2Atlas(Vector3 coordTransformed)
         {
             return _inverseRotation*Vector3.Scale(coordTransformed, _inverseScaling);
         }
@@ -50,7 +50,7 @@ namespace CoordinateTransforms
         /// </summary>
         /// <param name="coordSpace"></param>
         /// <returns></returns>
-        public override Vector3 Space2TransformAxisChange(Vector3 coordSpace)
+        public override Vector3 Atlas2T_Vector(Vector3 coordSpace)
         {
             return new Vector3(
                 Mathf.Sign(_scaling.x) * coordSpace.x,
@@ -65,7 +65,7 @@ namespace CoordinateTransforms
         /// </summary>
         /// <param name="coordTransformed"></param>
         /// <returns></returns>
-        public override Vector3 Transform2SpaceAxisChange(Vector3 coordTransformed)
+        public override Vector3 T2Atlas_Vector(Vector3 coordTransformed)
         {
             return new Vector3(
                 Mathf.Sign(_inverseScaling.x) * coordTransformed.x,

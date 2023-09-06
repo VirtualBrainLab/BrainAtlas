@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets.ResourceLocators;
 using UnityEngine.Networking;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-public class AddressablesRemoteLoader : MonoBehaviour
+public class BrainAtlasManager : MonoBehaviour
 {
     [SerializeField] private string addressablesStorageRemotePath = "https://data.virtualbrainlab.org/AddressablesStorage";
     [SerializeField] private string buildVersion = "0.2.2";

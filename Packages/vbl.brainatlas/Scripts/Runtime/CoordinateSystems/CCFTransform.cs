@@ -1,9 +1,9 @@
 using UnityEngine;
 
 
-namespace CoordinateTransforms
+namespace BrainAtlas
 {
-    public class CCFTransform : CoordinateTransform
+    public class CCFTransform : AtlasTransform
     {
         public override string Name
         {
@@ -21,22 +21,22 @@ namespace CoordinateTransforms
             }
         }
 
-        public override Vector3 Transform2Space(Vector3 coord)
+        public override Vector3 T2Atlas(Vector3 coord)
         {
             return coord;
         }
 
-        public override Vector3 Space2Transform(Vector3 coord)
+        public override Vector3 Atlas2T(Vector3 coord)
         {
             return coord;
         }
 
-        public override Vector3 Transform2SpaceAxisChange(Vector3 coordTransformed)
+        public override Vector3 T2Atlas_Vector(Vector3 coordTransformed)
         {
             return coordTransformed;
         }
 
-        public override Vector3 Space2TransformAxisChange(Vector3 coordSpace)
+        public override Vector3 Atlas2T_Vector(Vector3 coordSpace)
         {
             return coordSpace;
         }

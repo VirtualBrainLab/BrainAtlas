@@ -1,6 +1,5 @@
 using UnityEngine;
-using CoordinateSpaces;
-using CoordinateTransforms;
+using BrainAtlas;
 using UnityEngine.Events;
 
 public class CoordinateSpaceManager : MonoBehaviour
@@ -8,10 +7,10 @@ public class CoordinateSpaceManager : MonoBehaviour
     /// <summary>
     /// Stores the original transform, when the active transform is a custom transform
     /// </summary>
-    public static CoordinateTransform OriginalTransform;
+    public static AtlasTransform OriginalTransform;
 
-    public static CoordinateSpace ActiveCoordinateSpace;
-    public static CoordinateTransform ActiveCoordinateTransform;
+    public static ReferenceAtlas ActiveCoordinateSpace;
+    public static AtlasTransform ActiveCoordinateTransform;
     public static CoordinateSpaceManager Instance;
 
     public UnityEvent RelativeCoordinateChangedEvent;
@@ -28,12 +27,12 @@ public class CoordinateSpaceManager : MonoBehaviour
     /// <returns></returns>
     public static Vector3 WorldU2WorldT(Vector3 coordWorld)
     {
-        return ActiveCoordinateSpace.Space2World(ActiveCoordinateTransform.Transform2SpaceAxisChange(ActiveCoordinateTransform.Space2Transform(ActiveCoordinateSpace.World2Space(coordWorld))));
+        return ActiveCoordinateSpace.Atlas2World(ActiveCoordinateTransform.T2Atlas_Vector(ActiveCoordinateTransform.Atlas2T(ActiveCoordinateSpace.World2Atlas(coordWorld))));
     }
 
     public static Vector3 WorldT2WorldU(Vector3 coordWorldT)
     {
-        return ActiveCoordinateSpace.Space2World(ActiveCoordinateTransform.Transform2Space(ActiveCoordinateTransform.Space2TransformAxisChange(ActiveCoordinateSpace.World2Space(coordWorldT))));
+        return ActiveCoordinateSpace.Atlas2World(ActiveCoordinateTransform.T2Atlas(ActiveCoordinateTransform.Atlas2T_Vector(ActiveCoordinateSpace.World2Atlas(coordWorldT))));
     }
 
     /// <summary>
@@ -44,17 +43,11 @@ public class CoordinateSpaceManager : MonoBehaviour
     /// <returns></returns>
     public static Vector3 World2TransformedAxisChange(Vector3 coordWorld)
     {
-        return ActiveCoordinateTransform.Space2TransformAxisChange(ActiveCoordinateSpace.World2Space(coordWorld));
+        return ActiveCoordinateTransform.Atlas2T_Vector(ActiveCoordinateSpace.World2Atlas(coordWorld));
     }
 
     public static Vector3 Transformed2WorldAxisChange(Vector3 coordTransformed)
     {
-        return ActiveCoordinateSpace.Space2World(ActiveCoordinateTransform.Transform2SpaceAxisChange(coordTransformed));
-    }
-
-    public static void SetRelativeCoordinate(Vector3 coord)
-    {
-        ActiveCoordinateSpace.RelativeOffset = coord;
-        Instance.RelativeCoordinateChangedEvent.Invoke();
+        return ActiveCoordinateSpace.Atlas2World(ActiveCoordinateTransform.T2Atlas_Vector(coordTransformed));
     }
 }
