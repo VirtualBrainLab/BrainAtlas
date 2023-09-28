@@ -12,17 +12,17 @@ public class AddressablesRemoteTest : MonoBehaviour
 
     public async void AsyncTest()
     {
-        Task<Mesh> handle = BrainAtlasManager.LoadCCFMesh("8.obj");
+        Task<Mesh> handle = AddressablesRemoteLoader.LoadCCFMesh("8.obj");
         await handle;
 
         Debug.Log("Loaded 8.obj");
 
-        Task<Texture3D> handleTex = BrainAtlasManager.LoadAnnotationTexture();
+        Task<Texture3D> handleTex = AddressablesRemoteLoader.LoadAnnotationTexture();
         await handleTex;
 
         Debug.Log("Loaded texture");
 
-        Task<byte[]> volumeHandle = BrainAtlasManager.LoadVolumeIndexes();
+        Task<byte[]> volumeHandle = AddressablesRemoteLoader.LoadVolumeIndexes();
         await volumeHandle;
 
         Debug.Log("Loaded volume indices");

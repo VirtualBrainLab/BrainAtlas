@@ -17,7 +17,7 @@ public class TextureAssetBuilder : MonoBehaviour
 
     private async void AsyncStartBuildGPUTexture()
     {
-        Task<Texture3D> textureTask = BrainAtlasManager.LoadAnnotationTexture();
+        Task<Texture3D> textureTask = AddressablesRemoteLoader.LoadAnnotationTexture();
         await textureTask;
 
         Texture3D originalTexture = textureTask.Result;

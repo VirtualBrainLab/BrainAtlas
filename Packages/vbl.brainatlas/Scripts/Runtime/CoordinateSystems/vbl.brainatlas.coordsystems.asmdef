@@ -1,3 +1,16 @@
 {
-	"name": "vbl.brainatlas.coordsystems"
+    "name": "vbl.brainatlas.coordsystems",
+    "rootNamespace": "",
+    "references": [
+        "GUID:0e68f56b71507ea46a7a7e86308f8eef"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: whs_sd_rat_39um
+  m_EditorClassIdentifier: 
+  m_GroupName: whs_sd_rat_39um
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 601334fd4d9ffa949a6f79b2cc81ce41
+  m_SerializeEntries:
+  - m_GUID: 666e1d270689f1c40a8ec582a1bd4f6c
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/metadataSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5486eef1548cea247a8a36ce9638134e
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 23e96e0bc8022264fa0c91f4711ab1d7
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/10.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: af7168878703210448a59fe972cce9ae
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/100.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c47a84fc9030259468dc9c57e1e3a899
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/1000.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 32b196c8d7500ae46957874b08d5453c
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/10000.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1b3cc3d8c707eb4db6b6e3bb645f662
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/10000L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6ce1ea463b9a0a4b9fae9433165f774
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/1000L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55709df368e88cf4a9b0a98d624c6090
+    m_Address: Assets/AddressableAssets/whs_sd_rat_39um/meshes/1001.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0971657f09fdf46b293c2b86160286ad, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 655313a994d87344facdafa95609492e, type: 2}

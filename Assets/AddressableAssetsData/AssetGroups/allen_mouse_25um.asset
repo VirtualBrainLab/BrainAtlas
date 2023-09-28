@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: allen_mouse_25um
+  m_EditorClassIdentifier: 
+  m_GroupName: allen_mouse_25um
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 181954c90d60cce4ca5c48dfa5a1ebc1
+  m_SerializeEntries:
+  - m_GUID: f7309f108cbf50848a8a2cd5387c3562
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/metadataSO.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 156420db31ca9994cb1c2c684c1d7875
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b12599ee316ac7243afdf58cdfd6e4c0
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/10.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b1b6a2e2cb4e5146900e7c1d2013c6f
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/100.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 25b722cf502a30440aa845cf7584552c
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/1000.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 09d6d9e6dc95ff8408a475aa6622e84e
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/1000L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 066566de17af11e4e8973425497ebd87
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/1002.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0796c7063bbeb974bb5802df32f27871
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/1002L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb543aa463e16cc49a911236f08d8f97
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/1004.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0971657f09fdf46b293c2b86160286ad, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: fa031dc80e02a6e438cd44d90f39f992, type: 2}
