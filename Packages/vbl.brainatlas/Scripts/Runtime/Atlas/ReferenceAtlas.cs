@@ -1,3 +1,4 @@
+using BrainAtlas.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace BrainAtlas
         private Texture3D _annotationTexture3D;
         private Texture3D _referenceTexture3D;
         private int[] _annotationIDs;
+        private Material _defaultMaterial;
         #endregion
 
         #region Properties
@@ -26,6 +28,14 @@ namespace BrainAtlas
         /// Dimensions of the Atlas
         /// </summary>
         public Vector3 Dimensions { get => _data.Dimensions; }
+
+        public Vector3 DimensionsIdx
+        {
+            get
+            {
+                return Vector3.Scale(Dimensions, ResolutionInverse) * 1000f;
+            }
+        }
 
         /// <summary>
         /// The resolution of the atlas is the um each voxel takes up on (x,y,z)
@@ -68,13 +78,23 @@ namespace BrainAtlas
         public Ontology Ontology;
         #endregion
 
-        public ReferenceAtlas(ReferenceAtlasData referenceAtlasData, Transform parentT)
+        /// <summary>
+        /// Create a new ReferenceAtlas object using the Data
+        /// 
+        /// Child mesh objects will be attached to the parentT transform and will initialize with the defaultMaterial
+        /// </summary>
+        /// <param name="referenceAtlasData"></param>
+        /// <param name="parentT"></param>
+        /// <param name="defaultMaterial"></param>
+        public ReferenceAtlas(ReferenceAtlasData referenceAtlasData, Transform parentT, ref Material defaultMaterial)
         {
             _data = referenceAtlasData;
             ParentT = parentT;
 
             Load_Deserialize();
             Load_ParentPrefab();
+
+            _defaultMaterial = defaultMaterial;
         }
 
         #region Loading
@@ -87,10 +107,15 @@ namespace BrainAtlas
             foreach (var tuple in _data._privateMeshCenters)
                 MeshCenters.Add(tuple.i, tuple.v3);
 
-            Ontology = new Ontology(_data._privateOntologyData, ParentT);
+            Ontology = new Ontology(_data._privateOntologyData, ParentT, ref _defaultMaterial);
         }
 
         private void Load_ParentPrefab()
+        {
+
+        }
+
+        private void Load_Texture()
         {
 
         }
@@ -201,6 +226,9 @@ namespace BrainAtlas
     {
         private Dictionary<int, (string acronym, string name, Color color, int[] path)> _ontologyData;
         private Dictionary<string, int> _acronym2id;
+
+        private Material _defaultMaterial;
+
         public Color ID2Color(int areaID)
         {
             return _ontologyData[areaID].color;
@@ -236,7 +264,7 @@ namespace BrainAtlas
         /// <summary>
         /// 
         /// </summary>
-        public Ontology(List<OntologyTuple> ontologyData, Transform parentT)
+        public Ontology(List<OntologyTuple> ontologyData, Transform parentT, ref Material defaultMaterial)
         {
             _ontologyData = new();
 
@@ -248,6 +276,7 @@ namespace BrainAtlas
                     ontologyTuple.structure_id_path));
 
             ParseData(parentT);
+            _defaultMaterial = defaultMaterial;
         }
 
         private void ParseData(Transform parentT)
@@ -263,7 +292,7 @@ namespace BrainAtlas
 
                 // build the ontology tree
                 OntologyNode cNode = new OntologyNode();
-                cNode.SetData(nodeData.acronym, nodeData.color, parentT);
+                cNode.SetData(dataKVP.Key, nodeData.acronym, nodeData.color, parentT, ref _defaultMaterial);
 
                 _nodes.Add(dataKVP.Key, cNode);
             }
@@ -282,11 +311,14 @@ namespace BrainAtlas
         }
 
         #region Private vars
+        private int _id;
         private string _acronym;
         private Transform _atlasParentT;
         
         private Color _defaultColor;
         private Color _overrideColor;
+
+        private Material _defaultMaterial;
 
         private TaskCompletionSource<bool> _sideLoadedSource = new();
         private TaskCompletionSource<bool> _fullLoadedSource = new();
@@ -315,11 +347,15 @@ namespace BrainAtlas
         public GameObject FullGO { get { return _fullGO; } private set { _fullGO = value; } }
         #endregion
 
-        public void SetData(string acronym, Color defaultColor, Transform parentTransform)
+        public void SetData(int id, string acronym, Color defaultColor, Transform parentTransform, 
+            ref Material defaultMaterial)
         {
+            _id = id;
             _acronym = acronym;
             _defaultColor = defaultColor;
             _atlasParentT = parentTransform;
+
+            _defaultMaterial = defaultMaterial;
         }
 
         /// <summary>
@@ -330,7 +366,7 @@ namespace BrainAtlas
             if (ParentGO == null)
             {
                 ParentGO = new GameObject(_acronym);
-                ParentGO.transform.parent = _atlasParentT;
+                ParentGO.transform.SetParent(_atlasParentT, false);
             }
 
             switch (side)
@@ -400,27 +436,17 @@ namespace BrainAtlas
             if (_fullLoading) return; // duplicate call
             _fullLoading = true;
 
-            //string path = ID + ".obj";
-            //Task<Mesh> meshTask = AddressablesRemoteLoader.LoadCCFMesh(path);
-            //await meshTask;
+            var MeshTask = AddressablesRemoteLoader.LoadMeshPrefab(_id.ToString());
+            await MeshTask;
 
-            //_fullGO = new GameObject(_acronym);
-            //_fullGO.transform.SetParent(_parentGO.transform);
-            //_fullGO.AddComponent<MeshFilter>();
-            //_fullGO.AddComponent<MeshRenderer>();
-            //_fullGO.layer = 13;
-            //_fullGO.tag = "BrainRegion";
-            //Renderer rend = _nodeModelGO.GetComponent<Renderer>();
-            //rend.material = _material;
-            //rend.material.SetColor("_Color", _color);
-            //rend.receiveShadows = false;
-            //rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
-            //_nodeModelGO.GetComponent<MeshFilter>().mesh = meshTask.Result;
-
-            //_nodeModelGO.transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
-            //_nodeModelGO.transform.localPosition = Vector3.zero;
-            //_nodeModelGO.transform.localRotation = Quaternion.identity;
-            //_nodeModelGO.SetActive(false);
+            _fullGO = GameObject.Instantiate(MeshTask.Result, _parentGO.transform);
+            _fullGO.name = "Full";
+            
+            Renderer rend = _fullGO.GetComponentInChildren<Renderer>();
+            rend.material = _defaultMaterial;
+            rend.material.SetColor("_Color", _defaultColor);
+            rend.receiveShadows = false;
+            rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
             _fullLoadedSource.SetResult(true);
         }

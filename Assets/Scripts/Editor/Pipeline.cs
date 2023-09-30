@@ -9,6 +9,7 @@ using System.Linq;
 using UnityEditor.AddressableAssets.Settings;
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings.GroupSchemas;
+using BrainAtlas.ScriptableObjects;
 
 namespace BrainAtlas.Editor
 {
@@ -38,11 +39,11 @@ namespace BrainAtlas.Editor
             string atlasMetaPath = Path.Join("Assets/AddressableAssets", "metadataSO.asset");
             CreateAddressablesHelper(_atlasMetaData, atlasMetaPath, _addressableSettings.DefaultGroup);
 
-
             foreach (var atlasInfo in _atlasInfoList)
             {
+                Debug.Log($"(Pipeline) Running for {atlasInfo.atlasName}");
                 var updatedAtlasInfo = SetupAddressables(atlasInfo);
-                
+
 
                 // Build the Atlas ScriptableObjects
                 AtlasMeta2SO(updatedAtlasInfo);
@@ -50,7 +51,7 @@ namespace BrainAtlas.Editor
                 // Convert mesh files 2 prefabs
                 MeshFiles2Prefabs(updatedAtlasInfo);
 
-                // 
+                AnnotationReference2Textures(updatedAtlasInfo);
             }
 
             EditorUtility.SetDirty(_addressableSettings);
@@ -152,7 +153,8 @@ namespace BrainAtlas.Editor
             atlasData._privateOntologyData = ontologyData;
 
             // Create a temporary Ontology for local use
-            Ontology tempOntology = new Ontology(ontologyData, null);
+            Material tempMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/NullMaterial");
+            Ontology tempOntology = new Ontology(ontologyData, null, ref tempMat);
 
             // MESH CENTERS
 
@@ -178,7 +180,7 @@ namespace BrainAtlas.Editor
 
             // Save the atlas data into the Addressables folder
             //atlasData
-            string atlasSOPath = Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, "metadataSO.asset");
+            string atlasSOPath = Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, $"{atlasInfo.atlasName}.asset");
             CreateAddressablesHelper(atlasData, atlasSOPath, atlasInfo.assetGroup);
         }
 
@@ -194,7 +196,7 @@ namespace BrainAtlas.Editor
             string atlasFolderPath = Path.Join("Assets/AddressableAssets/", atlasInfo.atlasName);
 
             // get the metadata for this atlas
-            var atlasData = AssetDatabase.LoadAssetAtPath<ReferenceAtlasData>(Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, "metaDataSO.asset"));
+            var atlasData = AssetDatabase.LoadAssetAtPath<ReferenceAtlasData>(Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, $"{atlasInfo.atlasName}.asset"));
 
             // get the contents of the mesh directory, copy them all over into addressables
             Debug.Log(atlasInfo.atlasPath);
@@ -209,23 +211,35 @@ namespace BrainAtlas.Editor
             parentGO.transform.localPosition = new Vector3(-atlasData.Dimensions.y / 2f, atlasData.Dimensions.z / 2f, atlasData.Dimensions.x / 2f);
             string parentPrefabPath = Path.Join(atlasFolderPath, $"{parentGO.name}.prefab");
             PrefabUtility.SaveAsPrefabAsset(parentGO, parentPrefabPath);
+            MarkAssetAddressable(parentPrefabPath, atlasInfo.atlasGroup);
 
             GameObject.DestroyImmediate(parentGO);
 
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < meshFiles.Length; i++)
             //foreach (string meshFile in meshFiles)
             {
                 string meshFile = meshFiles[i];
 
-                string targetFilePath = Path.Join(targetFolderPath, Path.GetFileName(meshFile));
+                string name = Path.GetFileName(meshFile);
+                string targetFilePath = Path.Join(targetFolderPath, name);
 
                 File.Copy(meshFile, targetFilePath, true);
                 AssetDatabase.ImportAsset(targetFilePath, ImportAssetOptions.ForceUpdate);
 
-                GameObject objModel = AssetDatabase.LoadAssetAtPath<GameObject>(targetFilePath);
+                Mesh mesh = AssetDatabase.LoadAssetAtPath<Mesh>(targetFilePath);
+
+                // The object right now has a parent gameobject and then a child, let's turn it into a single gameobject
+                GameObject objModelPrefab = new GameObject(name);
+                MeshFilter meshFilter = objModelPrefab.AddComponent<MeshFilter>();
+                meshFilter.mesh = mesh;
+                Renderer rend = objModelPrefab.AddComponent<MeshRenderer>();
+                rend.receiveShadows = false;
+                rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
                 string prefabPath = Path.Join(meshFolderPath, $"{Path.GetFileNameWithoutExtension(targetFilePath)}.prefab");
-                PrefabUtility.SaveAsPrefabAsset(objModel, prefabPath);
+                PrefabUtility.SaveAsPrefabAsset(objModelPrefab, prefabPath);
+
+                GameObject.DestroyImmediate(objModelPrefab);
 
                 MarkAssetAddressable(prefabPath, atlasInfo.atlasGroup);
             }
@@ -234,25 +248,59 @@ namespace BrainAtlas.Editor
         /// <summary>
         /// Build the annotation color texture, and reference texture
         /// </summary>
-        public static void AnnotationReference2Textures()
+        public static void AnnotationReference2Textures((string atlasName, string atlasPath, AddressableAssetGroup atlasGroup) atlasInfo)
         {
             // Load the bytes file
+            byte[] annotationBytes = File.ReadAllBytes(Path.Join(atlasInfo.atlasPath, "annotation.bytes"));
 
-            // Create the texture
+            uint[] uannotationData = new uint[annotationBytes.Length / 4];
+            Buffer.BlockCopy(annotationBytes, 0, uannotationData, 0, annotationBytes.Length);
+
+            // Convert to int[]
+            int[] annotationData = new int[uannotationData.Length];
+            for (int i = 0; i < uannotationData.Length; i++)
+                annotationData[i] = (int)uannotationData[i];
+
+            // Also save the annotation data itself
+            AnnotationData annotationDataSO = ScriptableObject.CreateInstance<AnnotationData>();
+
+            annotationDataSO.Annotations = annotationData;
+
+            string annotationDataSOPath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/annotations.asset";
+            CreateAddressablesHelper(annotationDataSO, annotationDataSOPath, atlasInfo.atlasGroup);
+
+            //// get the metadata for this atlas
+            var atlasData = AssetDatabase.LoadAssetAtPath<ReferenceAtlasData>(Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, $"{atlasInfo.atlasName}.asset"));
+            var ontologyData = atlasData._privateOntologyData;
+            Dictionary<int, (string acronym, string name, Color color, int[] path)> ontologyDataDict = new();
+
+            foreach (var data in ontologyData)
+                ontologyDataDict.Add(data.id, (data.acronym, data.name, data.color, data.structure_id_path));
+
+            //// Create the texture
+            int apLength = Mathf.RoundToInt(atlasData.Dimensions.x / atlasData.Resolution.x * 1000f);
+            int mlWidth = Mathf.RoundToInt(atlasData.Dimensions.y / atlasData.Resolution.y * 1000f);
+            int dvDepth = Mathf.RoundToInt(atlasData.Dimensions.z / atlasData.Resolution.z * 1000f);
+
+            Texture3D atlasTexture = ConvertArrayToTexture(annotationData, apLength, mlWidth, dvDepth, ontologyDataDict);
 
             // Save to an asset file
+            string atlasTexturePath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/annotationTexture.asset";
+            CreateAddressablesHelper(atlasTexture, atlasTexturePath, atlasInfo.atlasGroup);
 
-            // Make the asset addressable
+            // Deal with the texture data
+            byte[] referenceBytes = File.ReadAllBytes(Path.Join(atlasInfo.atlasPath, "reference.bytes"));
+
+            float[] ureferenceData = new float[referenceBytes.Length / 4];
+            Buffer.BlockCopy(referenceBytes, 0, ureferenceData, 0, referenceBytes.Length);
+
+            Texture3D referenceTexture = ConvertArrayToTexture(ureferenceData, apLength, dvDepth, mlWidth);
+
+            string refTexturePath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/referenceTexture.asset";
+            CreateAddressablesHelper(referenceTexture, refTexturePath, atlasInfo.atlasGroup);
         }
 
-        /// <summary>
-        /// Build the annotation blob asset
-        /// </summary>
-        public static void Annotation2BlobAsset()
-        {
-
-        }
-
+        #region private helpers
         private static void CreateAddressablesHelper(UnityEngine.Object assetData, string assetPath, AddressableAssetGroup assetGroup)
         {
             if (File.Exists(assetPath))
@@ -267,6 +315,55 @@ namespace BrainAtlas.Editor
         {
             _addressableSettings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(prefabPath), assetGroup);
         }
+
+        private static Texture3D ConvertArrayToTexture(int[] data, int apLength, int dvDepth, int mlWidth,
+            Dictionary<int, (string acronym, string name, Color color, int[] path)> ontologyDict)
+        {
+            Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGBA32, false);
+            atlasTexture.filterMode = FilterMode.Point;
+            atlasTexture.wrapMode = TextureWrapMode.Clamp;
+
+            Color transparentBlack = new Color(0f, 0f, 0f, 0f);
+
+            int idx = 0;
+            for (int ap = 0; ap < apLength; ap++)
+                for (int dv = 0; dv < dvDepth; dv++)
+                    for (int ml = 0; ml < mlWidth; ml++)
+                    {
+                        int atlasID = (int)data[idx++];
+
+                        if (atlasID <= 0)
+                            atlasTexture.SetPixel(ap, ml, dv, transparentBlack);
+                        else if (ontologyDict.ContainsKey(atlasID))
+                            atlasTexture.SetPixel(ap, ml, dv, ontologyDict[atlasID].color);
+                        else
+                            atlasTexture.SetPixel(ap, ml, dv, Color.black);
+                    }
+
+            atlasTexture.Apply();
+
+            return atlasTexture;
+        }
+
+        private static Texture3D ConvertArrayToTexture(float[] data, int apLength, int dvDepth, int mlWidth)
+        {
+            Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGB24, false);
+            atlasTexture.filterMode = FilterMode.Point;
+            atlasTexture.wrapMode = TextureWrapMode.Clamp;
+
+            int idx = 0;
+            for (int ap = 0; ap < apLength; ap++)
+                for (int dv = 0; dv < dvDepth; dv++)
+                    for (int ml = 0; ml < mlWidth; ml++)
+                    {
+                        atlasTexture.SetPixel(ap, ml, dv, Color.Lerp(Color.black, Color.white, data[idx++]));
+                    }
+
+            atlasTexture.Apply();
+
+            return atlasTexture;
+        }
+        #endregion
     }
 
     [Serializable]

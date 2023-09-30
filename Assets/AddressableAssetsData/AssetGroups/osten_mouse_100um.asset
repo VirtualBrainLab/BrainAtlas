@@ -16,52 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: a5eda694c4f74db488810b92350e1a2d
-  m_SerializeEntries:
-  - m_GUID: fb5d71c89f98432478c87658a38e5697
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/metadataSO.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2dd9050b5e140274a9a9eb11b60bb324
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/1.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 75e2f409d21fcae42a39a984f9a838c8
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/10.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 46f1a4987fd386a44bcd5783bc8704c3
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/100.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b1a23954451bb5245acce8a618290393
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/1000.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1dfa71df91a36374fbfb259f9891741b
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/1000L.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f08bb22a5aaa4e04e825553ebe06943c
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/1002.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ffbbc32f84fcb90489ebff5e3b573a48
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/1002L.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8805968470635ec488571f1c03f8b220
-    m_Address: Assets/AddressableAssets/osten_mouse_100um/meshes/1004.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 0971657f09fdf46b293c2b86160286ad, type: 2}
   m_SchemaSet:

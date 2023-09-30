@@ -45,6 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7e19699c62fef4d8e2f16cfb5e8b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _brainRegionMaterials:
+  - {fileID: 2100000, guid: 4fdce846a282bef42af0221c4d4da68d, type: 2}
+  - {fileID: 2100000, guid: 4fdce846a282bef42af0221c4d4da68d, type: 2}
+  - {fileID: 2100000, guid: f105eb238dcc87744a1e76aeecbe1bc0, type: 2}
+  - {fileID: 2100000, guid: 985ea6e720ac003459443e2632bde924, type: 2}
+  - {fileID: 2100000, guid: b8a04b95bf5e0fe4dbdfd3978413393d, type: 2}
+  _brainRegionMaterialNames:
+  - default
+  - opaque-lit
+  - opaque-unlit
+  - transparent-lit
+  - transparent-unlit
 --- !u!114 &5304039299580470460
 MonoBehaviour:
   m_ObjectHideFlags: 0
