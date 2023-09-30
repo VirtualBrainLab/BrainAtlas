@@ -15,7 +15,7 @@ MonoBehaviour:
   m_GroupName: allen_mouse_25um
   m_Data:
     m_SerializedData: []
-  m_GUID: 181954c90d60cce4ca5c48dfa5a1ebc1
+  m_GUID: f356507a855abb54fa4a8c7079da0ebb
   m_SerializeEntries:
   - m_GUID: f7309f108cbf50848a8a2cd5387c3562
     m_Address: Assets/AddressableAssets/allen_mouse_25um/allen_mouse_25um.asset

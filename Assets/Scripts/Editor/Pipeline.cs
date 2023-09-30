@@ -200,7 +200,7 @@ namespace BrainAtlas.Editor
 
             // get the contents of the mesh directory, copy them all over into addressables
             Debug.Log(atlasInfo.atlasPath);
-            string meshPath = File.ReadAllText(Path.Join(atlasInfo.atlasPath, "mesh_path.txt"));
+            string meshPath = $"{atlasInfo.atlasPath}/meshes/";
             string[] meshFiles = Directory.GetFiles(meshPath, "*.obj");
 
             // Create the parent prefab
