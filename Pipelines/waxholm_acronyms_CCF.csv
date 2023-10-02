@@ -1,0 +1,313 @@
+id,name,acronym,ccf equivalent
+10000,Root,root,
+1000,Brain,Brain,
+1001,White matter,wmt,#808080
+1050,Olfactory white matter,olf,#808080
+180,lateral olfactory tract,lot,#808080
+67,corpus callosum and associated subcortical white matter,cc-ec-cing-dwm,#808080
+1002,Anterior commissure,ac,#808080
+36,"anterior commissure, anterior limb",aca,#808080
+37,"anterior commissure, posterior limb",acp,#808080
+73,"anterior commissure, intrabulbar part",aci,#808080
+1003,Hippocampal white matter,hiw,#808080
+6,alveus of the hippocampus,alv,#808080
+38,ventral hippocampal commissure,vhc,#808080
+52,fornix,f,#808080
+59,fimbria of the hippocampus,fi,#808080
+1004,Corticofugal pathways,cfp,#808080
+1,corticofugal tract and corona radiata,ic-cp-lfp-py,#808080
+85,pyramidal decussation,pyx,#808080
+1005,Medial lemniscus,ml,#808080
+34,"medial lemniscus, unspecified",ml-u,#808080
+84,medial lemniscus decussation,mlx,#808080
+1006,Thalamic tracts,tht,#808080
+1051,External medullary lamina,eml,#808080
+249,"external medullary lamina, unspecified",eml-u,#808080
+157,"external medullary lamina, auditory radiation",eml-ar,#808080
+291,internal medullary lamina,iml,#808080
+290,intramedullary thalamic area,ima,#808080
+270,superior cerebellar peduncle and prerubral field,scp-pr,#808080
+239,pretectothalamic lamina,ptl,#808080
+53,mammillotegmental tract,mtg,#808080
+54,commissural stria terminalis,cst,#808080
+60,fasciculus retroflexus,fr,#808080
+61,stria medullaris thalami,sm,#808080
+62,stria terminalis,st,#808080
+80,habenular commissure,hbc,#808080
+63,posterior commissure,pc,#808080
+1007,Facial nerve,7n,#808080
+35,"facial nerve, unspecified",7n-u,#808080
+72,ascending fibers of the facial nerve,asc7,#808080
+57,genu of the facial nerve,g7,#808080
+1008,Optic fiber system and supraoptic decussation,ofs,#808080
+41,optic nerve,2n,#808080
+42,optic tract and optic chiasm,opt-och,#808080
+83,supraoptic decussation,sox,#808080
+1009,White matter of the tectum,tew,#808080
+46,commissure of the superior colliculus,csc,#808080
+68,brachium of the superior colliculus,bsc,#808080
+69,"inferior colliculus, commissure",cic,#808080
+146,"inferior colliculus, brachium",bic,#808080
+1010,Cerebellar and precerebellar white matter,cbt,#808080
+7,inferior cerebellar peduncle,icp,#808080
+78,middle cerebellar peduncle,mcp,#808080
+79,transverse fibers of the pons,tfp,#808080
+1011,White matter of the brainstem,bsw,#808080
+1012,Lateral lemniscus,ll,#808080
+140,"lateral lemniscus, commissure",ll-c,#808080
+141,"lateral lemniscus, unspecified",ll-u,#808080
+129,acoustic striae,as,#808080
+130,trapezoid body,tz,#808080
+76,spinal trigeminal tract,sp5t,#808080
+1013,Gray matter,GM,
+1052,Telencephalon,Tel,
+1053,Laminated pallium,LamP,
+1020,Olfactory bulb,OB,MOB
+64,Glomerular layer of the accessory olfactory bulb,GlA,
+65,Glomerular layer of the olfactory bulb,Gl,
+66,"Olfactory bulb, unspecified",OB-u,
+502,Nucleus of the lateral olfactory tract,NLOT,NLOT
+1015,Cerebral cortex,Cx,CTX
+1055,Hippocampal region,HR,
+1021,Hippocampal formation,HF,HPF
+99,Fasciola cinereum,FC,FC
+100,Subiculum,SUB,SUB
+1022,Cornu Ammonis,CA,
+98,Cornu ammonis 1,CA1,CA1
+97,Cornu ammonis 2,CA2,CA2
+95,Cornu ammonis 3,CA3,CA3
+96,Dentate gyrus,DG,DG
+1023,Parahippocampal region,PHR,
+108,Postrhinal cortex,POR,VISpor
+109,Presubiculum,PrS,PRE
+110,Parasubiculum,PaS,PAR
+1024,Perirhinal cortex,PER,PERI
+112,Perirhinal area 35,PER35,
+113,Perirhinal area 36,PER36,
+1025,Entorhinal cortex,EC,ENT
+114,Medial entorhinal cortex,MEC,ENTm
+115,Lateral entorhinal cortex,LEC,ENTl
+1056,Piriform cortex,PIR,PIR
+181,"Piriform cortex, layer 1",PIR1,
+182,"Piriform cortex, layer 2",PIR2,
+183,"Piriform cortex, layer 3",PIR3,
+1057,Cingulate region,CgR,
+1018,Cingulate cortex,Cg,ACA
+411,Cingulate area 1,Cg1,
+10,Cingulate area 2,Cg2,
+1058,Retrosplenial cortex,RS,RSP
+427,Retrosplenial dysgranular area,RSD,
+430,Retrosplenial granular area,RSG,
+1059,Insular region,INS,
+1060,Agranular insular cortex,AI,AI
+409,"Agranular insular cortex, ventral area",AI-v,
+410,Agranular insular cortex dorsal area ,AI-d,
+424,"Agranular insular cortex, posterior area ",AI-p,
+414,Dysgranular insular cortex,DI,
+416,Granular insular cortex,GI,
+1061,Frontal region,Front,
+77,Frontal association cortex,FrA,FRP
+1062,Orbitofrontal cortex,Orb,ORB
+403,Medial orbital area,MO,
+402,Ventral orbital area,VO,
+400,Ventrolateral orbital area,VLO,
+401,Lateral orbital area,LO,
+404,Dorsolateral orbital area,DLO,
+1063,Mediofrontal cortex,MFC,
+405,Prelimbic area,PrL,PL
+413,Infralimbic area,IL,ILA
+1064,Motor cortex,M,
+408,Primary motor area,M1,MOp
+406,Secondary motor area,M2,MOs
+407,Frontal association area 3,Fr3,
+1065,Parietal region,Par,
+1066,Somatosensory cortex,SS,
+1067,Primary somatosensory area,S1,SSp
+420,"Primary somatosensory area, face representation",S1-f,
+425,"Primary somatosensory area, barrel field",S1-bf,
+418,"Primary somatosensory area, dysgranular zone",S1-dz,
+417,"Primary somatosensory area, forelimb representation",S1-fl,
+423,"Primary somatosensory area, hindlimb representation",S1-hl,
+429,"Primary somatosensory area, trunk representation",S1-tr,
+422,Secondary somatosensory area,S2,SSs
+1068,Posterior parietal cortex,PPC,PTLp
+433,"Parietal association cortex, medial area",mPPC,
+432,"Parietal association cortex, lateral area",lPPC,
+436,"Parietal association cortex, posterior area ",PtP,
+1069,Occipital region,Oc,
+1070,Visual cortex,Vis,VIS
+442,Primary visual area,V1,VISp
+1071,Secondary visual area,V2,
+448,"Secondary visual area, medial part",V2M,
+443,"Secondary visual area, lateral part",V2L,
+1072,Temporal region,Te,TEa
+444,Temporal association cortex,TeA,TEa
+1019,Auditory cortex,Au,AUD
+151,Primary auditory area,Au1,AUDp
+1073,Secondary auditory area,Au2,
+152,"Secondary auditory area, dorsal part",Au2-d,
+153,"Secondary auditory area, ventral part",Au2-v,
+1074,Non-laminated pallium,N-LamP,
+412,Claustrum,CLA,CLA
+500,Endopiriform nucleus,Endo,EP
+501,"Amygdaloid area, unspecified",Am-u,
+1075, Subpallium,SubPAL,
+1076,Striatum,Str,STR
+197,Caudate putamen,CPu,CP
+1077,Nucleus accumbens,NAc,ACB
+184,"Nucleus accumbens, core",NAc-c,
+192,"Nucleus accumbens, shell",NAc-sh,
+199,"Ventral striatal region, unspecified",VSR-u,
+1028,Pallidum,PAL,PAL
+1078,Globus pallidus external,GPe,GPe
+195,"Globus pallidus external, medial part",GPe-m,
+198,"Globus pallidus external, lateral part",GPe-l,
+32,Entopeduncular nucleus,EP,GPi
+193,Ventral pallidum,VP,PALv
+1079,Basal forebrain region ,BRF,
+82,"Basal forebrain region, unspecified",BFR-u,
+93,Bed nucleus of the stria terminalis,BNST,BST
+40,Septal region,Sep,LSX
+3,Subthalamic nucleus,STh,STN
+1080,Diencephalon,Dien,TH
+1081,Prethalamus,Thal-Pre,
+1033,Reticular (pre)thalamic nucleus,RT,RT
+200,"Reticular (pre)thalamic nucleus, unspecified",RT-u,
+164,"Reticular (pre)thalamic nucleus, auditory segment",RT-a,
+1082,Zona incerta,ZI,ZI
+235,"Zona incerta, dorsal part",ZI-d,
+236,"Zona incerta, ventral part",ZI-v,
+257,"Zona incerta, rostral part",ZI-r,
+287,"Zona incerta, caudal part",ZI-c,
+238,"Zona incerta, A13 dopamine cells",ZI-A13,
+284,"Zona incerta, A11 dopamine cells",ZI-A11,
+280,Fields of Forel,FoF,FF
+204,Pregeniculate nucleus,PrG,
+281,Subgeniculate nucleus,SubG,SubG
+272,Intergeniculate leaflet,IGL,IGL
+1083,Epithalamus,Thal-EPI,EPI
+206,Lateral habenular nucleus,LHb,LH
+207,Medial habenular nucleus,MHb,MH
+81,Nucleus of the stria medullaris,SMn,
+43,Pineal gland,PG,
+1084,Dorsal thalamus,Thal-D,
+1085,Anterior nuclei of the dorsal thalamus,ANT,
+213,Anterodorsal thalamic nucleus,AD,AD
+1086,Anteroventral thalamic nucleus,AV,AV
+214,"Anteroventral thalamic nucleus, dorsomedial part",AV-dm,
+215,"Anteroventral thalamic nucleus, ventrolateral part",AV-vl,
+254,Anteromedial thalamic nucleus,AM,AM
+255,Interanteromedial thalamic nucleus,IAM,IAM
+242,Paraventricular thalamic nuclei (anterior and posterior),PV,PVT
+260,Intermediodorsal thalamic nucleus,IMD,IMD
+211,Parataenial thalamic nucleus,PT,PT
+278,Subparafascicular nucleus,SPF,SPF
+208,Posterior intralaminar nucleus,PIL,PIL
+1088,Ventral midline group of the dorsal thalamus,V-MID,
+216,Rhomboid thalamic nucleus,Rh,RH
+219,Reuniens thalamic nucleus,Re,RE
+268,Retroreuniens thalamic nucleus,RRe,
+218,Xiphoid thalamic nucleus,Xi,Xi
+1089,Mediodorsal nucleus of the dorsal thalamus,MD,MD
+232,"Mediodorsal thalamic nucleus, lateral part",MD-l,
+233,"Mediodorsal thalamic nucleus, central part",MD-c,
+240,"Mediodorsal thalamic nucleus, medial part",MD-m,
+1090,Ventral nuclei of the dorsal thalamus,VENT,
+293,Ventral anterior thalamic nucleus,VA,
+221,Ventromedial thalamic nucleus,VM,
+231,Ventrolateral thalamic nucleus,VL,
+223,Angular thalamic nucleus,Ang,
+1091,Ventral posterior thalamic nucleus,VPN,
+227,Ventral posteromedial thalamic nucleus,VPM,VPM
+294,Ventral posterolateral thalamic nucleus,VPL,VPL
+266,"Ventral posterior nucleus of the thalamus, parvicellular part",VP-pc,
+222,Submedius thalamic nucleus,SMT,
+1092,Intralaminar nuclei of the dorsal thalamus,ILM,
+246,Paracentral thalamic nucleus,PCN,
+247,Central medial thalamic nucleus,CM,CM
+248,Central lateral thalamic nucleus,CL,CL
+267,Parafascicular thalamic nucleus,PF,
+282,Ethmoid-Limitans nucleus,Eth,
+1093,Posterior complex of the dorsal thalamus,PoC,
+230,Posterior thalamic nucleus,Po,PO
+210,"Posterior thalamic nuclear group, triangular part",Po-t,
+1094,Lateral posterior (pulvinar) complex of the dorsal thalamus,LP,LP
+285,"Lateral posterior thalamic nucleus, mediorostral part",LP-mr,
+286,"Lateral posterior thalamic nucleus, mediocaudal part",LP-mc,
+283,"Lateral posterior thalamic nucleus, lateral part",LP-l,
+1095,Laterodorsal thalamic nuclei of the dorsal thalamus,LD,LD
+228,"Laterodorsal thalamic nucleus, dorsomedial part",LD-dm,
+229,"Laterodorsal thalamic nucleus, ventrolateral part",LD-vl,
+205,Dorsal lateral geniculate nucleus,DLG,LGd
+1032,Medial geniculate complex of the dorsal thalamus,MG,MG
+298,"Medial geniculate body, ventral division",MG-v,
+295,"Medial geniculate body, dorsal division",MG-d,
+150,"Medial geniculate body, marginal zone",MG-mz,
+297,"Medial geniculate body, medial division",MG-m,
+299,"Medial geniculate body, suprageniculate nucleus",MG-sg,
+1034,Hypothalamus,HY,HY
+48,"Hypothalamic region, unspecified",HTh-u,
+1096,Pretectum,PreT,
+94,Pretectal region,PRT,
+163,Nucleus sagulum,Sag,
+1097,Mesencephalon,Mes,
+1035,Midbrain,MB,MB
+1036,Tectum,Tc,
+1037,Inferior colliculus,IC,IC
+142,"Inferior colliculus, dorsal cortex",DCIC,
+143,"Inferior colliculus, central nucleus",CNIC,
+145,"Inferior colliculus, external cortex",ECIC,
+1038,Superior colliculus,Su,
+50,Superficial gray layer of the superior colliculus,SuG,SCs
+55,Deeper layers of the superior colliculus,SuD,SCm
+1039,Tegmentum,Tg,
+1098,Substantia nigra,SN,
+187,"Substantia nigra, reticular part",SN-r,SNr
+188,"Substantia nigra, compact part",SN-c,SNc
+189,"Substantia nigra, lateral part",SN-l,
+196,Ventral tegmental area,VTA,VTA
+201,Peripeduncular nucleus,PP,
+71,Interpeduncular nucleus,IP,
+51,Periaqueductal gray,PAG,PAG
+47,"Brainstem, unspecified",BS-u,HB
+1099,Rhombencephalon,Rho,
+1100,Metencephalon,Met,
+58,Pontine nuclei,Pn,P
+1047,Cerebellum,Cb,CB
+4,Molecular cell layer of the cerebellum,Cb-m,
+5,"Cerebellum, unspecified",Cb-u,
+1101,Myelencephalon,Myel,
+1043,"Cochlear nucleus, ventral part",VCN,VCO
+158,"Ventral cochlear nucleus, anterior part",AVCN,
+159,"Ventral cochlear nucleus, posterior part",PVCN,
+160,"Ventral cochlear nucleus, cap area",Cap,
+123,"Ventral cochlear nucleus, granule cell layer",GCL,
+1044,"Cochlear nucleus, dorsal part",DCN,DCO
+126,"Dorsal cochlear nucleus, molecular layer",DCNM,
+127,"Dorsal cochlear nucleus, fusiform and granule layer",DCNFG,
+128,"Dorsal cochlear nucleus, deep core",DCND,
+75,Spinal trigeminal nucleus,Sp5n,
+56,Periventricular gray,PVG,
+1045,Superior olivary complex,SO,
+131,Nucleus of the trapezoid body,NTB,
+132,Superior paraolivary nucleus,SPN,
+133,Medial superior olive,MSO,
+134,Lateral superior olive,LSO,
+135,Superior periolivary region,SPR,
+136,Ventral periolivary nuclei,VPO,
+1046,Nuclei of the lateral lemniscus,NLL,NLL
+137,"Lateral lemniscus, ventral nucleus",VLL,
+138,"Lateral lemniscus, intermediate nucleus",ILL,
+139,"Lateral lemniscus, dorsal nucleus",DLL,
+74,Inferior olive,IO,IO
+1048,Ventricular system,V,#808080
+33,"ventricular system, unspecified",V-u,#808080
+125,4th ventricle,4V,#808080
+70,central canal,CC,#808080
+45,spinal cord,SpC,#000000
+1049,Inner ear,IE,#000000
+119,vestibular apparatus,VeA,#000000
+120,cochlea,Co,#000000
+121,cochlear nerve,8cn,#000000
+122,vestibular nerve,8vn,#000000
+162,spiral ganglion,SpG,#000000

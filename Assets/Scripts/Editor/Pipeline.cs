@@ -154,7 +154,7 @@ namespace BrainAtlas.Editor
 
             // Create a temporary Ontology for local use
             Material tempMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/Materials/NullMaterial");
-            Ontology tempOntology = new Ontology(ontologyData, null, ref tempMat);
+            Ontology tempOntology = new Ontology(ontologyData, null, tempMat);
 
             // MESH CENTERS
 

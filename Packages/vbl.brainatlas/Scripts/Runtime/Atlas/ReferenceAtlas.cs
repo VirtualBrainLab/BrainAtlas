@@ -86,15 +86,13 @@ namespace BrainAtlas
         /// <param name="referenceAtlasData"></param>
         /// <param name="parentT"></param>
         /// <param name="defaultMaterial"></param>
-        public ReferenceAtlas(ReferenceAtlasData referenceAtlasData, Transform parentT, ref Material defaultMaterial)
+        public ReferenceAtlas(ReferenceAtlasData referenceAtlasData, Transform parentT, Material defaultMaterial)
         {
             _data = referenceAtlasData;
             ParentT = parentT;
+            _defaultMaterial = defaultMaterial;
 
             Load_Deserialize();
-            Load_ParentPrefab();
-
-            _defaultMaterial = defaultMaterial;
         }
 
         #region Loading
@@ -107,15 +105,15 @@ namespace BrainAtlas
             foreach (var tuple in _data._privateMeshCenters)
                 MeshCenters.Add(tuple.i, tuple.v3);
 
-            Ontology = new Ontology(_data._privateOntologyData, ParentT, ref _defaultMaterial);
+            Ontology = new Ontology(_data._privateOntologyData, ParentT, _defaultMaterial);
         }
 
-        private void Load_ParentPrefab()
+        private void Load_Texture()
         {
 
         }
 
-        private void Load_Texture()
+        private void Load_Annotations()
         {
 
         }
@@ -264,8 +262,10 @@ namespace BrainAtlas
         /// <summary>
         /// 
         /// </summary>
-        public Ontology(List<OntologyTuple> ontologyData, Transform parentT, ref Material defaultMaterial)
+        public Ontology(List<OntologyTuple> ontologyData, Transform parentT, Material defaultMaterial)
         {
+            _defaultMaterial = defaultMaterial;
+
             _ontologyData = new();
 
             foreach (OntologyTuple ontologyTuple in ontologyData)
@@ -276,7 +276,6 @@ namespace BrainAtlas
                     ontologyTuple.structure_id_path));
 
             ParseData(parentT);
-            _defaultMaterial = defaultMaterial;
         }
 
         private void ParseData(Transform parentT)
@@ -292,7 +291,7 @@ namespace BrainAtlas
 
                 // build the ontology tree
                 OntologyNode cNode = new OntologyNode();
-                cNode.SetData(dataKVP.Key, nodeData.acronym, nodeData.color, parentT, ref _defaultMaterial);
+                cNode.SetData(dataKVP.Key, nodeData.acronym, nodeData.color, parentT, _defaultMaterial);
 
                 _nodes.Add(dataKVP.Key, cNode);
             }
@@ -348,7 +347,7 @@ namespace BrainAtlas
         #endregion
 
         public void SetData(int id, string acronym, Color defaultColor, Transform parentTransform, 
-            ref Material defaultMaterial)
+            Material defaultMaterial)
         {
             _id = id;
             _acronym = acronym;
@@ -442,11 +441,11 @@ namespace BrainAtlas
             _fullGO = GameObject.Instantiate(MeshTask.Result, _parentGO.transform);
             _fullGO.name = "Full";
             
-            Renderer rend = _fullGO.GetComponentInChildren<Renderer>();
+            Renderer rend = _fullGO.GetComponent<Renderer>();
             rend.material = _defaultMaterial;
             rend.material.SetColor("_Color", _defaultColor);
-            rend.receiveShadows = false;
-            rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            //rend.receiveShadows = false;
+            //rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
             _fullLoadedSource.SetResult(true);
         }

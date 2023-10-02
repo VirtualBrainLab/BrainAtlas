@@ -46,17 +46,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _brainRegionMaterials:
-  - {fileID: 2100000, guid: 4fdce846a282bef42af0221c4d4da68d, type: 2}
-  - {fileID: 2100000, guid: 4fdce846a282bef42af0221c4d4da68d, type: 2}
-  - {fileID: 2100000, guid: f105eb238dcc87744a1e76aeecbe1bc0, type: 2}
-  - {fileID: 2100000, guid: 985ea6e720ac003459443e2632bde924, type: 2}
-  - {fileID: 2100000, guid: b8a04b95bf5e0fe4dbdfd3978413393d, type: 2}
+  - {fileID: -876546973899608171, guid: c686c2a13bc712e4691f70d8051a0290, type: 3}
+  - {fileID: -876546973899608171, guid: c686c2a13bc712e4691f70d8051a0290, type: 3}
+  - {fileID: -876546973899608171, guid: e11048d702834a145abea5b4a963c9b5, type: 3}
+  - {fileID: -876546973899608171, guid: db0ec420fe3d42545b4d07aa878f7b5c, type: 3}
+  - {fileID: -876546973899608171, guid: 6f9304d39b41cba46877c293b47816eb, type: 3}
   _brainRegionMaterialNames:
   - default
   - opaque-lit
   - opaque-unlit
   - transparent-lit
   - transparent-unlit
+  LoadedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &5304039299580470460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,5 +72,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd51cb75d5613b44d9e32fb43509f0a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _addressablesStorageRemotePath: https://data.virtualbrainlab.org/AddressablesStorage
+  _addressablesStorageRemotePath: https://data.virtualbrainlab.org/BrainAtlas
   _buildVersion: 1.0.0

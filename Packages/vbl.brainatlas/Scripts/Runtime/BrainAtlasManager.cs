@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace BrainAtlas
 {
@@ -15,6 +16,8 @@ namespace BrainAtlas
         #region Exposed
         [SerializeField] List<Material> _brainRegionMaterials;
         [SerializeField] List<string> _brainRegionMaterialNames;
+
+        public UnityEvent LoadedEvent;
         #endregion
 
         #region Variables
@@ -32,30 +35,20 @@ namespace BrainAtlas
                 throw new Exception("Only one instance of BrainAtlasManager can be in the scene");
             Instance = this;
 
+            LoadMetaData();
+
             BrainRegionMaterials = new();
             for (int i = 0; i < _brainRegionMaterials.Count; i++)
                 BrainRegionMaterials.Add(_brainRegionMaterialNames[i], _brainRegionMaterials[i]);
-        }
-
-        private async void Start()
-        {
-            var metaDataTask = AddressablesRemoteLoader.LoadAtlasMetaData();
-            await metaDataTask;
-            _atlasMetaData = metaDataTask.Result;
-
-            await LoadAtlas(_atlasMetaData.AtlasNames[2]);
-
-            _referenceAtlas.Ontology.ID2Node(10000).LoadMesh(OntologyNode.OntologyNodeSide.Full);
-
-            //var areaTask = LoadArea(10000);
-            //await areaTask;
-            //Instantiate(areaTask.Result, _referenceAtlas.ParentT);
         }
         #endregion
 
         #region Active atlas
         private ReferenceAtlas _referenceAtlas;
         private GameObject _parentGO;
+
+        public ReferenceAtlas ActiveReferenceAtlas { get { return _referenceAtlas; } }
+        public AtlasTransform ActiveAtlasTransform;
 
         public async Task<bool> LoadAtlas(string atlasName)
         {
@@ -74,33 +67,25 @@ namespace BrainAtlas
 
             //Build the active atlas
             Material defaultMaterial = BrainRegionMaterials["default"];
-            _referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, _parentGO.transform, ref defaultMaterial);
+            _referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, _parentGO.transform, defaultMaterial);
 
             return true;
-        }
-
-        public async Task<GameObject> LoadArea(string acronym, bool sided = false)
-        {
-            var handle = LoadArea(Instance._referenceAtlas.Ontology.Acronym2ID(acronym), sided);
-            await handle;
-            return handle.Result;
-        }
-
-        public async Task<GameObject> LoadArea(int areaID, bool sided = false)
-        {
-#if UNITY_EDITOR
-            Debug.Log($"(BAM) Loading {Instance._referenceAtlas.Name}:{areaID}");
-#endif
-            if (Instance._referenceAtlas == null) { Debug.LogError("Atlas is not loaded"); return null; }
-
-            var areaTask = AddressablesRemoteLoader.LoadMeshPrefab(sided ? $"{areaID}L" : areaID.ToString());
-            await areaTask;
-            return areaTask.Result;
         }
         #endregion
 
         #region Active atlas private helpers
 
+        #endregion
+
+        #region Helpers
+        private async void LoadMetaData()
+        {
+            var metaDataTask = AddressablesRemoteLoader.LoadAtlasMetaData();
+            await metaDataTask;
+            _atlasMetaData = metaDataTask.Result;
+
+            LoadedEvent.Invoke();
+        }
         #endregion
     }
 }
