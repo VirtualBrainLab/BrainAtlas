@@ -259,8 +259,10 @@ namespace BrainAtlas.Editor
                 string targetFilePath = Path.Join(targetFolderPath, name);
                 Mesh mesh = AssetDatabase.LoadAssetAtPath<Mesh>(targetFilePath);
 
+                string goName = Path.GetFileNameWithoutExtension(meshFile);
+
                 // The object right now has a parent gameobject and then a child, let's turn it into a single gameobject
-                GameObject objModelPrefab = new GameObject(name);
+                GameObject objModelPrefab = new GameObject(goName);
                 MeshFilter meshFilter = objModelPrefab.AddComponent<MeshFilter>();
                 meshFilter.mesh = mesh;
                 Renderer rend = objModelPrefab.AddComponent<MeshRenderer>();
@@ -270,9 +272,29 @@ namespace BrainAtlas.Editor
                 string prefabPath = Path.Join(meshFolderPath, $"{Path.GetFileNameWithoutExtension(targetFilePath)}.prefab");
                 PrefabUtility.SaveAsPrefabAsset(objModelPrefab, prefabPath);
 
-                GameObject.DestroyImmediate(objModelPrefab);
-
                 MarkAssetAddressable(prefabPath, atlasInfo.atlasGroup);
+
+                if (name.Contains('L'))
+                {
+                    // If this is L model, let's build the right model now
+                    string nameR = $"{name.Substring(0, goName.Length - 1)}R";
+                    GameObject objModelPrefabR = new GameObject(nameR);
+                    objModelPrefabR.transform.localScale = new Vector3(1f, 1f, -1f);
+                    objModelPrefabR.transform.localPosition = new Vector3(0f, 0f, atlasData.Dimensions.y * 1000f);
+                    MeshFilter meshFilterR = objModelPrefabR.AddComponent<MeshFilter>();
+                    meshFilterR.mesh = mesh;
+                    Renderer rendR = objModelPrefabR.AddComponent<MeshRenderer>();
+                    rendR.receiveShadows = false;
+                    rendR.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+
+                    string prefabPathR = Path.Join(meshFolderPath, $"{nameR}.prefab");
+                    PrefabUtility.SaveAsPrefabAsset(objModelPrefabR, prefabPathR);
+
+                    MarkAssetAddressable(prefabPathR, atlasInfo.atlasGroup);
+                    GameObject.DestroyImmediate(objModelPrefabR);
+                }
+
+                GameObject.DestroyImmediate(objModelPrefab);
             }
         }
 

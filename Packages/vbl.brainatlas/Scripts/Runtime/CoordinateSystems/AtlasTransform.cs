@@ -44,4 +44,31 @@ namespace BrainAtlas
             return HashCode.Combine(Name);
         }
     }
+
+    public class NullTransform : AtlasTransform
+    {
+        public override string Name => "null";
+
+        public override string Prefix => "0";
+
+        public override Vector3 Atlas2T(Vector3 atlasCoordU)
+        {
+            return atlasCoordU;
+        }
+
+        public override Vector3 Atlas2T_Vector(Vector3 normalizedAtlasVectorU)
+        {
+            return normalizedAtlasVectorU;
+        }
+
+        public override Vector3 T2Atlas(Vector3 atlasCoordT)
+        {
+            return atlasCoordT;
+        }
+
+        public override Vector3 T2Atlas_Vector(Vector3 normalizedAtlasVectorT)
+        {
+            return normalizedAtlasVectorT;
+        }
+    }
 }

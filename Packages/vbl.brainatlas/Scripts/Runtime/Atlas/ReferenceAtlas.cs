@@ -518,6 +518,34 @@ namespace BrainAtlas
             }
         }
 
+        public void ResetMaterial(OntologyNodeSide side = OntologyNodeSide.All)
+        {
+            switch (side)
+            {
+                case OntologyNodeSide.All:
+                    if (_fullGO != null)
+                        _fullGO.GetComponent<Renderer>().material = _defaultMaterial;
+                    if (_leftGO != null)
+                    {
+                        _leftGO.GetComponent<Renderer>().material = _defaultMaterial;
+                        _rightGO.GetComponent<Renderer>().material = _defaultMaterial;
+                    }
+                    break;
+
+                case OntologyNodeSide.Left:
+                    _leftGO.GetComponent<Renderer>().material = _defaultMaterial;
+                    break;
+
+                case OntologyNodeSide.Right:
+                    _rightGO.GetComponent<Renderer>().material = _defaultMaterial;
+                    break;
+
+                case OntologyNodeSide.Full:
+                    _fullGO.GetComponent<Renderer>().material = _defaultMaterial;
+                    break;
+            }
+        }
+
         public void SetShaderProperty(string property, Vector4 value, OntologyNodeSide side = OntologyNodeSide.All)
         {
             switch (side)
@@ -632,7 +660,7 @@ namespace BrainAtlas
             {
                 Vector3[] verticesLeftT = new Vector3[_originalVerticesLeft.Length];
                 for (var i = 0; i < _originalVerticesLeft.Length; i++)
-                    verticesLeftT[i] = _leftGO.transform.InverseTransformPoint(transformFunction(_leftGO.transform.TransformPoint(_originalVerticesFull[i])));
+                    verticesLeftT[i] = _leftGO.transform.InverseTransformPoint(transformFunction(_leftGO.transform.TransformPoint(_originalVerticesLeft[i])));
                 _leftGO.GetComponent<MeshFilter>().mesh.vertices = verticesLeftT;
                 _rightGO.GetComponent<MeshFilter>().mesh.vertices = verticesLeftT;
             }
@@ -690,6 +718,8 @@ namespace BrainAtlas
 
             // Reverse the scale to create the right gameobject
             _rightGO = GameObject.Instantiate(MeshTask.Result, _parentGO.transform);
+            _rightGO.transform.localScale = new Vector3(1f, 1f, -1f);
+            //_rightGO.transform.localPosition = new Vector3(0, 0, 1f);
             _rightGO.name = "Right";
 
             Renderer rendR = _rightGO.GetComponent<Renderer>();
