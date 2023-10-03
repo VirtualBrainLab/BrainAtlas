@@ -2,9 +2,7 @@ using BrainAtlas.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Unity.Plastic.Newtonsoft.Json.Linq;
 using UnityEngine;
-using static PlasticGui.PlasticTableColumn;
 
 namespace BrainAtlas
 {
@@ -646,6 +644,7 @@ namespace BrainAtlas
                     _originalVerticesFull = _fullGO.GetComponent<MeshFilter>().mesh.vertices;
                 if (_leftGO != null)
                     _originalVerticesLeft = _leftGO.GetComponent<MeshFilter>().mesh.vertices;
+                _verticesTransformed = true;
             }
 
             if (FullGO != null)
@@ -704,10 +703,11 @@ namespace BrainAtlas
             if (_sideLoading) return; // duplicate call
             _sideLoading = true;
 
-            var MeshTask = AddressablesRemoteLoader.LoadMeshPrefab($"{_id}L");
-            await MeshTask;
+            var meshTaskL = AddressablesRemoteLoader.LoadMeshPrefab($"{_id}L");
+            var meshTaskR = AddressablesRemoteLoader.LoadMeshPrefab($"{_id}R");
+            await meshTaskL;
 
-            _leftGO = GameObject.Instantiate(MeshTask.Result, _parentGO.transform);
+            _leftGO = GameObject.Instantiate(meshTaskL.Result, _parentGO.transform);
             _leftGO.name = "Left";
 
             Renderer rendL = _leftGO.GetComponent<Renderer>();
@@ -716,10 +716,10 @@ namespace BrainAtlas
 
             _leftGO.SetActive(left);
 
+            await meshTaskR;
+
             // Reverse the scale to create the right gameobject
-            _rightGO = GameObject.Instantiate(MeshTask.Result, _parentGO.transform);
-            _rightGO.transform.localScale = new Vector3(1f, 1f, -1f);
-            //_rightGO.transform.localPosition = new Vector3(0, 0, 1f);
+            _rightGO = GameObject.Instantiate(meshTaskR.Result, _parentGO.transform);
             _rightGO.name = "Right";
 
             Renderer rendR = _rightGO.GetComponent<Renderer>();
