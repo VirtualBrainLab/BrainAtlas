@@ -45,8 +45,21 @@ public class BrainAtlasTest : MonoBehaviour
         _root.SetColor(_sideColor);
 
         // Create a new custom transform that tilts up 90 degrees
-        AtlasTransform custom = new CustomAffineTransform(Vector3.one * 1.1f, new Vector3(0f, 90f, 0f));
+        AtlasTransform custom = new CustomAffineTransform(Vector3.one * 1.1f, Vector3.zero);
         BrainAtlasManager.ActiveAtlasTransform = custom;
+
+        await Task.Delay(1000);
+
+        custom = new CustomAffineTransform(Vector3.one, new Vector3(0f, -90f, 0f));
+        BrainAtlasManager.ActiveAtlasTransform = custom;
+
+        await Task.Delay(1000);
+
+        _root.ResetAtlasTransform();
+        AtlasTransform nullT = new NullTransform();
+        BrainAtlasManager.ActiveAtlasTransform = nullT;
+        _root.SetVisibility(false, OntologyNode.OntologyNodeSide.Left);
+        _root.SetVisibility(true, OntologyNode.OntologyNodeSide.Right);
     }
 
     private void ApplyTransform()
