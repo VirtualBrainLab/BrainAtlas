@@ -229,8 +229,9 @@ namespace BrainAtlas.Editor
 
             GameObject.DestroyImmediate(parentGO);
 
+            AssetDatabase.StartAssetEditing();
+
             for (int i = 0; i < meshFiles.Length; i++)
-            //foreach (string meshFile in meshFiles)
             {
                 string meshFile = meshFiles[i];
 
@@ -242,8 +243,11 @@ namespace BrainAtlas.Editor
 
                 ModelImporter modelImporter = AssetImporter.GetAtPath(targetFilePath) as ModelImporter;
                 modelImporter.isReadable = true;
+                modelImporter.importNormals = ModelImporterNormals.Calculate;
                 modelImporter.SaveAndReimport();
             }
+
+            AssetDatabase.StopAssetEditing();
 
             AssetDatabase.Refresh();
 
