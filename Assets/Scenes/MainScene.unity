@@ -1310,6 +1310,8 @@ MonoBehaviour:
   _sagittalTexture: {fileID: 0}
   _coronalTexture: {fileID: 0}
   _BAM: {fileID: 5047518555677762147}
+  _sideMaterialTest: {fileID: -876546973899608171, guid: e3af6da18d556e54eb502352603e98a4, type: 3}
+  _sideColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!4 &2026896951
 Transform:
   m_ObjectHideFlags: 0
@@ -1346,6 +1348,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: MetaLoadedEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
       propertyPath: LoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
@@ -1353,6 +1359,10 @@ PrefabInstance:
       propertyPath: LoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2026896950}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: MetaLoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
       propertyPath: LoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1362,11 +1372,31 @@ PrefabInstance:
       value: RunTest
       objectReference: {fileID: 0}
     - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: MetaLoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2026896950}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: MetaLoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: MetaLoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RunTest
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
       propertyPath: LoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: BrainAtlasTest, vbl.brainatlas.editor
       objectReference: {fileID: 0}
     - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: MetaLoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BrainAtlasTest, vbl.brainatlas.editor
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
       propertyPath: LoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: MetaLoadedEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3131845913727300861, guid: ee09154d7a7870a419882ff36080d765, type: 3}

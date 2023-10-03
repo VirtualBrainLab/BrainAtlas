@@ -16,15 +16,24 @@ namespace BrainAtlas
         #region Exposed
         [SerializeField] List<Material> _brainRegionMaterials;
         [SerializeField] List<string> _brainRegionMaterialNames;
-
-        public UnityEvent LoadedEvent;
         #endregion
 
         #region Variables
         private AtlasMetaData _atlasMetaData;
 
-        public List<string> AtlasNames { get { return _atlasMetaData.AtlasNames; } }
-        public Dictionary<string, Material> BrainRegionMaterials;
+        public static List<string> AtlasNames { get { return Instance._atlasMetaData.AtlasNames; } }
+        public static Dictionary<string, Material> BrainRegionMaterials;
+        #endregion
+
+        #region Events
+        /// <summary>
+        /// Fires when the metadata has been loaded (i.e. it's safe to load an atlas)
+        /// </summary>
+        public UnityEvent MetaLoadedEvent;
+        /// <summary>
+        /// Fires when the AtlasTransform is set externally
+        /// </summary>
+        public UnityEvent AtlasTransformChangedEvent;
         #endregion
 
         #region Unity
@@ -45,12 +54,19 @@ namespace BrainAtlas
 
         #region Active atlas
         private ReferenceAtlas _referenceAtlas;
+        private AtlasTransform _atlasTransform;
         private GameObject _parentGO;
 
-        public ReferenceAtlas ActiveReferenceAtlas { get { return _referenceAtlas; } }
-        public AtlasTransform ActiveAtlasTransform;
+        public static ReferenceAtlas ActiveReferenceAtlas { get { return Instance._referenceAtlas; } }
+        public static AtlasTransform ActiveAtlasTransform { get { return Instance._atlasTransform; } set
+            {
+                Instance._atlasTransform = value;
+                Instance.AtlasTransformChangedEvent.Invoke();
+            }
+        }
 
-        public async Task<bool> LoadAtlas(string atlasName)
+
+        public static async Task<ReferenceAtlas> LoadAtlas(string atlasName)
         {
 #if UNITY_EDITOR
             Debug.Log($"(BAM) Loading {atlasName}");
@@ -59,7 +75,7 @@ namespace BrainAtlas
             var parentTransformTask = AddressablesRemoteLoader.LoadReferenceAtlasParentGO(atlasName);
             await parentTransformTask;
 
-            _parentGO = Instantiate(parentTransformTask.Result, transform);
+            Instance._parentGO = Instantiate(parentTransformTask.Result, Instance.transform);
 
             // Load the atlas metadata
             var referenceAtlasDataTask = AddressablesRemoteLoader.LoadReferenceAtlasData(atlasName);
@@ -67,9 +83,45 @@ namespace BrainAtlas
 
             //Build the active atlas
             Material defaultMaterial = BrainRegionMaterials["default"];
-            _referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, _parentGO.transform, defaultMaterial);
+            Instance._referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, Instance._parentGO.transform, defaultMaterial);
 
-            return true;
+            return Instance._referenceAtlas;
+        }
+        #endregion
+
+        #region Active atlas transform functions
+
+        /// <summary>
+        /// Convert a world coordinate into the corresponding world coordinate after transformation
+        /// </summary>
+        /// <param name="coordWorld"></param>
+        /// <returns></returns>
+        public static Vector3 WorldU2WorldT(Vector3 coordWorld)
+        {
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2Atlas_Vector(
+                Instance._atlasTransform.Atlas2T(Instance._referenceAtlas.World2Atlas(coordWorld))));
+        }
+
+        public static Vector3 WorldT2WorldU(Vector3 coordWorldT)
+        {
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2Atlas(
+                Instance._atlasTransform.Atlas2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorldT))));
+        }
+
+        /// <summary>
+        /// Helper function
+        /// Convert a world coordinate into a transformed coordinate using the reference coordinate and the axis change
+        /// </summary>
+        /// <param name="coordWorld"></param>
+        /// <returns></returns>
+        public static Vector3 World2T_Vector(Vector3 coordWorld)
+        {
+            return Instance._atlasTransform.Atlas2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorld));
+        }
+
+        public static Vector3 T2World_Vector(Vector3 coordTransformed)
+        {
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2Atlas_Vector(coordTransformed));
         }
         #endregion
 
@@ -84,7 +136,7 @@ namespace BrainAtlas
             await metaDataTask;
             _atlasMetaData = metaDataTask.Result;
 
-            LoadedEvent.Invoke();
+            MetaLoadedEvent.Invoke();
         }
         #endregion
     }

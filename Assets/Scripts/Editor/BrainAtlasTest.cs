@@ -1,4 +1,6 @@
 using BrainAtlas;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class BrainAtlasTest : MonoBehaviour
@@ -9,26 +11,46 @@ public class BrainAtlasTest : MonoBehaviour
 
     [SerializeField] private BrainAtlasManager _BAM;
 
-    // Start is called before the first frame update
-    async void Start()
-    {
-    }
+    [SerializeField] private Material _sideMaterialTest;
+    [SerializeField] private Color _sideColor;
+
+    private OntologyNode _root;
 
     public async void RunTest()
     {
+        BrainAtlasManager.Instance.AtlasTransformChangedEvent.AddListener(ApplyTransform);
 
-        var loadTask = _BAM.LoadAtlas(_BAM.AtlasNames[1]);
+        var loadTask = BrainAtlasManager.LoadAtlas(BrainAtlasManager.AtlasNames[0]);
         await loadTask;
 
         Debug.Log("Mouse atlas loaded");
 
         // Load some nodes
-        ReferenceAtlas _referenceAtlas = _BAM.ActiveReferenceAtlas;
+        ReferenceAtlas _referenceAtlas = loadTask.Result;
 
-        int[] defaults = { 1034, 1096, 1084, 1038, 1081, 1097, 1048, 1057, 1061, 1055, 1059, 1069, 1056, 1065, 1072, 1020, 1047, 58, 1044, 74, 1046, 56, 1045, 75, 1043 };
-        //int[] defaults = { 184, 500, 453, 1057, 677, 247, 669, 31, 972, 44, 714, 95, 254, 22, 541, 922, 698, 895, 1089, 703, 623, 343, 512 };
+        List<Task> tasks = new();
+        foreach (int areaID in _referenceAtlas.DefaultAreas)
+            tasks.Add(_referenceAtlas.Ontology.ID2Node(areaID).LoadMesh(OntologyNode.OntologyNodeSide.Full));
+        await Task.WhenAll(tasks);
 
-        foreach (int areaID in defaults)
-            _referenceAtlas.Ontology.ID2Node(areaID).LoadMesh(OntologyNode.OntologyNodeSide.Full);
+        await Task.Delay(1000);
+
+        foreach (int areaID in _referenceAtlas.DefaultAreas)
+            _referenceAtlas.Ontology.ID2Node(areaID).SetVisibility(false);
+
+        //Now let's load a sided area
+        _root = _referenceAtlas.Ontology.ID2Node(8);
+        await _root.LoadMesh(OntologyNode.OntologyNodeSide.Left);
+        _root.SetMaterial(_sideMaterialTest);
+        _root.SetColor(_sideColor);
+
+        // Create a new custom transform that tilts up 90 degrees
+        AtlasTransform custom = new CustomAffineTransform(Vector3.one * 1.1f, new Vector3(0f, 90f, 0f));
+        BrainAtlasManager.ActiveAtlasTransform = custom;
+    }
+
+    private void ApplyTransform()
+    {
+        _root.ApplyAtlasTransform(BrainAtlasManager.WorldU2WorldT);
     }
 }

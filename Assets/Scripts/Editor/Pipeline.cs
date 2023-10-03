@@ -46,12 +46,12 @@ namespace BrainAtlas.Editor
 
 
                 // Build the Atlas ScriptableObjects
-                AtlasMeta2SO(updatedAtlasInfo);
+                //AtlasMeta2SO(updatedAtlasInfo);
 
                 // Convert mesh files 2 prefabs
-                //MeshFiles2Prefabs(updatedAtlasInfo);
+                MeshFiles2Prefabs(updatedAtlasInfo);
 
-                AnnotationReference2Textures(updatedAtlasInfo);
+                //AnnotationReference2Textures(updatedAtlasInfo);
             }
 
             EditorUtility.SetDirty(_addressableSettings);
@@ -238,8 +238,21 @@ namespace BrainAtlas.Editor
                 string targetFilePath = Path.Join(targetFolderPath, name);
 
                 File.Copy(meshFile, targetFilePath, true);
-                AssetDatabase.ImportAsset(targetFilePath, ImportAssetOptions.ForceUpdate);
+                AssetDatabase.ImportAsset(targetFilePath);
 
+                ModelImporter modelImporter = AssetImporter.GetAtPath(targetFilePath) as ModelImporter;
+                modelImporter.isReadable = true;
+                modelImporter.SaveAndReimport();
+            }
+
+            AssetDatabase.Refresh();
+
+            for (int i = 0; i < meshFiles.Length; i++)
+            {
+                string meshFile = meshFiles[i];
+
+                string name = Path.GetFileName(meshFile);
+                string targetFilePath = Path.Join(targetFolderPath, name);
                 Mesh mesh = AssetDatabase.LoadAssetAtPath<Mesh>(targetFilePath);
 
                 // The object right now has a parent gameobject and then a child, let's turn it into a single gameobject

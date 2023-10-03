@@ -2,7 +2,9 @@ using BrainAtlas.ScriptableObjects;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.Plastic.Newtonsoft.Json.Linq;
 using UnityEngine;
+using static PlasticGui.PlasticTableColumn;
 
 namespace BrainAtlas
 {
@@ -76,6 +78,12 @@ namespace BrainAtlas
         }
 
         public Ontology Ontology;
+
+        public Texture3D AnnotationTexture { get { return _annotationTexture3D; } }
+
+        public Texture3D ReferenceTexture { get { return _referenceTexture3D; } }
+
+        public int[] DefaultAreas { get { return _data.DefaultAreas; } }
         #endregion
 
         /// <summary>
@@ -86,13 +94,21 @@ namespace BrainAtlas
         /// <param name="referenceAtlasData"></param>
         /// <param name="parentT"></param>
         /// <param name="defaultMaterial"></param>
-        public ReferenceAtlas(ReferenceAtlasData referenceAtlasData, Transform parentT, Material defaultMaterial)
+        public ReferenceAtlas(ReferenceAtlasData referenceAtlasData, Transform parentT, Material defaultMaterial,
+            bool loadAnnotations = false, bool loadAnnotationTex = false, bool loadReferenceTex = false)
         {
             _data = referenceAtlasData;
             ParentT = parentT;
             _defaultMaterial = defaultMaterial;
 
             Load_Deserialize();
+
+            if (loadAnnotations)
+                Load_Annotations();
+            if (loadAnnotationTex)
+                Load_AnnotationTexture();
+            if (loadReferenceTex)
+                Load_ReferenceTexture();
         }
 
         #region Loading
@@ -108,14 +124,28 @@ namespace BrainAtlas
             Ontology = new Ontology(_data._privateOntologyData, ParentT, _defaultMaterial);
         }
 
-        private void Load_Texture()
+        private async void Load_AnnotationTexture()
         {
+            var loadHandler = AddressablesRemoteLoader.LoadTexture(true);
+            await loadHandler;
 
+            _annotationTexture3D = loadHandler.Result;
         }
 
-        private void Load_Annotations()
+        private async void Load_ReferenceTexture()
         {
+            var loadHandler = AddressablesRemoteLoader.LoadTexture(false);
+            await loadHandler;
 
+            _referenceTexture3D = loadHandler.Result;
+        }
+
+        private async void Load_Annotations()
+        {
+            var loadHandler = AddressablesRemoteLoader.LoadAnnotationIDs();
+            await loadHandler;
+
+            _annotationIDs = loadHandler.Result;
         }
         #endregion
 
@@ -313,7 +343,7 @@ namespace BrainAtlas
         private int _id;
         private string _acronym;
         private Transform _atlasParentT;
-        
+
         private Color _defaultColor;
         private Color _overrideColor;
 
@@ -322,9 +352,6 @@ namespace BrainAtlas
         private TaskCompletionSource<bool> _sideLoadedSource = new();
         private TaskCompletionSource<bool> _fullLoadedSource = new();
 
-        // Storage vectors for resetting the effect of an AtlasTransform
-        private Vector3[] _verticesFull;
-        private Vector3[] _verticesSided;
         #endregion
 
         #region Public accessors
@@ -332,6 +359,15 @@ namespace BrainAtlas
         public Task FullLoaded { get { return _fullLoadedSource.Task; } }
 
         public Transform Transform { get { return ParentGO.transform; } }
+
+        public Color Color { get
+            {
+                if (_overrideColor != null)
+                    return _overrideColor;
+                else
+                    return _defaultColor;
+            } 
+        }
         #endregion
 
         #region GameObjects
@@ -360,7 +396,7 @@ namespace BrainAtlas
         /// <summary>
         /// 
         /// </summary>
-        public void LoadMesh(OntologyNodeSide side)
+        public Task<bool> LoadMesh(OntologyNodeSide side)
         {
             if (ParentGO == null)
             {
@@ -371,17 +407,25 @@ namespace BrainAtlas
             switch (side)
             {
                 case OntologyNodeSide.Left:
-                    break;
+                    LoadSided(true, false);
+                    return _sideLoadedSource.Task;
 
                 case OntologyNodeSide.Right:
-                    break;
+                    LoadSided(false, true);
+                    return _sideLoadedSource.Task;
 
                 case OntologyNodeSide.Full:
                     LoadFull();
-                    break;
+                    return _fullLoadedSource.Task;
 
                 case OntologyNodeSide.All:
-                    break;
+                    LoadFull();
+                    // Load the sided models, but don't show them
+                    LoadSided(false, false);
+                    return _fullLoadedSource.Task;
+
+                default:
+                    throw new Exception("(RA) Unreachable code");
             }
         }
 
@@ -390,46 +434,225 @@ namespace BrainAtlas
         /// </summary>
         public void ResetColor(OntologyNodeSide side = OntologyNodeSide.All)
         {
+            switch (side)
+            {
+                case OntologyNodeSide.All:
+                    if (_fullGO != null)
+                        _fullGO.GetComponent<Renderer>().material.color = _defaultColor;
+                    if (_leftGO != null)
+                    {
+                        _leftGO.GetComponent<Renderer>().material.color = _defaultColor;
+                        _rightGO.GetComponent<Renderer>().material.color = _defaultColor;
+                    }
+                    _overrideColor = _defaultColor;
+                    break;
 
+                case OntologyNodeSide.Left:
+                    _leftGO.GetComponent<Renderer>().material.color = _defaultColor;
+                    break;
+
+                case OntologyNodeSide.Right:
+                    _rightGO.GetComponent<Renderer>().material.color = _defaultColor;
+                    break;
+
+                case OntologyNodeSide.Full:
+                    _fullGO.GetComponent<Renderer>().material.color = _defaultColor;
+                    break;
+            }
         }
 
         public void SetColor(Color color, OntologyNodeSide side = OntologyNodeSide.All)
         {
+            switch (side)
+            {
+                case OntologyNodeSide.All:
+                    if (_fullGO != null)
+                        _fullGO.GetComponent<Renderer>().material.color = color;
+                    if (_leftGO != null)
+                    {
+                        _leftGO.GetComponent<Renderer>().material.color = color;
+                        _rightGO.GetComponent<Renderer>().material.color = color;
+                    }
+                    break;
+
+                case OntologyNodeSide.Left:
+                    _leftGO.GetComponent<Renderer>().material.color = color;
+                    break;
+
+                case OntologyNodeSide.Right:
+                    _rightGO.GetComponent<Renderer>().material.color = color;
+                    break;
+
+                case OntologyNodeSide.Full:
+                    _fullGO.GetComponent<Renderer>().material.color = color;
+                    break;
+            }
             _overrideColor = color;
         }
 
         public void SetMaterial(Material material, OntologyNodeSide side = OntologyNodeSide.All)
         {
+            switch (side)
+            {
+                case OntologyNodeSide.All:
+                    if (_fullGO != null)
+                        _fullGO.GetComponent<Renderer>().material = material;
+                    if (_leftGO != null)
+                    {
+                        _leftGO.GetComponent<Renderer>().material = material;
+                        _rightGO.GetComponent<Renderer>().material = material;
+                    }
+                    break;
 
+                case OntologyNodeSide.Left:
+                    _leftGO.GetComponent<Renderer>().material = material;
+                    break;
+
+                case OntologyNodeSide.Right:
+                    _rightGO.GetComponent<Renderer>().material = material;
+                    break;
+
+                case OntologyNodeSide.Full:
+                    _fullGO.GetComponent<Renderer>().material = material;
+                    break;
+            }
         }
 
         public void SetShaderProperty(string property, Vector4 value, OntologyNodeSide side = OntologyNodeSide.All)
         {
+            switch (side)
+            {
+                case OntologyNodeSide.All:
+                    if (_fullGO != null)
+                        _fullGO.GetComponent<Renderer>().material.SetVector(property, value);
+                    if (_leftGO != null)
+                    {
+                        _leftGO.GetComponent<Renderer>().material.SetVector(property, value);
+                        _rightGO.GetComponent<Renderer>().material.SetVector(property, value);
+                    }
+                    break;
 
+                case OntologyNodeSide.Left:
+                    _leftGO.GetComponent<Renderer>().material.SetVector(property, value);
+                    break;
+
+                case OntologyNodeSide.Right:
+                    _rightGO.GetComponent<Renderer>().material.SetVector(property, value);
+                    break;
+
+                case OntologyNodeSide.Full:
+                    _fullGO.GetComponent<Renderer>().material.SetVector(property, value);
+                    break;
+            }
         }
 
         public void SetShaderProperty(string property, float value, OntologyNodeSide side = OntologyNodeSide.All)
         {
+            switch (side)
+            {
+                case OntologyNodeSide.All:
+                    if (_fullGO != null)
+                        _fullGO.GetComponent<Renderer>().material.SetFloat(property, value);
+                    if (_leftGO != null)
+                    {
+                        _leftGO.GetComponent<Renderer>().material.SetFloat(property, value);
+                        _rightGO.GetComponent<Renderer>().material.SetFloat(property, value);
+                    }
+                    break;
 
+                case OntologyNodeSide.Left:
+                    _leftGO.GetComponent<Renderer>().material.SetFloat(property, value);
+                    break;
+
+                case OntologyNodeSide.Right:
+                    _rightGO.GetComponent<Renderer>().material.SetFloat(property, value);
+                    break;
+
+                case OntologyNodeSide.Full:
+                    _fullGO.GetComponent<Renderer>().material.SetFloat(property, value);
+                    break;
+            }
         }
 
         public void SetVisibility(bool visible, OntologyNodeSide side = OntologyNodeSide.All)
         {
+            switch (side)
+            {
+                case OntologyNodeSide.All:
+                    if (_fullGO != null)
+                        _fullGO.SetActive(visible);
+                    if (_leftGO != null)
+                    {
+                        _leftGO.SetActive(visible);
+                        _rightGO.SetActive(visible);
+                    }
+                    break;
 
+                case OntologyNodeSide.Left:
+                    _leftGO.SetActive(visible);
+                    break;
+
+                case OntologyNodeSide.Right:
+                    _rightGO.SetActive(visible);
+                    break;
+
+                case OntologyNodeSide.Full:
+                    _fullGO.SetActive(visible);
+                    break;
+            }
         }
 
-        public void ApplyAtlasTransform()
-        {
+        private Vector3[] _originalVerticesFull;
+        private Vector3[] _originalVerticesLeft;
+        private bool _verticesTransformed;
 
+        /// <summary>
+        /// Atlas transforms must be applied to *all* live meshes
+        /// </summary>
+
+        public void ApplyAtlasTransform(Func<Vector3, Vector3> transformFunction)
+        {
+            if (!_verticesTransformed)
+            {
+                if (_fullGO != null)
+                    _originalVerticesFull = _fullGO.GetComponent<MeshFilter>().mesh.vertices;
+                if (_leftGO != null)
+                    _originalVerticesLeft = _leftGO.GetComponent<MeshFilter>().mesh.vertices;
+            }
+
+            if (FullGO != null)
+            {
+                Vector3[] verticesFullT = new Vector3[_originalVerticesFull.Length];
+                for (var i = 0; i < _originalVerticesFull.Length; i++)
+                    verticesFullT[i] = _fullGO.transform.InverseTransformPoint(transformFunction(_fullGO.transform.TransformPoint(_originalVerticesFull[i])));
+                _fullGO.GetComponent<MeshFilter>().mesh.vertices = verticesFullT;
+            }
+
+            if (_leftGO != null)
+            {
+                Vector3[] verticesLeftT = new Vector3[_originalVerticesLeft.Length];
+                for (var i = 0; i < _originalVerticesLeft.Length; i++)
+                    verticesLeftT[i] = _leftGO.transform.InverseTransformPoint(transformFunction(_leftGO.transform.TransformPoint(_originalVerticesFull[i])));
+                _leftGO.GetComponent<MeshFilter>().mesh.vertices = verticesLeftT;
+                _rightGO.GetComponent<MeshFilter>().mesh.vertices = verticesLeftT;
+            }
         }
 
         public void ResetAtlasTransform()
         {
-
+            if (_fullGO != null)
+                _fullGO.GetComponent<MeshFilter>().mesh.vertices = _originalVerticesFull;
+            if (_leftGO != null)
+            {
+                _leftGO.GetComponent<MeshFilter>().mesh.vertices = _originalVerticesLeft;
+                _rightGO.GetComponent<MeshFilter>().mesh.vertices = _originalVerticesLeft;
+            }
         }
 
         #region Private helpers
         private bool _fullLoading;
+        private bool _sideLoading;
+
         private async void LoadFull()
         {
             if (_fullLoading) return; // duplicate call
@@ -444,15 +667,38 @@ namespace BrainAtlas
             Renderer rend = _fullGO.GetComponent<Renderer>();
             rend.material = _defaultMaterial;
             rend.material.SetColor("_Color", _defaultColor);
-            //rend.receiveShadows = false;
-            //rend.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
             _fullLoadedSource.SetResult(true);
         }
 
-        private async void LoadSided()
+        private async void LoadSided(bool left, bool right)
         {
+            if (_sideLoading) return; // duplicate call
+            _sideLoading = true;
 
+            var MeshTask = AddressablesRemoteLoader.LoadMeshPrefab($"{_id}L");
+            await MeshTask;
+
+            _leftGO = GameObject.Instantiate(MeshTask.Result, _parentGO.transform);
+            _leftGO.name = "Left";
+
+            Renderer rendL = _leftGO.GetComponent<Renderer>();
+            rendL.material = _defaultMaterial;
+            rendL.material.SetColor("_Color", _defaultColor);
+
+            _leftGO.SetActive(left);
+
+            // Reverse the scale to create the right gameobject
+            _rightGO = GameObject.Instantiate(MeshTask.Result, _parentGO.transform);
+            _rightGO.name = "Right";
+
+            Renderer rendR = _rightGO.GetComponent<Renderer>();
+            rendR.material = _defaultMaterial;
+            rendR.material.SetColor("_Color", _defaultColor);
+
+            _rightGO.SetActive(right);
+
+            _sideLoadedSource.SetResult(true);
         }
         #endregion
     }
