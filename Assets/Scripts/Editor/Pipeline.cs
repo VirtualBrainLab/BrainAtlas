@@ -45,13 +45,13 @@ namespace BrainAtlas.Editor
                 var updatedAtlasInfo = SetupAddressables(atlasInfo);
 
 
-                // Build the Atlas ScriptableObjects
+                ////Build the Atlas ScriptableObjects
                 //AtlasMeta2SO(updatedAtlasInfo);
 
-                // Convert mesh files 2 prefabs
-                MeshFiles2Prefabs(updatedAtlasInfo);
+                ////Convert mesh files 2 prefabs
+                //MeshFiles2Prefabs(updatedAtlasInfo);
 
-                //AnnotationReference2Textures(updatedAtlasInfo);
+                AnnotationReference2Textures(updatedAtlasInfo);
             }
 
             EditorUtility.SetDirty(_addressableSettings);
@@ -347,7 +347,7 @@ namespace BrainAtlas.Editor
             float[] ureferenceData = new float[referenceBytes.Length / 4];
             Buffer.BlockCopy(referenceBytes, 0, ureferenceData, 0, referenceBytes.Length);
 
-            Texture3D referenceTexture = ConvertArrayToTexture(ureferenceData, apLength, dvDepth, mlWidth);
+            Texture3D referenceTexture = ConvertArrayToTexture(ureferenceData, apLength, mlWidth, dvDepth);
 
             string refTexturePath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/referenceTexture.asset";
             CreateAddressablesHelper(referenceTexture, refTexturePath, atlasInfo.atlasGroup);
@@ -369,7 +369,7 @@ namespace BrainAtlas.Editor
             _addressableSettings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(prefabPath), assetGroup);
         }
 
-        private static Texture3D ConvertArrayToTexture(int[] data, int apLength, int dvDepth, int mlWidth,
+        private static Texture3D ConvertArrayToTexture(int[] data, int apLength, int mlWidth, int dvDepth,
             Dictionary<int, (string acronym, string name, Color color, int[] path)> ontologyDict)
         {
             Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGBA32, false);
@@ -378,13 +378,17 @@ namespace BrainAtlas.Editor
 
             Color transparentBlack = new Color(0f, 0f, 0f, 0f);
 
+            Debug.Log((apLength, mlWidth, dvDepth));
+
             int idx = 0;
+            // Note that the volume in the python pipeline is in ap/dv/ml order, so the loop here matches that
             for (int ap = 0; ap < apLength; ap++)
                 for (int dv = 0; dv < dvDepth; dv++)
                     for (int ml = 0; ml < mlWidth; ml++)
                     {
-                        int atlasID = (int)data[idx++];
+                        int atlasID = data[idx++];
 
+                        // but here we're back to ap/ml/dv because that's how we'll store it locally
                         if (atlasID <= 0)
                             atlasTexture.SetPixel(ap, ml, dv, transparentBlack);
                         else if (ontologyDict.ContainsKey(atlasID))
@@ -398,17 +402,19 @@ namespace BrainAtlas.Editor
             return atlasTexture;
         }
 
-        private static Texture3D ConvertArrayToTexture(float[] data, int apLength, int dvDepth, int mlWidth)
+        private static Texture3D ConvertArrayToTexture(float[] data, int apLength, int mlWidth, int dvDepth)
         {
             Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGB24, false);
             atlasTexture.filterMode = FilterMode.Point;
             atlasTexture.wrapMode = TextureWrapMode.Clamp;
 
             int idx = 0;
+            // Note that the volume in the python pipeline is in ap/dv/ml order, so the loop here matches that
             for (int ap = 0; ap < apLength; ap++)
                 for (int dv = 0; dv < dvDepth; dv++)
                     for (int ml = 0; ml < mlWidth; ml++)
                     {
+                        // but here we're back to ap/ml/dv because that's how we'll store it locally
                         atlasTexture.SetPixel(ap, ml, dv, Color.Lerp(Color.black, Color.white, data[idx++]));
                     }
 
