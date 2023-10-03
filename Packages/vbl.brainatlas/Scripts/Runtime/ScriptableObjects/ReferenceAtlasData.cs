@@ -35,6 +35,8 @@ namespace BrainAtlas.ScriptableObjects
         /// Mesh centers in um
         /// </summary>
         public List<IV3Tuple> _privateMeshCenters;
+
+        public int[] DefaultAreas;
     }
 
     [Serializable]

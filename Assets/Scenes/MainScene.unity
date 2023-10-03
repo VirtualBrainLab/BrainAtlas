@@ -1338,6 +1338,10 @@ PrefabInstance:
       value: BrainAtlas
       objectReference: {fileID: 0}
     - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
+      propertyPath: _brainRegionMaterials.Array.data[0]
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: 6f9304d39b41cba46877c293b47816eb, type: 3}
+    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
       propertyPath: LoadedEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}

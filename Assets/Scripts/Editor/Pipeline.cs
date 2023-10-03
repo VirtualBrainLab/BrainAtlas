@@ -49,7 +49,7 @@ namespace BrainAtlas.Editor
                 AtlasMeta2SO(updatedAtlasInfo);
 
                 // Convert mesh files 2 prefabs
-                MeshFiles2Prefabs(updatedAtlasInfo);
+                //MeshFiles2Prefabs(updatedAtlasInfo);
 
                 AnnotationReference2Textures(updatedAtlasInfo);
             }
@@ -177,6 +177,20 @@ namespace BrainAtlas.Editor
             }
 
             atlasData._privateMeshCenters = meshCentersum;
+
+            // Default areas
+            switch (atlasInfo.atlasName)
+            {
+                case "allen_mouse_25um":
+                    atlasData.DefaultAreas = new int[] { 184, 500, 453, 1057, 677, 247, 669, 31, 972, 44, 714, 95, 254, 22, 541, 922, 698, 895, 1089, 703, 623, 343, 512 };
+                    break;
+                case "whs_sd_rat_39um":
+                    atlasData.DefaultAreas = new int[] { 1034, 1096, 1084, 1038, 1081, 1097, 1048, 1057, 1061, 1055, 1059, 1069, 1056, 1065, 1072, 1020, 1047, 58, 1044, 74, 1046, 56, 1045, 75, 1043 };
+                    break;
+                default:
+                    Debug.LogWarning($"No default areas for atlas {atlasInfo.atlasName}");
+                    break;
+            }
 
             // Save the atlas data into the Addressables folder
             //atlasData
