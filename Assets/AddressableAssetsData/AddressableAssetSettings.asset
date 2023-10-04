@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
   m_DefaultGroup: 82c3456c0faac412682b12537521e593
-  m_CachedHash:
+  m_currentHash:
     serializedVersion: 2
     Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
@@ -32,20 +32,22 @@ MonoBehaviour:
   m_ShaderBundleNaming: 0
   m_ShaderBundleCustomNaming: 
   m_MonoScriptBundleNaming: 0
+  m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
     m_Id: 8d294227e6e994fd3a0acbe9728872b1
   m_RemoteCatalogLoadPath:
-    m_Id: https://data.virtualbrainlab.org/AddressablesStorage/[BuildTarget]
+    m_Id: 778b3b19aa73b43dd91db4f1321e90ed
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
+  m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 2
-  m_overridePlayerVersion: 0.2.2
+  m_overridePlayerVersion: 1.0.0
   m_GroupAssets:
   - {fileID: 11400000, guid: 00da88e96c23d4436b4556538b52b7ed, type: 2}
   - {fileID: 11400000, guid: fb9255cf0519440f8be816d4b44d3d1f, type: 2}
-  - {fileID: 11400000, guid: e9255e6838b54416793fc863709d8b41, type: 2}
-  - {fileID: 11400000, guid: 8894112df6816a243b462601dc3cdd45, type: 2}
-  - {fileID: 11400000, guid: e2eb373c76aa2514d83db8c3775ec380, type: 2}
+  - {fileID: 11400000, guid: 54f389879d2cf1347a729003c27603fe, type: 2}
+  - {fileID: 11400000, guid: acc14d2bc986165428326a8e4031d464, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -66,7 +68,7 @@ MonoBehaviour:
       - m_Id: 8d294227e6e994fd3a0acbe9728872b1
         m_Value: ServerData/[BuildTarget]
       - m_Id: 778b3b19aa73b43dd91db4f1321e90ed
-        m_Value: https://data.virtualbrainlab.org/AddressablesStorage/0.2.2/[BuildTarget]
+        m_Value: https://data.virtualbrainlab.org/BrainAtlas/1.0.0/[BuildTarget]
     m_ProfileEntryNames:
     - m_Id: cb5cf8fbe87ed4a4db1afa2055cfe7cf
       m_Name: BuildTarget
@@ -106,3 +108,4 @@ MonoBehaviour:
     m_Settings: {fileID: 11400000}
     m_NextInstanceId: 0
     m_RegisteredServiceTypeRefs: []
+    m_PingTimeoutInMilliseconds: 5000

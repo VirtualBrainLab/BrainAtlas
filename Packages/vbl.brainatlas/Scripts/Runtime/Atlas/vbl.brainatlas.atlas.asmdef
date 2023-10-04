@@ -1,0 +1,17 @@
+{
+    "name": "vbl.brainatlas.atlas",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7b654682f25e7af4abcebdc317baeea4",
+        "GUID:d2f567832537619418d150dfbf265395"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

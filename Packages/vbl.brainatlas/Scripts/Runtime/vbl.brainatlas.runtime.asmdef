@@ -1,0 +1,21 @@
+{
+    "name": "vbl.brainatlas.runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9e24947de15b9834991c9d8411ea37cf",
+        "GUID:1487851fb22c2cc4a85babd43c153c20",
+        "GUID:84651a3751eca9349aac36a66bba901b",
+        "GUID:0e68f56b71507ea46a7a7e86308f8eef",
+        "GUID:7b654682f25e7af4abcebdc317baeea4",
+        "GUID:d2f567832537619418d150dfbf265395"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
