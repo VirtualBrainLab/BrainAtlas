@@ -32,7 +32,7 @@ public class BrainAtlasTest : MonoBehaviour
         ReferenceAtlas _referenceAtlas = loadTask.Result;
 
         // Test node loading, transforms, materials, colors
-        if (false)
+        if (true)
         {
             List<Task> tasks = new();
             foreach (int areaID in _referenceAtlas.DefaultAreas)
@@ -66,6 +66,8 @@ public class BrainAtlasTest : MonoBehaviour
             BrainAtlasManager.ActiveAtlasTransform = nullT;
             _root.SetVisibility(false, OntologyNode.OntologyNodeSide.Left);
             _root.SetVisibility(true, OntologyNode.OntologyNodeSide.Right);
+
+            await Task.Delay(1000);
         }
 
         // Test Texture3D loading
