@@ -147,7 +147,7 @@ public class AddressablesRemoteLoader : MonoBehaviour
         return loadHandle.Result;
     }
 
-    public static async Task<int[]> LoadAnnotationIDs()
+    public static async Task<int[,,]> LoadAnnotationIDs()
     {
 #if UNITY_EDITOR
         Debug.Log("Loading annotation ID values");

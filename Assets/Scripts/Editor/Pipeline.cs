@@ -303,6 +303,17 @@ namespace BrainAtlas.Editor
         /// </summary>
         public static void AnnotationReference2Textures((string atlasName, string atlasPath, AddressableAssetGroup atlasGroup) atlasInfo)
         {
+            //// get the metadata for this atlas
+            var atlasData = AssetDatabase.LoadAssetAtPath<ReferenceAtlasData>(Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, $"{atlasInfo.atlasName}.asset"));
+            var ontologyData = atlasData._privateOntologyData;
+            Dictionary<int, (string acronym, string name, Color color, int[] path)> ontologyDataDict = new();
+            foreach (var data in ontologyData)
+                ontologyDataDict.Add(data.id, (data.acronym, data.name, data.color, data.structure_id_path));
+
+            int apLength = Mathf.RoundToInt(atlasData.Dimensions.x / atlasData.Resolution.x * 1000f);
+            int mlWidth = Mathf.RoundToInt(atlasData.Dimensions.y / atlasData.Resolution.y * 1000f);
+            int dvDepth = Mathf.RoundToInt(atlasData.Dimensions.z / atlasData.Resolution.z * 1000f);
+
             // Load the bytes file
             byte[] annotationBytes = File.ReadAllBytes(Path.Join(atlasInfo.atlasPath, "annotation.bytes"));
 
@@ -317,23 +328,22 @@ namespace BrainAtlas.Editor
             // Also save the annotation data itself
             AnnotationData annotationDataSO = ScriptableObject.CreateInstance<AnnotationData>();
 
-            annotationDataSO.Annotations = annotationData;
+            // re-organize the data to be in ap/ml/dv order
+            int[,,] annotationAPMLDV = new int[apLength, mlWidth, dvDepth];
+
+            int j = 0;
+            for (int ap = 0; ap < apLength; ap++)
+                for (int dv = 0; dv < dvDepth; dv++)
+                    for (int ml = 0; ml < mlWidth; ml++)
+                        annotationAPMLDV[ap, ml, dv] = annotationData[j++];
+
+            annotationDataSO.Annotations = annotationAPMLDV;
 
             string annotationDataSOPath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/annotations.asset";
             CreateAddressablesHelper(annotationDataSO, annotationDataSOPath, atlasInfo.atlasGroup);
 
-            //// get the metadata for this atlas
-            var atlasData = AssetDatabase.LoadAssetAtPath<ReferenceAtlasData>(Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, $"{atlasInfo.atlasName}.asset"));
-            var ontologyData = atlasData._privateOntologyData;
-            Dictionary<int, (string acronym, string name, Color color, int[] path)> ontologyDataDict = new();
-
-            foreach (var data in ontologyData)
-                ontologyDataDict.Add(data.id, (data.acronym, data.name, data.color, data.structure_id_path));
 
             //// Create the texture
-            int apLength = Mathf.RoundToInt(atlasData.Dimensions.x / atlasData.Resolution.x * 1000f);
-            int mlWidth = Mathf.RoundToInt(atlasData.Dimensions.y / atlasData.Resolution.y * 1000f);
-            int dvDepth = Mathf.RoundToInt(atlasData.Dimensions.z / atlasData.Resolution.z * 1000f);
 
             Texture3D atlasTexture = ConvertArrayToTexture(annotationData, apLength, mlWidth, dvDepth, ontologyDataDict);
 

@@ -17,7 +17,7 @@ namespace BrainAtlas
         private ReferenceAtlasData _data;
         private Texture3D _annotationTexture3D;
         private Texture3D _referenceTexture3D;
-        private int[] _annotationIDs;
+        private int[,,] _annotationIDs;
         private Material _defaultMaterial;
         #endregion
 
@@ -150,7 +150,7 @@ namespace BrainAtlas
             return _referenceTexture3D;
         }
 
-        public async Task<int[]> LoadAnnotations()
+        public async Task<int[,,]> LoadAnnotations()
         {
             var loadHandler = AddressablesRemoteLoader.LoadAnnotationIDs();
             await loadHandler;
@@ -244,7 +244,9 @@ namespace BrainAtlas
         {
             if (_annotationIDs == null)
                 throw new Exception("(RA) Annotations are not loaded");
-            return _annotationIDs[Mathf.RoundToInt(coordIdx.z * (Dimensions.z * Dimensions.y) + coordIdx.y * Dimensions.y + coordIdx.x)];
+            return _annotationIDs[Mathf.RoundToInt(coordIdx.x),
+                Mathf.RoundToInt(coordIdx.y),
+                Mathf.RoundToInt(coordIdx.z)];
         }
 
         /// <summary>
@@ -256,7 +258,9 @@ namespace BrainAtlas
         {
             if (_annotationIDs == null)
                 throw new Exception("(RA) Annotations are not loaded");
-            return _annotationIDs[Mathf.RoundToInt(Mathf.RoundToInt(coordmm.z / Resolution.z) * (Dimensions.z * Dimensions.y) + Mathf.RoundToInt(coordmm.y / Resolution.y) * Dimensions.y + Mathf.RoundToInt(coordmm.x / Resolution.x))];
+            return _annotationIDs[Mathf.RoundToInt(coordmm.x / Resolution.x),
+                Mathf.RoundToInt(coordmm.y / Resolution.y),
+                Mathf.RoundToInt(coordmm.z / Resolution.z)];
         }
     }
 

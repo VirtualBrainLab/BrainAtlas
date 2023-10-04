@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class AnnotationData : ScriptableObject
 {
-    public int[] Annotations;
+    public int[,,] Annotations;
 }
