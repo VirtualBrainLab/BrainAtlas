@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using BrainAtlas.CoordinateSystems;
 
 namespace BrainAtlas
 {
@@ -25,7 +26,7 @@ namespace BrainAtlas
         public string Name { get => _data.name; }
 
         /// <summary>
-        /// Dimensions of the Atlas
+        /// Dimensions of the Atlas in mm
         /// </summary>
         public Vector3 Dimensions { get => _data.Dimensions; }
 
@@ -47,24 +48,7 @@ namespace BrainAtlas
             1000f / _data.Resolution.y, 
             1000f / _data.Resolution.z); } }
 
-        /// <summary>
-        /// The zero offset indicates the position of the (0,0,0) coordinate in the ReferenceAtlas
-        /// relative to the world (0,0,0) coordinate.
-        /// 
-        /// It should be used by the W2A and A2W functions to transform coordinates
-        /// </summary>
-        public Vector3 ZeroOffset { get => _data.ZeroOffset; }
-
-        /// <summary>
-        /// The reference coordinate is the point from which all transformed coordinates will be measured
-        /// 
-        /// For example, in the CCF this defaults to Bregma.
-        /// </summary>
-        public Vector3 ReferenceCoordinate
-        { 
-            get => _data.ReferenceCoordinate; 
-            set => _data.ReferenceCoordinate = value; 
-        }
+        public BGAtlasSpace AtlasSpace { get; private set; }
 
         public Transform ParentT;
 
@@ -106,6 +90,8 @@ namespace BrainAtlas
             _data = referenceAtlasData;
             ParentT = parentT;
             _defaultMaterial = defaultMaterial;
+
+            AtlasSpace = new BGAtlasSpace(_data.name, _data.Dimensions);
 
             Load_Deserialize();
 
@@ -164,11 +150,11 @@ namespace BrainAtlas
         /// <summary>
         /// Move a coordinate from world space into the ReferenceAtlas space in um
         /// </summary>
-        /// <param name="worldCoord"></param>
+        /// <param name="coordWorld"></param>
         /// <returns></returns>
-        public Vector3 World2Atlas(Vector3 worldCoord)
+        public Vector3 World2Atlas(Vector3 coordWorld)
         {
-            return World2Atlas_Vector(worldCoord + ReferenceCoordinate) - ZeroOffset;
+            return AtlasSpace.World2Space(coordWorld);
         }
 
         /// <summary>
@@ -188,7 +174,7 @@ namespace BrainAtlas
         /// <returns></returns>
         public Vector3 Atlas2World(Vector3 atlasCoord)
         {
-            return Atlas2World_Vector(atlasCoord + ZeroOffset) - ReferenceCoordinate;
+            return AtlasSpace.Space2World(atlasCoord);
         }
 
         public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord)
@@ -199,11 +185,11 @@ namespace BrainAtlas
         /// <summary>
         /// Rotate a normalized vector in the ReferenceAtlas space into world space
         /// </summary>
-        /// <param name="normalizedAtlasVector"></param>
+        /// <param name="vectorAtlas"></param>
         /// <returns></returns>
-        public Vector3 Atlas2World_Vector(Vector3 normalizedAtlasVector)
+        public Vector3 Atlas2World_Vector(Vector3 vectorAtlas)
         {
-            return new Vector3(normalizedAtlasVector.y, -normalizedAtlasVector.z, -normalizedAtlasVector.x);
+            return AtlasSpace.Space2World_Vector(vectorAtlas);
         }
 
         /// <summary>
@@ -212,11 +198,11 @@ namespace BrainAtlas
         /// 
         /// We define all reference atlases as being in (ap, ml, dv)
         /// </summary>
-        /// <param name="normalizedWorldVector"></param>
+        /// <param name="vectorWorld"></param>
         /// <returns></returns>
-        public Vector3 World2Atlas_Vector(Vector3 normalizedWorldVector)
+        public Vector3 World2Atlas_Vector(Vector3 vectorWorld)
         {
-            return new Vector3(-normalizedWorldVector.z, normalizedWorldVector.x, -normalizedWorldVector.y);
+            return AtlasSpace.World2Space_Vector(vectorWorld);
         }
 
         public override string ToString()

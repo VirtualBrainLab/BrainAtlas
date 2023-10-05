@@ -46,7 +46,7 @@ namespace BrainAtlas.Editor
 
 
                 ////Build the Atlas ScriptableObjects
-                //AtlasMeta2SO(updatedAtlasInfo);
+                AtlasMeta2SO(updatedAtlasInfo);
 
                 ////Convert mesh files 2 prefabs
                 //MeshFiles2Prefabs(updatedAtlasInfo);

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BrainAtlas
+namespace BrainAtlas.CoordinateSystems
 {
     public abstract class AffineTransform : AtlasTransform
     {
@@ -23,34 +23,17 @@ namespace BrainAtlas
             _inverseRotation = Quaternion.Inverse(_rotation);
         }
 
-        /// <summary>
-        /// Transform a coordinate by this AffineTransform
-        /// </summary>
-        /// <param name="ccfCoord"></param>
-        /// <returns></returns>
-        public override Vector3 Atlas2T(Vector3 ccfCoord)
+        public override Vector3 U2T(Vector3 ccfCoord)
         {
             return Vector3.Scale(_rotation*ccfCoord, _scaling);
         }
 
-        /// <summary>
-        /// Invert a coordinate from this AffineTransform back to it's CoordinateSpace
-        /// </summary>
-        /// <param name="coordTransformed"></param>
-        /// <returns></returns>
-        public override Vector3 T2Atlas(Vector3 coordTransformed)
+        public override Vector3 T2U(Vector3 coordTransformed)
         {
             return _inverseRotation*Vector3.Scale(coordTransformed, _inverseScaling);
         }
 
-        /// <summary>
-        /// Rotate any axes that have been flipped in the Transformed space
-        /// 
-        /// Note: this does **NOT** apply the AffineTransform rotation!
-        /// </summary>
-        /// <param name="coordSpace"></param>
-        /// <returns></returns>
-        public override Vector3 Atlas2T_Vector(Vector3 coordSpace)
+        public override Vector3 U2T_Vector(Vector3 coordSpace)
         {
             return new Vector3(
                 Mathf.Sign(_scaling.x) * coordSpace.x,
@@ -58,14 +41,7 @@ namespace BrainAtlas
                 Mathf.Sign(_scaling.z) * coordSpace.z);
         }
 
-        /// <summary>
-        /// Un-rotate any axes that have been flipped in the Transformed space
-        /// 
-        /// Note: this does **NOT** reverse the AffineTransform rotation!
-        /// </summary>
-        /// <param name="coordTransformed"></param>
-        /// <returns></returns>
-        public override Vector3 T2Atlas_Vector(Vector3 coordTransformed)
+        public override Vector3 T2U_Vector(Vector3 coordTransformed)
         {
             return new Vector3(
                 Mathf.Sign(_inverseScaling.x) * coordTransformed.x,

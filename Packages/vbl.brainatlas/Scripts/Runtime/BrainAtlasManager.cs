@@ -1,4 +1,5 @@
 using BrainAtlas.ScriptableObjects;
+using BrainAtlas.CoordinateSystems;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,6 +12,9 @@ namespace BrainAtlas
     {
         #region Static
         public static BrainAtlasManager Instance;
+        public static List<string> AtlasNames { get { return Instance._atlasMetaData.AtlasNames; } }
+        public static Dictionary<string, Material> BrainRegionMaterials;
+        public static Dictionary<string, AtlasTransform> AtlasTransforms;
         #endregion
 
         #region Exposed
@@ -20,9 +24,6 @@ namespace BrainAtlas
 
         #region Variables
         private AtlasMetaData _atlasMetaData;
-
-        public static List<string> AtlasNames { get { return Instance._atlasMetaData.AtlasNames; } }
-        public static Dictionary<string, Material> BrainRegionMaterials;
         #endregion
 
         #region Events
@@ -49,6 +50,9 @@ namespace BrainAtlas
             BrainRegionMaterials = new();
             for (int i = 0; i < _brainRegionMaterials.Count; i++)
                 BrainRegionMaterials.Add(_brainRegionMaterialNames[i], _brainRegionMaterials[i]);
+
+            AtlasTransforms = new();
+            AtlasTransforms.Add("null", new NullTransform());
         }
         #endregion
 
@@ -85,6 +89,9 @@ namespace BrainAtlas
             Material defaultMaterial = BrainRegionMaterials["default"];
             Instance._referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, Instance._parentGO.transform, defaultMaterial);
 
+            // Set the null transform
+            ActiveAtlasTransform = AtlasTransforms["null"];
+
             return Instance._referenceAtlas;
         }
         #endregion
@@ -98,14 +105,14 @@ namespace BrainAtlas
         /// <returns></returns>
         public static Vector3 WorldU2WorldT(Vector3 coordWorld)
         {
-            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2Atlas_Vector(
-                Instance._atlasTransform.Atlas2T(Instance._referenceAtlas.World2Atlas(coordWorld))));
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U_Vector(
+                Instance._atlasTransform.U2T(Instance._referenceAtlas.World2Atlas(coordWorld))));
         }
 
         public static Vector3 WorldT2WorldU(Vector3 coordWorldT)
         {
-            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2Atlas(
-                Instance._atlasTransform.Atlas2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorldT))));
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U(
+                Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorldT))));
         }
 
         /// <summary>
@@ -116,12 +123,12 @@ namespace BrainAtlas
         /// <returns></returns>
         public static Vector3 World2T_Vector(Vector3 coordWorld)
         {
-            return Instance._atlasTransform.Atlas2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorld));
+            return Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorld));
         }
 
         public static Vector3 T2World_Vector(Vector3 coordTransformed)
         {
-            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2Atlas_Vector(coordTransformed));
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U_Vector(coordTransformed));
         }
         #endregion
 
