@@ -1312,6 +1312,8 @@ MonoBehaviour:
   _BAM: {fileID: 5047518555677762147}
   _sideMaterialTest: {fileID: -876546973899608171, guid: e3af6da18d556e54eb502352603e98a4, type: 3}
   _sideColor: {r: 1, g: 1, b: 1, a: 0}
+  AnnotationTexture: {fileID: 0}
+  ReferenceTexture: {fileID: 0}
 --- !u!4 &2026896951
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,10 +1341,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BrainAtlas
       objectReference: {fileID: 0}
-    - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
-      propertyPath: _brainRegionMaterials.Array.data[0]
-      value: 
-      objectReference: {fileID: -876546973899608171, guid: 6f9304d39b41cba46877c293b47816eb, type: 3}
     - target: {fileID: 1661132737403472946, guid: ee09154d7a7870a419882ff36080d765, type: 3}
       propertyPath: LoadedEvent.m_PersistentCalls.m_Calls.Array.size
       value: 1
