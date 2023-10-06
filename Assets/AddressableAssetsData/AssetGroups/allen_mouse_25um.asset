@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f7309f108cbf50848a8a2cd5387c3562
-    m_Address: Assets/AddressableAssets/allen_mouse_25um/allen_mouse_25um.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bfcad5c8c3cc1e24aaee7361544f66c4
     m_Address: Assets/AddressableAssets/allen_mouse_25um/referenceTexture.asset
     m_ReadOnly: 0
@@ -12624,6 +12619,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ca93fa416111a8f45ae53bb0269746b1
     m_Address: Assets/AddressableAssets/allen_mouse_25um/meshes/9R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7309f108cbf50848a8a2cd5387c3562
+    m_Address: Assets/AddressableAssets/allen_mouse_25um/allen_mouse_25um.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

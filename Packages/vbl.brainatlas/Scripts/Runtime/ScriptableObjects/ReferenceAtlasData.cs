@@ -60,14 +60,18 @@ namespace BrainAtlas.ScriptableObjects
         public string name;
         public Color color;
         public int[] structure_id_path;
+        public int remap_no_layers;
+        public int remap_defaults;
 
-        public OntologyTuple(int id, string acronym, string name, Color color, int[] structure_id_path)
+        public OntologyTuple(int id, string acronym, string name, Color color, int[] structure_id_path, int remap_no_layers, int remap_defaults)
         {
             this.id = id;
             this.acronym = acronym;
             this.name = name;
             this.color = color;
             this.structure_id_path = structure_id_path;
+            this.remap_no_layers = remap_no_layers;
+            this.remap_defaults = remap_defaults;
         }
     }
 }

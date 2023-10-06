@@ -258,7 +258,7 @@ namespace BrainAtlas
     /// </summary>
     public class Ontology
     {
-        private Dictionary<int, (string acronym, string name, Color color, int[] path)> _ontologyData;
+        private Dictionary<int, (string acronym, string name, Color color, int[] path, int remap_layers, int remap_defaults)> _ontologyData;
         private Dictionary<string, int> _acronym2id;
 
         private Material _defaultMaterial;
@@ -292,8 +292,8 @@ namespace BrainAtlas
         {
             match = match.ToLower();
             List<int> ret = new List<int>();
-            foreach (KeyValuePair<int, (string acronym, string name, Color color, int[] path)> kvp in _ontologyData)
-                if (kvp.Value.acronym.Contains(match))
+            foreach (KeyValuePair<int, (string acronym, string name, Color color, int[] path, int remap_layers, int remap_defaults)> kvp in _ontologyData)
+                if (kvp.Value.acronym.ToLower().Contains(match))
                 {
                     int currentID = kvp.Key;
                     if (!ret.Contains(currentID))
@@ -306,14 +306,24 @@ namespace BrainAtlas
         {
             match = match.ToLower();
             List<int> ret = new List<int>();
-            foreach (KeyValuePair<int, (string acronym, string name, Color color, int[] path)> kvp in _ontologyData)
-                if (kvp.Value.name.Contains(match))
+            foreach (KeyValuePair<int, (string acronym, string name, Color color, int[] path, int remap_layers, int remap_defaults)> kvp in _ontologyData)
+                if (kvp.Value.name.ToLower().Contains(match))
                 {
                     int currentID = kvp.Key;
                     if (!ret.Contains(currentID))
                         ret.Add(currentID);
                 }
             return ret;
+        }
+
+        public int RemapID_NoLayers(int ID)
+        {
+            return _ontologyData[ID].remap_layers;
+        }
+
+        public int RemapID_Defaults(int ID)
+        {
+            return _ontologyData[ID].remap_defaults;
         }
 
         private Dictionary<int, OntologyNode> _nodes;
@@ -337,7 +347,9 @@ namespace BrainAtlas
                     (ontologyTuple.acronym,
                     ontologyTuple.name,
                     ontologyTuple.color,
-                    ontologyTuple.structure_id_path));
+                    ontologyTuple.structure_id_path,
+                    ontologyTuple.remap_no_layers,
+                    ontologyTuple.remap_defaults));
 
             ParseData(parentT);
         }
@@ -350,9 +362,6 @@ namespace BrainAtlas
             foreach (var dataKVP in _ontologyData)
             {
                 var nodeData = dataKVP.Value;
-                // lowercase the acronym and name
-                nodeData.name = nodeData.name.ToLower();
-                nodeData.acronym = nodeData.acronym.ToLower();
                 // build the reverse dictionary
                 _acronym2id.Add(nodeData.acronym, dataKVP.Key);
 

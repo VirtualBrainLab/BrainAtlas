@@ -51,7 +51,7 @@ namespace BrainAtlas.Editor
                 ////Convert mesh files 2 prefabs
                 //MeshFiles2Prefabs(updatedAtlasInfo);
 
-                AnnotationReference2Textures(updatedAtlasInfo);
+                //AnnotationReference2Textures(updatedAtlasInfo);
             }
 
             EditorUtility.SetDirty(_addressableSettings);
@@ -126,6 +126,20 @@ namespace BrainAtlas.Editor
             Debug.Log(atlasData.Dimensions);
             atlasData.Resolution = resolution;
 
+            // DEFAULT AREAS
+            switch (atlasInfo.atlasName)
+            {
+                case "allen_mouse_25um":
+                    atlasData.DefaultAreas = new int[] { 184, 500, 453, 1057, 677, 247, 669, 31, 972, 44, 714, 95, 254, 22, 541, 922, 698, 895, 1089, 703, 623, 343, 512 };
+                    break;
+                case "whs_sd_rat_39um":
+                    atlasData.DefaultAreas = new int[] { 1034, 1096, 1084, 1038, 1081, 1097, 1048, 1057, 1061, 1055, 1059, 1069, 1056, 1065, 1072, 1020, 1047, 58, 1044, 74, 1046, 56, 1045, 75, 1043 };
+                    break;
+                default:
+                    Debug.LogWarning($"No default areas for atlas {atlasInfo.atlasName}");
+                    break;
+            }
+
             // STRUCTURE ONTOLOGY
             // Load the ontology file
             string structuresFile = Path.Join(atlasInfo.atlasPath, "structures.json");
@@ -142,11 +156,31 @@ namespace BrainAtlas.Editor
 
             foreach (var structure in structuresList.structures)
             {
+                // figure out the remapping
+
+                int remap_no_layers;
+                if (structure.name.ToLower().Contains("layer"))
+                    remap_no_layers = structure.structure_id_path[^2];
+                else
+                    remap_no_layers = structure.id;
+
+                int remap_defaults;
+                try
+                {
+                    remap_defaults = structure.structure_id_path.Reverse().First(x => atlasData.DefaultAreas.Contains(x));
+                }
+                catch
+                {
+                    remap_defaults = structure.id;
+                }
+
                 ontologyData.Add(new OntologyTuple(structure.id, 
                     structure.acronym, 
                     structure.name, 
                     new Color(structure.rgb_triplet[0] / 255f, structure.rgb_triplet[1] / 255f, structure.rgb_triplet[2] / 255f),
-                    structure.structure_id_path));
+                    structure.structure_id_path,
+                    remap_no_layers,
+                    remap_defaults));
             }
 
             // Initialize ontology
@@ -177,20 +211,6 @@ namespace BrainAtlas.Editor
             }
 
             atlasData._privateMeshCenters = meshCentersum;
-
-            // Default areas
-            switch (atlasInfo.atlasName)
-            {
-                case "allen_mouse_25um":
-                    atlasData.DefaultAreas = new int[] { 184, 500, 453, 1057, 677, 247, 669, 31, 972, 44, 714, 95, 254, 22, 541, 922, 698, 895, 1089, 703, 623, 343, 512 };
-                    break;
-                case "whs_sd_rat_39um":
-                    atlasData.DefaultAreas = new int[] { 1034, 1096, 1084, 1038, 1081, 1097, 1048, 1057, 1061, 1055, 1059, 1069, 1056, 1065, 1072, 1020, 1047, 58, 1044, 74, 1046, 56, 1045, 75, 1043 };
-                    break;
-                default:
-                    Debug.LogWarning($"No default areas for atlas {atlasInfo.atlasName}");
-                    break;
-            }
 
             // Save the atlas data into the Addressables folder
             //atlasData
