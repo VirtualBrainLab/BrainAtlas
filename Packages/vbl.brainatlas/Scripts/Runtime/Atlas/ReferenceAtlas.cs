@@ -288,6 +288,34 @@ namespace BrainAtlas
             return _ontologyData[areaID].path;
         }
 
+        public List<int> SearchByAcronym(string match)
+        {
+            match = match.ToLower();
+            List<int> ret = new List<int>();
+            foreach (KeyValuePair<int, (string acronym, string name, Color color, int[] path)> kvp in _ontologyData)
+                if (kvp.Value.acronym.Contains(match))
+                {
+                    int currentID = kvp.Key;
+                    if (!ret.Contains(currentID))
+                        ret.Add(currentID);
+                }
+            return ret;
+        }
+
+        public List<int> SearchByName(string match)
+        {
+            match = match.ToLower();
+            List<int> ret = new List<int>();
+            foreach (KeyValuePair<int, (string acronym, string name, Color color, int[] path)> kvp in _ontologyData)
+                if (kvp.Value.name.Contains(match))
+                {
+                    int currentID = kvp.Key;
+                    if (!ret.Contains(currentID))
+                        ret.Add(currentID);
+                }
+            return ret;
+        }
+
         private Dictionary<int, OntologyNode> _nodes;
 
         public OntologyNode ID2Node(int areaID)
@@ -322,6 +350,9 @@ namespace BrainAtlas
             foreach (var dataKVP in _ontologyData)
             {
                 var nodeData = dataKVP.Value;
+                // lowercase the acronym and name
+                nodeData.name = nodeData.name.ToLower();
+                nodeData.acronym = nodeData.acronym.ToLower();
                 // build the reverse dictionary
                 _acronym2id.Add(nodeData.acronym, dataKVP.Key);
 
