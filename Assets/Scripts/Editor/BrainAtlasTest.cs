@@ -22,8 +22,6 @@ public class BrainAtlasTest : MonoBehaviour
 
     public async void RunTest()
     {
-        BrainAtlasManager.Instance.AtlasTransformChangedEvent.AddListener(ApplyTransform);
-
         var loadTask = BrainAtlasManager.LoadAtlas(BrainAtlasManager.AtlasNames[0]);
         await loadTask;
 
@@ -33,7 +31,7 @@ public class BrainAtlasTest : MonoBehaviour
         ReferenceAtlas _referenceAtlas = loadTask.Result;
 
         // Test node loading, transforms, materials, colors
-        if (true)
+        if (false)
         {
             List<Task> tasks = new();
             foreach (int areaID in _referenceAtlas.DefaultAreas)
@@ -72,12 +70,36 @@ public class BrainAtlasTest : MonoBehaviour
         }
 
         // Test Texture3D loading
-        if (true)
+        if (false)
         {
             var annotationTask = _referenceAtlas.LoadAnnotationTexture();
             await annotationTask;
 
             AnnotationTexture = annotationTask.Result;
+        }
+
+        // Test coordinate transformations
+        if (true)
+        {
+            CoordinateSpace bgSpace = new BGAtlasSpace("temp", BrainAtlasManager.ActiveReferenceAtlas.Dimensions);
+            Debug.Log(bgSpace.ZeroOffset);
+
+            Vector3 cornerU = Vector3.zero;
+            Vector3 otherU = new Vector3(13.2f, 11.4f, 8f);
+
+            Vector3 cornerWorld = BrainAtlasManager.ActiveReferenceAtlas.Atlas2World(cornerU);
+            Vector3 otherWorld = BrainAtlasManager.ActiveReferenceAtlas.Atlas2World(otherU);
+
+            Debug.Log((cornerU, cornerWorld));
+            Debug.Log((otherU, otherWorld));
+
+            var cornerGO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            cornerGO.transform.position = cornerWorld;
+            cornerGO.GetComponent<Renderer>().material.color = Color.red;
+
+            var otherGO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            otherGO.transform.position = otherWorld;
+            otherGO.GetComponent<Renderer>().material.color = Color.red;
         }
     }
 
