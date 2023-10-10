@@ -44,11 +44,13 @@ namespace BrainAtlas.ScriptableObjects
     {
         public int i;
         public Vector3 v3;
+        public Vector3 v3lh;
 
-        public IV3Tuple(int i, Vector3 v3)
+        public IV3Tuple(int i, Vector3 v3, Vector3 v3lh)
         {
             this.i = i;
             this.v3 = v3;
+            this.v3lh = v3lh;
         }
     }
 

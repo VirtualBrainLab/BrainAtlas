@@ -52,11 +52,12 @@ namespace BrainAtlas
 
         public Transform ParentT;
 
-        public Dictionary<int, Vector3> MeshCenters;
+        public Dictionary<int, (Vector3 full, Vector3 left)> MeshCenters;
 
-        public Vector3 MeshCentersIdx(int meshID)
+        public (Vector3 full, Vector3 left) MeshCentersIdx(int meshID)
         {
-            return Vector3.Scale(MeshCenters[meshID], ResolutionInverse);
+            return (Vector3.Scale(MeshCenters[meshID].full, ResolutionInverse),
+                Vector3.Scale(MeshCenters[meshID].left, ResolutionInverse));
         }
 
         public Ontology Ontology;
@@ -111,7 +112,7 @@ namespace BrainAtlas
         {
             MeshCenters = new();
             foreach (var tuple in _data._privateMeshCenters)
-                MeshCenters.Add(tuple.i, tuple.v3);
+                MeshCenters.Add(tuple.i, (tuple.v3, tuple.v3lh));
 
             Ontology = new Ontology(_data._privateOntologyData, ParentT, _defaultMaterial);
         }
