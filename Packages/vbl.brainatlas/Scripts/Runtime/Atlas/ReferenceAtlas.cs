@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using BrainAtlas.CoordinateSystems;
+using BrainAtlas.Remote;
 
 namespace BrainAtlas
 {
