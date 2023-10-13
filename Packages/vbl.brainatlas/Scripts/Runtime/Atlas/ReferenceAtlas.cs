@@ -42,10 +42,12 @@ namespace BrainAtlas
 
         /// <summary>
         /// The resolution of the atlas is the um each voxel takes up on (x,y,z)
+        /// 
+        /// A point in um space (13200) multipled by the resolution inverse (1/25) = the point in index space
         /// </summary>
         public Vector3 Resolution { get => _data.Resolution; }
 
-        private Vector3 ResolutionInverse { get { return new Vector3(
+        public Vector3 ResolutionInverse { get { return new Vector3(
             1000f / _data.Resolution.x, 
             1000f / _data.Resolution.y, 
             1000f / _data.Resolution.z); } }
