@@ -257,7 +257,7 @@ namespace BrainAtlas
             // check dimensions
             (int x, int y, int z) dimIdx = DimensionsIdx;
             if (coordIdx.x < 0 || coordIdx.x >= dimIdx.x || coordIdx.y < 0 || coordIdx.y >= dimIdx.y || coordIdx.z < 0 || coordIdx.z >= dimIdx.z)
-                throw new Exception("(RA) coordIdx is outside of DimensionsIdx space");
+                return -1;
 
             return _annotationIDs[Mathf.RoundToInt(coordIdx.x),Mathf.RoundToInt(coordIdx.y),Mathf.RoundToInt(coordIdx.z)];
         }
@@ -273,7 +273,7 @@ namespace BrainAtlas
                 throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
 
             if (coordmm.x < 0 || coordmm.x >= Dimensions.x || coordmm.y < 0 || coordmm.y >= Dimensions.y || coordmm.z < 0 || coordmm.z >= Dimensions.z)
-                throw new Exception("(RA) coordIdx is outside of DimensionsIdx space");
+                return -1;
 
             return _annotationIDs[Mathf.RoundToInt(coordmm.x / Resolution.x),Mathf.RoundToInt(coordmm.y / Resolution.y),Mathf.RoundToInt(coordmm.z / Resolution.z)];
         }
