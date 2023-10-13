@@ -371,6 +371,7 @@ namespace BrainAtlas
 
             _ontologyData = new();
 
+            _ontologyData.Add(-1, ("out", "out", Color.black, new int[] { }, -1, -1));
             _ontologyData.Add(0, ("void", "void", Color.black, new int[] { }, 0, 0));
 
             foreach (OntologyTuple ontologyTuple in ontologyData)
