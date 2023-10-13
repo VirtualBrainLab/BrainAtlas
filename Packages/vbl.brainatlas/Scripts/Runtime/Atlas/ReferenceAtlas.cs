@@ -31,11 +31,12 @@ namespace BrainAtlas
         /// </summary>
         public Vector3 Dimensions { get => _data.Dimensions; }
 
-        public Vector3 DimensionsIdx
+        public (int x, int y, int z) DimensionsIdx
         {
             get
             {
-                return Vector3.Scale(Dimensions, ResolutionInverse);
+                Vector3 dim = Vector3.Scale(Dimensions, ResolutionInverse);
+                return (Mathf.RoundToInt(dim.x), Mathf.RoundToInt(dim.y), Mathf.RoundToInt(dim.z));
             }
         }
 
@@ -253,6 +254,11 @@ namespace BrainAtlas
         {
             if (!_annotationsTaskSource.Task.IsCompleted)
                 throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
+            // check dimensions
+            (int x, int y, int z) dimIdx = DimensionsIdx;
+            if (coordIdx.x < 0 || coordIdx.x >= dimIdx.x || coordIdx.y < 0 || coordIdx.y >= dimIdx.y || coordIdx.z < 0 || coordIdx.z >= dimIdx.z)
+                throw new Exception("(RA) coordIdx is outside of DimensionsIdx space");
+
             return _annotationIDs[Mathf.RoundToInt(coordIdx.x),Mathf.RoundToInt(coordIdx.y),Mathf.RoundToInt(coordIdx.z)];
         }
 
@@ -265,6 +271,10 @@ namespace BrainAtlas
         {
             if (!_annotationsTaskSource.Task.IsCompleted)
                 throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
+
+            if (coordmm.x < 0 || coordmm.x >= Dimensions.x || coordmm.y < 0 || coordmm.y >= Dimensions.y || coordmm.z < 0 || coordmm.z >= Dimensions.z)
+                throw new Exception("(RA) coordIdx is outside of DimensionsIdx space");
+
             return _annotationIDs[Mathf.RoundToInt(coordmm.x / Resolution.x),Mathf.RoundToInt(coordmm.y / Resolution.y),Mathf.RoundToInt(coordmm.z / Resolution.z)];
         }
     }
