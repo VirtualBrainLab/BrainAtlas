@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class BrainAtlasTest : MonoBehaviour
 {
-    [SerializeField] private RenderTexture _axialTexture;
-    [SerializeField] private RenderTexture _sagittalTexture;
-    [SerializeField] private RenderTexture _coronalTexture;
+    public Texture2D APSlice;
 
     [SerializeField] private BrainAtlasManager _BAM;
 
@@ -72,14 +70,14 @@ public class BrainAtlasTest : MonoBehaviour
         // Test Texture3D loading
         if (false)
         {
-            var annotationTask = _referenceAtlas.LoadAnnotationTexture();
-            await annotationTask;
+            _referenceAtlas.LoadAnnotationTexture();
+            await _referenceAtlas.AnnotationTextureTask;
 
-            AnnotationTexture = annotationTask.Result;
+            AnnotationTexture = _referenceAtlas.AnnotationTexture;
         }
 
         // Test coordinate transformations
-        if (true)
+        if (false)
         {
             CoordinateSpace bgSpace = new BGAtlasSpace("temp", BrainAtlasManager.ActiveReferenceAtlas.Dimensions);
             Debug.Log(bgSpace.ZeroOffset);
@@ -100,6 +98,26 @@ public class BrainAtlasTest : MonoBehaviour
             var otherGO = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             otherGO.transform.position = otherWorld;
             otherGO.GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        // Test the actual annotations
+        if (true)
+        {
+            _referenceAtlas.LoadAnnotations();
+            await _referenceAtlas.AnnotationsTask;
+
+            int[,,] annotations = _referenceAtlas.AnnotationsTask.Result;
+
+            APSlice = new Texture2D(annotations.GetLength(1), annotations.GetLength(2), TextureFormat.RGB24, false);
+            APSlice.wrapMode = TextureWrapMode.Clamp;
+
+            int i = 100;
+
+            for (int j = 0; j < annotations.GetLength(1); j++)
+                for (int k = 0; k < annotations.GetLength(2); k++)
+                {
+                    APSlice.SetPixel(j, k, _referenceAtlas.Ontology.ID2Color(annotations[i,j,k]));
+                }
         }
     }
 

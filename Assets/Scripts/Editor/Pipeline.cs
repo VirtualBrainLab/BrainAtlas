@@ -46,12 +46,12 @@ namespace BrainAtlas.Editor
 
 
                 ////Build the Atlas ScriptableObjects
-                AtlasMeta2SO(updatedAtlasInfo);
+                //AtlasMeta2SO(updatedAtlasInfo);
 
                 ////Convert mesh files 2 prefabs
                 //MeshFiles2Prefabs(updatedAtlasInfo);
 
-                //AnnotationReference2Textures(updatedAtlasInfo);
+                AnnotationReference2Textures(updatedAtlasInfo);
             }
 
             EditorUtility.SetDirty(_addressableSettings);
@@ -353,15 +353,22 @@ namespace BrainAtlas.Editor
             AnnotationData annotationDataSO = ScriptableObject.CreateInstance<AnnotationData>();
 
             // re-organize the data to be in ap/ml/dv order
-            int[,,] annotationAPMLDV = new int[apLength, mlWidth, dvDepth];
+            int[] reorderedArray = new int[annotationData.Length];
 
-            int j = 0;
-            for (int ap = 0; ap < apLength; ap++)
-                for (int dv = 0; dv < dvDepth; dv++)
-                    for (int ml = 0; ml < mlWidth; ml++)
-                        annotationAPMLDV[ap, ml, dv] = annotationData[j++];
+            for (int i = 0; i < apLength; i++)
+            {
+                for (int j = 0; j < dvDepth; j++)
+                {
+                    for (int k = 0; k < mlWidth; k++)
+                    {
+                        int oldIndex = i * dvDepth * mlWidth + j * mlWidth + k;
+                        int newIndex = i * mlWidth * dvDepth + k * dvDepth + j;
+                        reorderedArray[newIndex] = annotationData[oldIndex];
+                    }
+                }
+            }
 
-            annotationDataSO.Annotations = annotationAPMLDV;
+            annotationDataSO.Annotations = reorderedArray;
 
             string annotationDataSOPath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/annotations.asset";
             CreateAddressablesHelper(annotationDataSO, annotationDataSOPath, atlasInfo.atlasGroup);

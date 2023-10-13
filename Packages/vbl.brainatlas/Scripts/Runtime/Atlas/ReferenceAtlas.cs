@@ -35,7 +35,7 @@ namespace BrainAtlas
         {
             get
             {
-                return Vector3.Scale(Dimensions, ResolutionInverse) * 1000f;
+                return Vector3.Scale(Dimensions, ResolutionInverse);
             }
         }
 
@@ -153,7 +153,18 @@ namespace BrainAtlas
             var loadHandler = AddressablesRemoteLoader.LoadAnnotationIDs();
             await loadHandler;
 
-            _annotationIDs = loadHandler.Result;
+            // now we have the int[] in flattened ap/ml/dv order, re-order this now to the full size
+            int width = Mathf.RoundToInt(DimensionsIdx.x);
+            int height = Mathf.RoundToInt(DimensionsIdx.y);
+            int depth = Mathf.RoundToInt(DimensionsIdx.z);
+            Debug.Log((width, height, depth));
+            _annotationIDs = new int[width, height, depth];
+
+            int z = 0;
+            for (int i = 0; i < width; i++)
+                for (int j = 0; j < height; j++)
+                    for (int k = 0; k < depth; k++)
+                        _annotationIDs[i,j,k] = loadHandler.Result[z++];
 
             _annotationsTaskSource.SetResult(_annotationIDs);
         }
@@ -242,9 +253,7 @@ namespace BrainAtlas
         {
             if (!_annotationsTaskSource.Task.IsCompleted)
                 throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
-            return _annotationIDs[Mathf.RoundToInt(coordIdx.x),
-                Mathf.RoundToInt(coordIdx.y),
-                Mathf.RoundToInt(coordIdx.z)];
+            return _annotationIDs[Mathf.RoundToInt(coordIdx.x),Mathf.RoundToInt(coordIdx.y),Mathf.RoundToInt(coordIdx.z)];
         }
 
         /// <summary>
@@ -256,9 +265,7 @@ namespace BrainAtlas
         {
             if (!_annotationsTaskSource.Task.IsCompleted)
                 throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
-            return _annotationIDs[Mathf.RoundToInt(coordmm.x / Resolution.x),
-                Mathf.RoundToInt(coordmm.y / Resolution.y),
-                Mathf.RoundToInt(coordmm.z / Resolution.z)];
+            return _annotationIDs[Mathf.RoundToInt(coordmm.x / Resolution.x),Mathf.RoundToInt(coordmm.y / Resolution.y),Mathf.RoundToInt(coordmm.z / Resolution.z)];
         }
     }
 
@@ -353,6 +360,8 @@ namespace BrainAtlas
             _defaultMaterial = defaultMaterial;
 
             _ontologyData = new();
+
+            _ontologyData.Add(0, ("void", "void", Color.black, new int[] { }, 0, 0));
 
             foreach (OntologyTuple ontologyTuple in ontologyData)
                 _ontologyData.Add(ontologyTuple.id,
