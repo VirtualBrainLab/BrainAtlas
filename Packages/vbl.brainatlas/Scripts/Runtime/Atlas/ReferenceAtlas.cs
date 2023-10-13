@@ -95,14 +95,18 @@ namespace BrainAtlas
 
             AtlasSpace = new BGAtlasSpace(_data.name, _data.Dimensions);
 
+            _annotationTextureTaskSource = new();
+            _referenceTextureTaskSource = new();
+            _annotationsTaskSource = new();
+
             Load_Deserialize();
 
             if (loadAnnotations)
-                _ = LoadAnnotations();
+                LoadAnnotations();
             if (loadAnnotationTex)
-                _ = LoadAnnotationTexture();
+                LoadAnnotationTexture();
             if (loadReferenceTex)
-                _ = LoadReferenceTexture();
+                LoadReferenceTexture();
         }
 
         #region Loading
@@ -118,34 +122,40 @@ namespace BrainAtlas
             Ontology = new Ontology(_data._privateOntologyData, ParentT, _defaultMaterial);
         }
 
-        public async Task<Texture3D> LoadAnnotationTexture()
+        private TaskCompletionSource<Texture3D> _annotationTextureTaskSource;
+        public Task<Texture3D> AnnotationTextureTask { get { return _annotationTextureTaskSource.Task; } }
+        public async void LoadAnnotationTexture()
         {
             var loadHandler = AddressablesRemoteLoader.LoadTexture(true);
             await loadHandler;
 
             _annotationTexture3D = loadHandler.Result;
 
-            return _annotationTexture3D;
+            _annotationTextureTaskSource.SetResult(_annotationTexture3D);
         }
 
-        public async Task<Texture3D> LoadReferenceTexture()
+        private TaskCompletionSource<Texture3D> _referenceTextureTaskSource;
+        public Task<Texture3D> ReferenceTextureTask { get { return _referenceTextureTaskSource.Task; } }
+        public async void LoadReferenceTexture()
         {
             var loadHandler = AddressablesRemoteLoader.LoadTexture(false);
             await loadHandler;
 
             _referenceTexture3D = loadHandler.Result;
 
-            return _referenceTexture3D;
+            _referenceTextureTaskSource.SetResult(_referenceTexture3D);
         }
 
-        public async Task<int[,,]> LoadAnnotations()
+        private TaskCompletionSource<int[,,]> _annotationsTaskSource;
+        public Task<int[,,]> AnnotationsTask { get { return _annotationsTaskSource.Task; } }
+        public async void LoadAnnotations()
         {
             var loadHandler = AddressablesRemoteLoader.LoadAnnotationIDs();
             await loadHandler;
 
             _annotationIDs = loadHandler.Result;
 
-            return _annotationIDs;
+            _annotationsTaskSource.SetResult(_annotationIDs);
         }
         #endregion
 
@@ -228,10 +238,10 @@ namespace BrainAtlas
         /// </summary>
         /// <param name="coordIdx"></param>
         /// <returns></returns>
-        public int AnnotationIdx(Vector3 coordIdx)
+        public int GetAnnotationIdx(Vector3 coordIdx)
         {
-            if (_annotationIDs == null)
-                throw new Exception("(RA) Annotations are not loaded");
+            if (!_annotationsTaskSource.Task.IsCompleted)
+                throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
             return _annotationIDs[Mathf.RoundToInt(coordIdx.x),
                 Mathf.RoundToInt(coordIdx.y),
                 Mathf.RoundToInt(coordIdx.z)];
@@ -242,10 +252,10 @@ namespace BrainAtlas
         /// </summary>
         /// <param name="coordmm"></param>
         /// <returns></returns>
-        public int Annotation(Vector3 coordmm)
+        public int GetAnnotation(Vector3 coordmm)
         {
-            if (_annotationIDs == null)
-                throw new Exception("(RA) Annotations are not loaded");
+            if (!_annotationsTaskSource.Task.IsCompleted)
+                throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
             return _annotationIDs[Mathf.RoundToInt(coordmm.x / Resolution.x),
                 Mathf.RoundToInt(coordmm.y / Resolution.y),
                 Mathf.RoundToInt(coordmm.z / Resolution.z)];
