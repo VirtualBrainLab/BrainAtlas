@@ -190,7 +190,7 @@ namespace BrainAtlas
         /// <returns></returns>
         public Vector3 World2AtlasIdx(Vector3 worldCoord)
         {
-            return World2Atlas(Vector3.Scale(ResolutionInverse, worldCoord));
+            return Vector3.Scale(World2Atlas(worldCoord), ResolutionInverse);
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace BrainAtlas
 
         public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord)
         {
-            return Vector3.Scale(Atlas2World(atlasIdxCoord), Resolution);
+            return Atlas2World(Vector3.Scale(atlasIdxCoord, Resolution));
         }
 
         /// <summary>
