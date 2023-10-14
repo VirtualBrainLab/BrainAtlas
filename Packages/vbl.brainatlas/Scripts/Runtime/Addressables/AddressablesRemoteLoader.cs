@@ -28,6 +28,8 @@ namespace BrainAtlas.Remote
         #region Exposed fields
         [SerializeField] private string _addressablesStorageRemotePath = "https://data.virtualbrainlab.org/BrainAtlas";
         [SerializeField] private string _buildVersion = "1.0.0";
+
+        public bool localAddressables = false;
         #endregion
 
         #region Private vars
@@ -171,29 +173,29 @@ namespace BrainAtlas.Remote
         #region Private helpers
         private async void LoadCatalog()
         {
-#if UNITY_EDITOR
-            _addressablesStorageTargetPath = Path.Join(Path.Join("C:\\proj\\VBL\\BrainAtlas", "ServerData", "StandaloneWindows64"), $"catalog_{_buildVersion}{_fileEnding}");
-#else
-        string buildTarget;
+//#if UNITY_EDITOR
+//            _addressablesStorageTargetPath = Path.Join(Path.Join("C:\\proj\\VBL\\BrainAtlas", "ServerData", "StandaloneWindows64"), $"catalog_{_buildVersion}{_fileEnding}");
+//#else
+            string buildTarget;
 
-        RuntimePlatform platform = Application.platform;
-        if (platform == RuntimePlatform.WindowsPlayer || platform == RuntimePlatform.WindowsEditor)
-            buildTarget = "StandaloneWindows64";
-        else if (platform == RuntimePlatform.WebGLPlayer)
-            buildTarget = "WebGL";
-        else if (platform == RuntimePlatform.OSXEditor || platform == RuntimePlatform.OSXPlayer)
-            buildTarget = "StandaloneOSX";
-        else if (platform == RuntimePlatform.LinuxEditor || platform == RuntimePlatform.LinuxPlayer)
-            buildTarget = "StandaloneLinux64";
-        else
-        {
-            Debug.LogError(string.Format("Running on {0} we do NOT have a built Addressables Storage bundle", platform));
-            return;
-        }
+            RuntimePlatform platform = Application.platform;
+            if (platform == RuntimePlatform.WindowsPlayer || platform == RuntimePlatform.WindowsEditor)
+                buildTarget = "StandaloneWindows64";
+            else if (platform == RuntimePlatform.WebGLPlayer)
+                buildTarget = "WebGL";
+            else if (platform == RuntimePlatform.OSXEditor || platform == RuntimePlatform.OSXPlayer)
+                buildTarget = "StandaloneOSX";
+            else if (platform == RuntimePlatform.LinuxEditor || platform == RuntimePlatform.LinuxPlayer)
+                buildTarget = "StandaloneLinux64";
+            else
+            {
+                Debug.LogError(string.Format("Running on {0} we do NOT have a built Addressables Storage bundle", platform));
+                return;
+            }
 
-        _addressablesStorageTargetPath = $"{_addressablesStorageRemotePath}/{_buildVersion}/{buildTarget}/ catalog_{_buildVersion}{_fileEnding}";
+            _addressablesStorageTargetPath = $"{_addressablesStorageRemotePath}/{_buildVersion}/{buildTarget}/catalog_{_buildVersion}{_fileEnding}";
 
-#endif
+//#endif
 
 #if UNITY_EDITOR
             Debug.Log("(AddressablesStorage) Loading catalog v" + _buildVersion);
