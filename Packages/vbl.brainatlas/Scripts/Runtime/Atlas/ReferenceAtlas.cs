@@ -35,7 +35,7 @@ namespace BrainAtlas
         {
             get
             {
-                Vector3 dim = Vector3.Scale(Dimensions, ResolutionInverse);
+                Vector3 dim = Vector3.Scale(Dimensions, Resolution_World2Idx);
                 return (Mathf.RoundToInt(dim.x), Mathf.RoundToInt(dim.y), Mathf.RoundToInt(dim.z));
             }
         }
@@ -47,10 +47,21 @@ namespace BrainAtlas
         /// </summary>
         public Vector3 Resolution { get => _data.Resolution; }
 
-        public Vector3 ResolutionInverse { get { return new Vector3(
+        public Vector3 Resolution_World2Idx { get { return new Vector3(
             1000f / _data.Resolution.x, 
             1000f / _data.Resolution.y, 
             1000f / _data.Resolution.z); } }
+
+        public Vector3 Resolution_Idx2World
+        {
+            get
+            {
+                return new Vector3(
+            _data.Resolution.x / 1000f,
+            _data.Resolution.y / 1000f,
+            _data.Resolution.z / 1000f);
+            }
+        }
 
         public BGAtlasSpace AtlasSpace { get; private set; }
 
@@ -60,8 +71,8 @@ namespace BrainAtlas
 
         public (Vector3 full, Vector3 left) MeshCentersIdx(int meshID)
         {
-            return (Vector3.Scale(MeshCenters[meshID].full, ResolutionInverse),
-                Vector3.Scale(MeshCenters[meshID].left, ResolutionInverse));
+            return (Vector3.Scale(MeshCenters[meshID].full, Resolution_World2Idx),
+                Vector3.Scale(MeshCenters[meshID].left, Resolution_World2Idx));
         }
 
         public Ontology Ontology;
@@ -184,13 +195,13 @@ namespace BrainAtlas
         }
 
         /// <summary>
-        /// Move a coordinate from world space into the ReferenceAtlas voxel space
+        /// Move a coordinate from world space (13.2, 11.4, 8) (x40) into index space (528, 456, 320)
         /// </summary>
         /// <param name="worldCoord"></param>
         /// <returns></returns>
         public Vector3 World2AtlasIdx(Vector3 worldCoord)
         {
-            return Vector3.Scale(World2Atlas(worldCoord), ResolutionInverse);
+            return Vector3.Scale(World2Atlas(worldCoord), Resolution_World2Idx);
         }
 
         /// <summary>
@@ -203,9 +214,14 @@ namespace BrainAtlas
             return AtlasSpace.Space2World(atlasCoord);
         }
 
+        /// <summary>
+        /// Move a coordinate from atlas index space (528, 456, 320) (/40) into world space (13.2, 11.4, 8)
+        /// </summary>
+        /// <param name="atlasIdxCoord"></param>
+        /// <returns></returns>
         public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord)
         {
-            return Atlas2World(Vector3.Scale(atlasIdxCoord, Resolution));
+            return Atlas2World(Vector3.Scale(atlasIdxCoord, Resolution_Idx2World));
         }
 
         /// <summary>
