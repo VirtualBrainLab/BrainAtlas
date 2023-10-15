@@ -272,9 +272,9 @@ namespace BrainAtlas
         {
             if (!_annotationsTaskSource.Task.IsCompleted)
                 throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
+            
             // check dimensions
-            (int x, int y, int z) dimIdx = DimensionsIdx;
-            if (coordIdx.x < 0 || coordIdx.x >= dimIdx.x || coordIdx.y < 0 || coordIdx.y >= dimIdx.y || coordIdx.z < 0 || coordIdx.z >= dimIdx.z)
+            if (OutsideAnnotationDimensions(coordIdx))
                 return -1;
 
             return _annotationIDs[Mathf.RoundToInt(coordIdx.x),Mathf.RoundToInt(coordIdx.y),Mathf.RoundToInt(coordIdx.z)];
@@ -287,13 +287,18 @@ namespace BrainAtlas
         /// <returns></returns>
         public int GetAnnotation(Vector3 coordmm)
         {
-            if (!_annotationsTaskSource.Task.IsCompleted)
-                throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
+            return GetAnnotationIdx(Vector3.Scale(coordmm, Resolution_World2Idx));
+        }
 
-            if (coordmm.x < 0 || coordmm.x >= Dimensions.x || coordmm.y < 0 || coordmm.y >= Dimensions.y || coordmm.z < 0 || coordmm.z >= Dimensions.z)
-                return -1;
+        private bool OutsideAnnotationDimensions(Vector3 coordIdx)
+        {
+            if (coordIdx.x < 0 || coordIdx.y < 0 || coordIdx.z < 0)
+                return true;
 
-            return _annotationIDs[Mathf.RoundToInt(coordmm.x / Resolution.x),Mathf.RoundToInt(coordmm.y / Resolution.y),Mathf.RoundToInt(coordmm.z / Resolution.z)];
+            int x = Mathf.RoundToInt(coordIdx.x);
+            int y = Mathf.RoundToInt(coordIdx.y);
+            int z = Mathf.RoundToInt(coordIdx.z);
+            return x >= DimensionsIdx.x || y >= DimensionsIdx.y || z >= DimensionsIdx.z;
         }
     }
 
