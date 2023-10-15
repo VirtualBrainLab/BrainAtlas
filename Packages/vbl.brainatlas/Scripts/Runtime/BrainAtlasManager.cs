@@ -127,9 +127,14 @@ namespace BrainAtlas
             return Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorld));
         }
 
-        public static Vector3 T2World_Vector(Vector3 coordTransformed)
+        public static Vector3 T2World_Vector(Vector3 coordT)
         {
-            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U_Vector(coordTransformed));
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U_Vector(coordT));
+        }
+
+        public static void SetReferenceCoord(Vector3 refCoordU)
+        {
+            ActiveReferenceAtlas.AtlasSpace.ReferenceCoord = refCoordU;
         }
         #endregion
 
