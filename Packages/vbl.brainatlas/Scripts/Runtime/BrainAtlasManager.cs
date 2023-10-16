@@ -46,8 +46,6 @@ namespace BrainAtlas
                 throw new Exception("Only one instance of BrainAtlasManager can be in the scene");
             Instance = this;
 
-            LoadMetaData();
-
             BrainRegionMaterials = new();
             for (int i = 0; i < _brainRegionMaterials.Count; i++)
                 BrainRegionMaterials.Add(_brainRegionMaterialNames[i], _brainRegionMaterials[i]);
@@ -144,7 +142,7 @@ namespace BrainAtlas
         #endregion
 
         #region Helpers
-        private async void LoadMetaData()
+        public async void LoadMetaData()
         {
             var metaDataTask = AddressablesRemoteLoader.LoadAtlasMetaData();
             await metaDataTask;

@@ -25,6 +25,10 @@ namespace BrainAtlas.Remote
         public static string ActiveAtlas { get; private set; }
         #endregion
 
+        #region Events
+        public UnityEvent CatalogLoadedEvent;
+        #endregion
+
         #region Exposed fields
         [SerializeField] private string _addressablesStorageRemotePath = "https://data.virtualbrainlab.org/BrainAtlas";
         [SerializeField] private string _buildVersion = "1.0.0";
@@ -209,6 +213,7 @@ namespace BrainAtlas.Remote
             await catalogLoadHandle.Task;
 
             catalogLoadedSource.SetResult(true);
+            CatalogLoadedEvent.Invoke();
         }
 
         /// <summary>
