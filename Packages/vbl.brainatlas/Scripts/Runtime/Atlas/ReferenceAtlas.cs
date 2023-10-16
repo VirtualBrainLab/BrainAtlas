@@ -196,10 +196,12 @@ namespace BrainAtlas
 
         /// <summary>
         /// Move a coordinate from world space (13.2, 11.4, 8) (x40) into index space (528, 456, 320)
+        /// 
+        /// By default, this function does *not* use the ReferenceCoord
         /// </summary>
         /// <param name="worldCoord"></param>
         /// <returns></returns>
-        public Vector3 World2AtlasIdx(Vector3 worldCoord, bool useReference = true)
+        public Vector3 World2AtlasIdx(Vector3 worldCoord, bool useReference = false)
         {
             return Vector3.Scale(World2Atlas(worldCoord, useReference), Resolution_World2Idx);
         }
@@ -216,10 +218,12 @@ namespace BrainAtlas
 
         /// <summary>
         /// Move a coordinate from atlas index space (528, 456, 320) (/40) into world space (13.2, 11.4, 8)
+        /// 
+        /// By default, this function does *not* use the ReferenceCoord
         /// </summary>
         /// <param name="atlasIdxCoord"></param>
         /// <returns></returns>
-        public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord, bool useReference = true)
+        public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord, bool useReference = false)
         {
             return Atlas2World(Vector3.Scale(atlasIdxCoord, Resolution_Idx2World), useReference);
         }
