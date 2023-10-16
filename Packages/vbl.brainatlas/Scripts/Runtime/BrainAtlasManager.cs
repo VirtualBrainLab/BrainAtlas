@@ -134,7 +134,8 @@ namespace BrainAtlas
 
         public static void SetReferenceCoord(Vector3 refCoordU)
         {
-            ActiveReferenceAtlas.AtlasSpace.ReferenceCoord = refCoordU;
+            if (ActiveReferenceAtlas != null)
+                ActiveReferenceAtlas.AtlasSpace.ReferenceCoord = refCoordU;
         }
         #endregion
 
