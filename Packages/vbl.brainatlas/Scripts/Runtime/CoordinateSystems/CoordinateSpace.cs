@@ -26,8 +26,8 @@ namespace BrainAtlas.CoordinateSystems
         /// </summary>
         public Vector3 ReferenceCoord { get; set; } = Vector3.zero;
 
-        public abstract Vector3 Space2World(Vector3 coordSpace);
-        public abstract Vector3 World2Space(Vector3 coordWorld);
+        public abstract Vector3 Space2World(Vector3 coordSpace, bool useReference = true);
+        public abstract Vector3 World2Space(Vector3 coordWorld, bool useReference = true);
 
         public abstract Vector3 Space2World_Vector(Vector3 vecSpace);
 
