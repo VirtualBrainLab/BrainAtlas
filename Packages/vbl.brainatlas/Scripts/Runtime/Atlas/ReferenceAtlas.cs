@@ -199,9 +199,9 @@ namespace BrainAtlas
         /// </summary>
         /// <param name="worldCoord"></param>
         /// <returns></returns>
-        public Vector3 World2AtlasIdx(Vector3 worldCoord)
+        public Vector3 World2AtlasIdx(Vector3 worldCoord, bool useReference = true)
         {
-            return Vector3.Scale(World2Atlas(worldCoord), Resolution_World2Idx);
+            return Vector3.Scale(World2Atlas(worldCoord, useReference), Resolution_World2Idx);
         }
 
         /// <summary>
@@ -219,9 +219,9 @@ namespace BrainAtlas
         /// </summary>
         /// <param name="atlasIdxCoord"></param>
         /// <returns></returns>
-        public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord)
+        public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord, bool useReference = true)
         {
-            return Atlas2World(Vector3.Scale(atlasIdxCoord, Resolution_Idx2World));
+            return Atlas2World(Vector3.Scale(atlasIdxCoord, Resolution_Idx2World), useReference);
         }
 
         /// <summary>
