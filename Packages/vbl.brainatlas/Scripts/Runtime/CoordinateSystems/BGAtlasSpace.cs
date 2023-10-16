@@ -36,7 +36,7 @@ namespace BrainAtlas.CoordinateSystems
 
         public override Vector3 Space2World(Vector3 spaceCoord, bool useReference)
         {
-            return Space2World_Vector(spaceCoord + ReferenceCoord) + (useReference ? ReferenceCoord : Vector3.zero);
+            return Space2World_Vector(spaceCoord + (useReference ? ReferenceCoord : Vector3.zero)) + ZeroOffset;
         }
 
         public override Vector3 Space2World_Vector(Vector3 vectorSpace)

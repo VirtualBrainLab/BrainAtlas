@@ -101,7 +101,7 @@ public class BrainAtlasTest : MonoBehaviour
         }
 
         // Test the actual annotations
-        if (true)
+        if (false)
         {
             _referenceAtlas.LoadAnnotations();
             await _referenceAtlas.AnnotationsTask;
@@ -118,6 +118,25 @@ public class BrainAtlasTest : MonoBehaviour
                 {
                     APSlice.SetPixel(j, k, _referenceAtlas.Ontology.ID2Color(annotations[i,j,k]));
                 }
+        }
+
+        // Test the coordinate transforms
+        if (true)
+        {
+            BrainAtlasManager.SetReferenceCoord(new Vector3(5.2f, 5.7f, 0.33f));
+
+            Vector3 worldU = BrainAtlasManager.ActiveReferenceAtlas.AtlasSpace.ZeroOffset;
+            GameObject.Find("WorldU").transform.position = worldU;
+
+            Vector3 atlasU = BrainAtlasManager.ActiveReferenceAtlas.World2Atlas(worldU);
+            Vector3 coordT = BrainAtlasManager.ActiveAtlasTransform.U2T(atlasU);
+            Vector3 atlasT = BrainAtlasManager.ActiveAtlasTransform.T2U_Vector(coordT);
+            Vector3 worldT = BrainAtlasManager.ActiveReferenceAtlas.Atlas2World(atlasT);
+
+            Debug.Log((atlasU, coordT, atlasT, worldT));
+
+            Vector3 worldT2 = BrainAtlasManager.WorldU2WorldT(worldU);
+            GameObject.Find("WorldT").transform.position = worldT2;
         }
     }
 
