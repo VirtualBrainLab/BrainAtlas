@@ -25,6 +25,8 @@ namespace BrainAtlas
 
         #region Variables
         private AtlasMetaData _atlasMetaData;
+
+        private TaskCompletionSource<bool> _metaLoadedSource;
         #endregion
 
         #region Events
@@ -52,6 +54,14 @@ namespace BrainAtlas
 
             AtlasTransforms = new();
             AtlasTransforms.Add(new NullTransform());
+
+            _metaLoadedSource = new();
+        }
+
+        private async void Start()
+        {
+            await _metaLoadedSource.Task;
+            MetaLoadedEvent.Invoke();
         }
         #endregion
 
@@ -148,7 +158,7 @@ namespace BrainAtlas
             await metaDataTask;
             _atlasMetaData = metaDataTask.Result;
 
-            MetaLoadedEvent.Invoke();
+            _metaLoadedSource.SetResult(true);
         }
         #endregion
     }
