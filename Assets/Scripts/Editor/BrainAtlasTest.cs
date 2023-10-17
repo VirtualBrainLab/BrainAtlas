@@ -142,6 +142,6 @@ public class BrainAtlasTest : MonoBehaviour
 
     private void ApplyTransform()
     {
-        _root.ApplyAtlasTransform(BrainAtlasManager.WorldU2WorldT);
+        _root.ApplyAtlasTransform(x => BrainAtlasManager.WorldU2WorldT(x, false));
     }
 }
