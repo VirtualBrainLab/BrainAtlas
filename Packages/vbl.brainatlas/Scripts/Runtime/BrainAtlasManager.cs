@@ -89,7 +89,7 @@ namespace BrainAtlas
             Instance._referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, Instance._parentGO.transform, defaultMaterial);
 
             // Set the null transform
-            ActiveAtlasTransform = AtlasTransforms["null"];
+            ActiveAtlasTransform = AtlasTransforms[0];
 
             return Instance._referenceAtlas;
         }
