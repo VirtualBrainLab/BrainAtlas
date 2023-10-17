@@ -15,7 +15,7 @@ namespace BrainAtlas
         public static BrainAtlasManager Instance;
         public static List<string> AtlasNames { get { return Instance._atlasMetaData.AtlasNames; } }
         public static Dictionary<string, Material> BrainRegionMaterials;
-        public static Dictionary<string, AtlasTransform> AtlasTransforms;
+        public static List<AtlasTransform> AtlasTransforms;
         #endregion
 
         #region Exposed
@@ -51,7 +51,7 @@ namespace BrainAtlas
                 BrainRegionMaterials.Add(_brainRegionMaterialNames[i], _brainRegionMaterials[i]);
 
             AtlasTransforms = new();
-            AtlasTransforms.Add("null", new NullTransform());
+            AtlasTransforms.Add(new NullTransform());
         }
         #endregion
 
