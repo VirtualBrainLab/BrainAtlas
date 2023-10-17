@@ -112,16 +112,16 @@ namespace BrainAtlas
         /// </summary>
         /// <param name="coordWorld"></param>
         /// <returns></returns>
-        public static Vector3 WorldU2WorldT(Vector3 coordWorld)
+        public static Vector3 WorldU2WorldT(Vector3 coordWorld, bool useReference = false)
         {
             return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U_Vector(
-                Instance._atlasTransform.U2T(Instance._referenceAtlas.World2Atlas(coordWorld))));
+                Instance._atlasTransform.U2T(Instance._referenceAtlas.World2Atlas(coordWorld, useReference))), useReference);
         }
 
-        public static Vector3 WorldT2WorldU(Vector3 coordWorldT)
+        public static Vector3 WorldT2WorldU(Vector3 coordWorldT, bool useReference = false)
         {
             return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U(
-                Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorldT))));
+                Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorldT, useReference))), useReference);
         }
 
         /// <summary>
