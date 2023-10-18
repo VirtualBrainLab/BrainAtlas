@@ -12,7 +12,6 @@ namespace BrainAtlas.CoordinateSystems
         /// <summary>
         /// Define an AffineTransform by passing the translation, scaling, and rotation that go from origin space to this space
         /// </summary>
-        /// <param name="centerCoord">(0,0,0) coordinate of transform x/y/z</param>
         /// <param name="scaling">scaling on x/y/z</param>
         /// <param name="rotation">rotation around z, y, x in that order (or on xy plane, then xz plane, then yz plane)</param>
         public AffineTransform(Vector3 scaling, Vector3 rotation)
@@ -23,30 +22,30 @@ namespace BrainAtlas.CoordinateSystems
             _inverseRotation = Quaternion.Inverse(_rotation);
         }
 
-        public override Vector3 U2T(Vector3 ccfCoord)
+        public override Vector3 U2T(Vector3 coordU)
         {
-            return Vector3.Scale(_rotation*ccfCoord, _scaling);
+            return Vector3.Scale(_rotation*coordU, _scaling);
         }
 
-        public override Vector3 T2U(Vector3 coordTransformed)
+        public override Vector3 T2U(Vector3 coordT)
         {
-            return _inverseRotation*Vector3.Scale(coordTransformed, _inverseScaling);
+            return _inverseRotation*Vector3.Scale(coordT, _inverseScaling);
         }
 
-        public override Vector3 U2T_Vector(Vector3 coordSpace)
+        public override Vector3 U2T_Vector(Vector3 vectorU)
         {
             return new Vector3(
-                Mathf.Sign(_scaling.x) * coordSpace.x,
-                Mathf.Sign(_scaling.y) * coordSpace.y,
-                Mathf.Sign(_scaling.z) * coordSpace.z);
+                Mathf.Sign(_scaling.x) * vectorU.x,
+                Mathf.Sign(_scaling.y) * vectorU.y,
+                Mathf.Sign(_scaling.z) * vectorU.z);
         }
 
-        public override Vector3 T2U_Vector(Vector3 coordTransformed)
+        public override Vector3 T2U_Vector(Vector3 vectorT)
         {
             return new Vector3(
-                Mathf.Sign(_inverseScaling.x) * coordTransformed.x,
-                Mathf.Sign(_inverseScaling.y) * coordTransformed.y,
-                Mathf.Sign(_inverseScaling.z) * coordTransformed.z);
+                Mathf.Sign(_inverseScaling.x) * vectorT.x,
+                Mathf.Sign(_inverseScaling.y) * vectorT.y,
+                Mathf.Sign(_inverseScaling.z) * vectorT.z);
         }
     }
 }

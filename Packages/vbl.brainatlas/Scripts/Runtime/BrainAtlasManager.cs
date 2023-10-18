@@ -124,6 +124,12 @@ namespace BrainAtlas
                 Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorldT, useReference))), useReference);
         }
 
+        public static Vector3 WorldT2WorldU_Vector(Vector3 vectorWorldT)
+        {
+            return Instance._referenceAtlas.Atlas2World_Vector(Instance._atlasTransform.T2U(
+                Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas_Vector(vectorWorldT))));
+        }
+
         /// <summary>
         /// Helper function
         /// Convert a world coordinate into a transformed coordinate using the reference coordinate and the axis change
