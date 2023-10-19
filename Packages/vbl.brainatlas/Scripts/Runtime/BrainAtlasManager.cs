@@ -134,16 +134,16 @@ namespace BrainAtlas
         /// Helper function
         /// Convert a world coordinate into a transformed coordinate using the reference coordinate and the axis change
         /// </summary>
-        /// <param name="coordWorld"></param>
+        /// <param name="vectorWorld"></param>
         /// <returns></returns>
-        public static Vector3 World2T_Vector(Vector3 coordWorld)
+        public static Vector3 World2T_Vector(Vector3 vectorWorld)
         {
-            return Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorld));
+            return Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas_Vector(vectorWorld));
         }
 
-        public static Vector3 T2World_Vector(Vector3 coordT)
+        public static Vector3 T2World_Vector(Vector3 vectorT)
         {
-            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U_Vector(coordT));
+            return Instance._referenceAtlas.Atlas2World_Vector(Instance._atlasTransform.T2U_Vector(vectorT));
         }
 
         public static void SetReferenceCoord(Vector3 refCoordU)
