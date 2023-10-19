@@ -34,6 +34,9 @@ namespace BrainAtlas
         /// Fires when the metadata has been loaded (i.e. it's safe to load an atlas)
         /// </summary>
         public UnityEvent MetaLoadedEvent;
+
+        public UnityEvent<Vector3> ReferenceCoordChangedEvent;
+
         /// <summary>
         /// Fires when the AtlasTransform is set externally
         /// </summary>
@@ -149,7 +152,10 @@ namespace BrainAtlas
         public static void SetReferenceCoord(Vector3 refCoordU)
         {
             if (ActiveReferenceAtlas != null)
+            {
                 ActiveReferenceAtlas.AtlasSpace.ReferenceCoord = refCoordU;
+                Instance.ReferenceCoordChangedEvent.Invoke(refCoordU);
+            }
         }
         #endregion
 
