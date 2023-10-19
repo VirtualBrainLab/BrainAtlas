@@ -68,7 +68,7 @@ public class BrainAtlasTest : MonoBehaviour
         }
 
         // Test Texture3D loading
-        if (false)
+        if (true)
         {
             _referenceAtlas.LoadAnnotationTexture();
             await _referenceAtlas.AnnotationTextureTask;
@@ -121,7 +121,7 @@ public class BrainAtlasTest : MonoBehaviour
         }
 
         // Test the coordinate transforms
-        if (true)
+        if (false)
         {
             BrainAtlasManager.SetReferenceCoord(new Vector3(5.2f, 5.7f, 0.33f));
 
