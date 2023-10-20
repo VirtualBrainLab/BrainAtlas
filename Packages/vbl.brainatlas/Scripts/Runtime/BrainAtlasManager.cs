@@ -58,6 +58,8 @@ namespace BrainAtlas
             AtlasTransforms = new();
             AtlasTransforms.Add(new NullTransform());
 
+            _atlasTransform = AtlasTransforms[0];
+
             _metaLoadedSource = new();
         }
 
