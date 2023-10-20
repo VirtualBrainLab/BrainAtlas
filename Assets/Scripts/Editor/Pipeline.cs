@@ -46,10 +46,10 @@ namespace BrainAtlas.Editor
 
 
                 ////Build the Atlas ScriptableObjects
-                //AtlasMeta2SO(updatedAtlasInfo);
+                AtlasMeta2SO(updatedAtlasInfo);
 
                 ////Convert mesh files 2 prefabs
-                //MeshFiles2Prefabs(updatedAtlasInfo);
+                MeshFiles2Prefabs(updatedAtlasInfo);
 
                 AnnotationReference2Textures(updatedAtlasInfo);
             }
@@ -413,7 +413,9 @@ namespace BrainAtlas.Editor
         private static Texture3D ConvertArrayToTexture(int[] data, int apLength, int mlWidth, int dvDepth,
             Dictionary<int, (string acronym, string name, Color color, int[] path)> ontologyDict)
         {
+
             Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGBA32, false);
+            //Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.BC7, false);
             atlasTexture.filterMode = FilterMode.Point;
             atlasTexture.wrapMode = TextureWrapMode.Clamp;
 
@@ -446,6 +448,7 @@ namespace BrainAtlas.Editor
         private static Texture3D ConvertArrayToTexture(float[] data, int apLength, int mlWidth, int dvDepth)
         {
             Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGB24, false);
+            //Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.BC4, false);
             atlasTexture.filterMode = FilterMode.Point;
             atlasTexture.wrapMode = TextureWrapMode.Clamp;
 
@@ -456,7 +459,7 @@ namespace BrainAtlas.Editor
                     for (int ml = 0; ml < mlWidth; ml++)
                     {
                         // but here we're back to ap/ml/dv because that's how we'll store it locally
-                        atlasTexture.SetPixel(ap, ml, dv, Color.Lerp(Color.black, Color.white, data[idx++]));
+                        atlasTexture.SetPixel(ap, ml, dv, new Color(data[idx++], data[idx++], data[idx++]));
                     }
 
             atlasTexture.Apply();
