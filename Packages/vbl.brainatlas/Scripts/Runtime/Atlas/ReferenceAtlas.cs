@@ -621,7 +621,7 @@ namespace BrainAtlas
                     _fullGO.GetComponent<Renderer>().material = material;
                     break;
             }
-            SetColor(Color);
+            SetColor(Color, side);
         }
 
         public void ResetMaterial(OntologyNodeSide side = OntologyNodeSide.All)
