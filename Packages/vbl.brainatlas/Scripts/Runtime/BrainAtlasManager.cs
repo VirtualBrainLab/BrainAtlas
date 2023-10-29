@@ -86,6 +86,12 @@ namespace BrainAtlas
 
         public static async Task<ReferenceAtlas> LoadAtlas(string atlasName)
         {
+            if (Instance._referenceAtlas != null)
+            {
+                Debug.LogError("Atlas cannot be loaded twice: reload the scene");
+                return null;
+            }
+
 #if UNITY_EDITOR
             Debug.Log($"(BAM) Loading {atlasName}");
 #endif
