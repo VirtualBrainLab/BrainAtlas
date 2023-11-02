@@ -459,7 +459,8 @@ namespace BrainAtlas.Editor
                     for (int ml = 0; ml < mlWidth; ml++)
                     {
                         // but here we're back to ap/ml/dv because that's how we'll store it locally
-                        atlasTexture.SetPixel(ap, ml, dv, new Color(data[idx++], data[idx++], data[idx++]));
+                        float val = data[idx++];
+                        atlasTexture.SetPixel(ap, ml, dv, new Color(val, val, val));
                     }
 
             atlasTexture.Apply();
