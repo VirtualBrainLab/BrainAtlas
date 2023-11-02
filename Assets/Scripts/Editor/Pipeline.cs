@@ -253,26 +253,37 @@ namespace BrainAtlas.Editor
 
             GameObject.DestroyImmediate(parentGO);
 
+            // Copy all files
             AssetDatabase.StartAssetEditing();
-
             for (int i = 0; i < meshFiles.Length; i++)
             {
                 string meshFile = meshFiles[i];
-
                 string name = Path.GetFileName(meshFile);
+
                 string targetFilePath = Path.Join(targetFolderPath, name);
+
+                Debug.Log((meshFile, targetFilePath));
 
                 File.Copy(meshFile, targetFilePath, true);
                 AssetDatabase.ImportAsset(targetFilePath);
+            }
+            AssetDatabase.StopAssetEditing();
+            AssetDatabase.Refresh();
+
+            AssetDatabase.StartAssetEditing();
+            for (int i = 0; i < meshFiles.Length; i++)
+            {
+                string meshFile = meshFiles[i];
+                string name = Path.GetFileName(meshFile);
+
+                string targetFilePath = Path.Join(targetFolderPath, name);
 
                 ModelImporter modelImporter = AssetImporter.GetAtPath(targetFilePath) as ModelImporter;
                 modelImporter.isReadable = true;
                 modelImporter.importNormals = ModelImporterNormals.Calculate;
                 modelImporter.SaveAndReimport();
             }
-
             AssetDatabase.StopAssetEditing();
-
             AssetDatabase.Refresh();
 
             for (int i = 0; i < meshFiles.Length; i++)
