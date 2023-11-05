@@ -164,21 +164,8 @@ namespace BrainAtlas
         public Task<int[,,]> AnnotationsTask { get { return _annotationsTaskSource.Task; } }
         public async void LoadAnnotations()
         {
-            var loadHandler = AddressablesRemoteLoader.LoadAnnotationIDs();
+            var loadHandler = AddressablesRemoteLoader.LoadAnnotationIDs(DimensionsIdx);
             await loadHandler;
-
-            // now we have the int[] in flattened ap/ml/dv order, re-order this now to the full size
-            int width = Mathf.RoundToInt(DimensionsIdx.x);
-            int height = Mathf.RoundToInt(DimensionsIdx.y);
-            int depth = Mathf.RoundToInt(DimensionsIdx.z);
-            Debug.Log((width, height, depth));
-            _annotationIDs = new int[width, height, depth];
-
-            int z = 0;
-            for (int i = 0; i < width; i++)
-                for (int j = 0; j < height; j++)
-                    for (int k = 0; k < depth; k++)
-                        _annotationIDs[i,j,k] = loadHandler.Result[z++];
 
             _annotationsTaskSource.SetResult(_annotationIDs);
         }

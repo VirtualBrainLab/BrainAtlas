@@ -155,7 +155,7 @@ namespace BrainAtlas.Remote
             return loadHandle.Result;
         }
 
-        public static async Task<int[]> LoadAnnotationIDs()
+        public static async Task<int[,,]> LoadAnnotationIDs((int x, int y, int z) dimensions)
         {
 #if UNITY_EDITOR
             Debug.Log("Loading annotation ID values");
@@ -170,7 +170,17 @@ namespace BrainAtlas.Remote
             AsyncOperationHandle<AnnotationData> loadHandle = Addressables.LoadAssetAsync<AnnotationData>(path);
             await loadHandle.Task;
 
-            return loadHandle.Result.Annotations;
+            int[,,] annotationIDs = new int[dimensions.x, dimensions.y, dimensions.z];
+
+            int z = 0;
+            for (int i = 0; i < dimensions.x; i++)
+                for (int j = 0; j < dimensions.y; j++)
+                    for (int k = 0; k < dimensions.z; k++)
+                        annotationIDs[i, j, k] = loadHandle.Result.Annotations[z++];
+
+            Addressables.Release(loadHandle);
+
+            return annotationIDs;
         }
         #endregion
 
