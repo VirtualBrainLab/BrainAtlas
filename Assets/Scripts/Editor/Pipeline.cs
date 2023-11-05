@@ -135,6 +135,9 @@ namespace BrainAtlas.Editor
                 case "whs_sd_rat_39um":
                     atlasData.DefaultAreas = new int[] { 1034, 1096, 1084, 1038, 1081, 1097, 1048, 1057, 1061, 1055, 1059, 1069, 1056, 1065, 1072, 1020, 1047, 58, 1044, 74, 1046, 56, 1045, 75, 1043 };
                     break;
+                case "whs_sd_rat_78um":
+                    atlasData.DefaultAreas = new int[] { 1034, 1096, 1084, 1038, 1081, 1097, 1048, 1057, 1061, 1055, 1059, 1069, 1056, 1065, 1072, 1020, 1047, 58, 1044, 74, 1046, 56, 1045, 75, 1043 };
+                    break;
                 default:
                     Debug.LogWarning($"No default areas for atlas {atlasInfo.atlasName}");
                     break;
