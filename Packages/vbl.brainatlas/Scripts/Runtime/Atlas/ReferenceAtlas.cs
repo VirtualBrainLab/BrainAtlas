@@ -167,6 +167,7 @@ namespace BrainAtlas
             var loadHandler = AddressablesRemoteLoader.LoadAnnotationIDs(DimensionsIdx);
             await loadHandler;
 
+            _annotationIDs = loadHandler.Result;
             _annotationsTaskSource.SetResult(_annotationIDs);
         }
         #endregion
