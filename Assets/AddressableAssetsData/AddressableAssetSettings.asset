@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 82c3456c0faac412682b12537521e593
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 900ae215df4c500dc13b7f3391f45979
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 1
   m_BundleLocalCatalog: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
       - m_Id: 8d294227e6e994fd3a0acbe9728872b1
         m_Value: ServerData/[BuildTarget]
       - m_Id: 778b3b19aa73b43dd91db4f1321e90ed
-        m_Value: https://data.virtualbrainlab.org/BrainAtlas/1.0.0/[BuildTarget]
+        m_Value: https://data.virtualbrainlab.org/BrainAtlas/1.1/[BuildTarget]
     m_ProfileEntryNames:
     - m_Id: cb5cf8fbe87ed4a4db1afa2055cfe7cf
       m_Name: BuildTarget

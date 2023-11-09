@@ -60,6 +60,9 @@ MonoBehaviour:
   MetaLoadedEvent:
     m_PersistentCalls:
       m_Calls: []
+  ReferenceCoordChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   AtlasTransformChangedEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -91,5 +94,5 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _addressablesStorageRemotePath: https://data.virtualbrainlab.org/BrainAtlas
-  _buildVersion: 1.0.0
+  _buildVersion: 1.1
   localAddressables: 0

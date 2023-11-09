@@ -207,13 +207,13 @@ namespace BrainAtlas.Editor
                 var row = meshCentersCSV[i];
                 string acronym = (string)row["structure_name"];
                 Vector3 center = new Vector3(
-                    (float)row["ap"],
-                    (float)row["ml"],
-                    (float)row["dv"]);
+                    (float)row["ap"] / 1000f,
+                    (float)row["ml"] / 1000f,
+                    (float)row["dv"] / 1000f);
                 Vector3 center_lh = new Vector3(
-                    (float)row["ap-lh"],
-                    (float)row["ml-lh"],
-                    (float)row["dv-lh"]);
+                    (float)row["ap-lh"] / 1000f,
+                    (float)row["ml-lh"] / 1000f,
+                    (float)row["dv-lh"] / 1000f);
                 meshCentersum.Add(new IV3Tuple(tempOntology.Acronym2ID(acronym), center, center_lh));
             }
 
