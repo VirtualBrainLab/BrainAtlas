@@ -39,8 +39,9 @@ namespace BrainAtlas.Editor
             string atlasMetaPath = Path.Join("Assets/AddressableAssets", "metadataSO.asset");
             CreateAddressablesHelper(_atlasMetaData, atlasMetaPath, _addressableSettings.DefaultGroup);
 
-            foreach (var atlasInfo in _atlasInfoList)
-            {
+            var atlasInfo = _atlasInfoList[2];
+            //foreach (var atlasInfo in _atlasInfoList)
+            //{
                 Debug.Log($"(Pipeline) Running for {atlasInfo.atlasName}");
                 var updatedAtlasInfo = SetupAddressables(atlasInfo);
 
@@ -49,10 +50,10 @@ namespace BrainAtlas.Editor
                 AtlasMeta2SO(updatedAtlasInfo);
 
                 ////Convert mesh files 2 prefabs
-                MeshFiles2Prefabs(updatedAtlasInfo);
+                //MeshFiles2Prefabs(updatedAtlasInfo);
 
-                AnnotationReference2Textures(updatedAtlasInfo);
-            }
+                //AnnotationReference2Textures(updatedAtlasInfo);
+            //}
 
             EditorUtility.SetDirty(_addressableSettings);
             AssetDatabase.SaveAssets();
@@ -168,14 +169,10 @@ namespace BrainAtlas.Editor
                     remap_no_layers = structure.id;
 
                 int remap_defaults;
-                try
-                {
-                    remap_defaults = structure.structure_id_path.Reverse().First(x => atlasData.DefaultAreas.Contains(x));
-                }
-                catch
-                {
+                remap_defaults = structure.structure_id_path.Reverse().FirstOrDefault(x => atlasData.DefaultAreas.Contains(x));
+
+                if (remap_defaults == 0)
                     remap_defaults = structure.id;
-                }
 
                 ontologyData.Add(new OntologyTuple(structure.id, 
                     structure.acronym, 
