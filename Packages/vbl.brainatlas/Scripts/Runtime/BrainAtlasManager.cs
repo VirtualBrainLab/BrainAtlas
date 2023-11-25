@@ -106,14 +106,45 @@ namespace BrainAtlas
             await referenceAtlasDataTask;
 
             //Build the active atlas
-            Material defaultMaterial = BrainRegionMaterials["default"];
-            Instance._referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, Instance._parentGO.transform, defaultMaterial);
+            Instance._referenceAtlas = new ReferenceAtlas(referenceAtlasDataTask.Result, Instance._parentGO.transform, BrainRegionMaterials["default"]);
 
             // Set the null transform
             ActiveAtlasTransform = AtlasTransforms[0];
 
             return Instance._referenceAtlas;
         }
+
+        /// <summary>
+        /// Create a custom ReferenceAtlas object. This is mainly used for loading custom MRI volumes instead of a
+        /// standard BrainGlobe annotated atlas.
+        /// </summary>
+        /// <param name="atlasName"></param>
+        /// <param name="atlasDimensions"></param>
+        /// <param name="atlasResolution"></param>
+        /// <returns></returns>
+        public static ReferenceAtlas CustomAtlas(string atlasName,
+            Vector3 atlasDimensions, Vector3 atlasResolution)
+        {
+            ReferenceAtlasData customAtlasData = ScriptableObject.CreateInstance<ReferenceAtlasData>();
+            customAtlasData.name = atlasName;
+            customAtlasData.Dimensions = atlasDimensions;
+            customAtlasData.Resolution = atlasResolution;
+
+            // There are no meshes, so make sure no areas will get loaded by default
+            customAtlasData._privateMeshCenters = new List<IV3Tuple>();
+            customAtlasData._privateOntologyData = new List<OntologyTuple>();
+            customAtlasData.DefaultAreas = new int[0];
+
+            Instance._parentGO = new GameObject(atlasName);
+            Instance._parentGO.transform.parent = Instance.transform;
+
+            Instance._referenceAtlas = new ReferenceAtlas(customAtlasData, Instance._parentGO.transform, BrainRegionMaterials["default"]);
+
+            // Set the null transform
+            ActiveAtlasTransform = AtlasTransforms[0];
+
+            return Instance._referenceAtlas;
+        } 
         #endregion
 
         #region Active atlas transform functions
