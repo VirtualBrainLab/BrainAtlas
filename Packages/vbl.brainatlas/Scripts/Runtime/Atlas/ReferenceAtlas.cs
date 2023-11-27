@@ -19,6 +19,7 @@ namespace BrainAtlas
         private ReferenceAtlasData _data;
         private Texture3D _annotationTexture3D;
         private Texture3D _referenceTexture3D;
+        private Texture3D _customTexture3D;
         private int[,,] _annotationIDs;
         private Material _defaultMaterial;
         #endregion
@@ -85,9 +86,19 @@ namespace BrainAtlas
 
         public Texture3D ReferenceTexture { get
             {
-                if (_annotationTexture3D == null)
-                    throw new Exception("(RA) Annotation texture is not loaded");
+                if (_referenceTexture3D == null)
+                    throw new Exception("(RA) Reference texture is not loaded");
                 return _referenceTexture3D; } }
+
+        public Texture3D CustomTexture
+        {
+            get
+            {
+                if (_customTexture3D == null)
+                    throw new Exception("(RA) Custom texture is not loaded");
+                return _customTexture3D;
+            }
+        }
 
         public int[] DefaultAreas { get { return _data.DefaultAreas; } }
         #endregion
@@ -169,6 +180,27 @@ namespace BrainAtlas
 
             _annotationIDs = loadHandler.Result;
             _annotationsTaskSource.SetResult(_annotationIDs);
+        }
+
+        public void SetAnnotationTexture(Texture3D annotationTexture)
+        {
+            if (_annotationTextureTaskSource.Task.IsCompleted)
+                throw new Exception("(ReferenceAtlas) Failed to set annotation texture, the texture is already loaded");
+            _annotationTexture3D = annotationTexture;
+            _annotationTextureTaskSource.SetResult(_annotationTexture3D);
+        }
+
+        public void SetReferenceTexture(Texture3D referenceTexture)
+        {
+            if (_referenceTextureTaskSource.Task.IsCompleted)
+                throw new Exception("(ReferenceAtlas) Failed to set reference texture, the texture is already loaded");
+            _referenceTexture3D = referenceTexture;
+            _referenceTextureTaskSource.SetResult(_annotationTexture3D);
+        }
+
+        public void SetCustomTexture(Texture3D customTexture)
+        {
+            _customTexture3D = customTexture;
         }
         #endregion
 
@@ -255,6 +287,10 @@ namespace BrainAtlas
             return HashCode.Combine(Name);
         }
 
+#if UNITY_EDITOR
+        private bool oneTimeAnnotationWarning = false;
+#endif
+
         /// <summary>
         /// Get the annotation value at a specified index coordinate
         /// </summary>
@@ -262,11 +298,16 @@ namespace BrainAtlas
         /// <returns></returns>
         public int GetAnnotationIdx(Vector3 coordIdx)
         {
-            if (!_annotationsTaskSource.Task.IsCompleted)
-                throw new Exception("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
-            
-            // check dimensions
-            if (OutsideAnnotationDimensions(coordIdx))
+#if UNITY_EDITOR
+            if (!oneTimeAnnotationWarning && !_annotationsTaskSource.Task.IsCompleted)
+            {
+                oneTimeAnnotationWarning = true;
+                Debug.LogWarning("(RA) Annotations are not loaded -- you should await the AnnotationsTask");
+            }
+#endif
+
+            // Null check, and check for dimension
+            if (_annotationIDs == null || OutsideAnnotationDimensions(coordIdx))
                 return -1;
 
             return _annotationIDs[Mathf.RoundToInt(coordIdx.x),Mathf.RoundToInt(coordIdx.y),Mathf.RoundToInt(coordIdx.z)];
