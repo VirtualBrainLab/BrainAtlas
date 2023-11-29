@@ -223,7 +223,7 @@ namespace BrainAtlas
         /// <returns></returns>
         public Vector3 World2AtlasIdx(Vector3 worldCoord, bool useReference = false)
         {
-            return Vector3.Scale(World2Atlas(worldCoord, useReference), Resolution_World2Idx);
+            return Atlas2Idx(World2Atlas(worldCoord, useReference));
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace BrainAtlas
         /// <returns></returns>
         public Vector3 AtlasIdx2World(Vector3 atlasIdxCoord, bool useReference = false)
         {
-            return Atlas2World(Vector3.Scale(atlasIdxCoord, Resolution_Idx2World), useReference);
+            return Atlas2World(Idx2Atlas(atlasIdxCoord), useReference);
         }
 
         /// <summary>
@@ -269,6 +269,16 @@ namespace BrainAtlas
         public Vector3 World2Atlas_Vector(Vector3 vectorWorld)
         {
             return AtlasSpace.World2Space_Vector(vectorWorld);
+        }
+
+        public Vector3 Atlas2Idx(Vector3 atlasCoord)
+        {
+            return Vector3.Scale(atlasCoord, Resolution_World2Idx);
+        }
+
+        public Vector3 Idx2Atlas(Vector3 atlasCoordIdx)
+        {
+            return Vector3.Scale(atlasCoordIdx, Resolution_Idx2World);
         }
 
         public override string ToString()
