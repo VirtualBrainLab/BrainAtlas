@@ -17,7 +17,7 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 82c3456c0faac412682b12537521e593
   m_SerializeEntries:
-  - m_GUID: 621a3548d7f9c9f42b589726702d1b1e
+  - m_GUID: 633b3e5b32649114c93a5f1f5bee6079
     m_Address: Assets/AddressableAssets/metadataSO.asset
     m_ReadOnly: 0
     m_SerializedLabels: []

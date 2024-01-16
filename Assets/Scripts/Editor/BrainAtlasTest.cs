@@ -20,55 +20,57 @@ public class BrainAtlasTest : MonoBehaviour
 
     public async void RunTest()
     {
-        //if (false)
-        //{
-        //    var loadTask = BrainAtlasManager.LoadAtlas(BrainAtlasManager.AtlasNames[0]);
-        //    await loadTask;
+        ReferenceAtlas _referenceAtlas;
+        if (true)
+        {
+            string atlasName = BrainAtlasManager.AtlasNames[3];
+            var loadTask = BrainAtlasManager.LoadAtlas(BrainAtlasManager.AtlasNames[3]);
+            await loadTask;
 
-        //    Debug.Log("Mouse atlas loaded");
+            Debug.Log($"Atlas: {atlasName} loaded");
 
-        //    // Load some nodes
-        //    ReferenceAtlas _referenceAtlas = loadTask.Result;
-        //}
+            // Load some nodes
+            _referenceAtlas = loadTask.Result;
+        }
 
         //// Test node loading, transforms, materials, colors
-        //if (false)
-        //{
-        //    List<Task> tasks = new();
-        //    foreach (int areaID in _referenceAtlas.DefaultAreas)
-        //        tasks.Add(_referenceAtlas.Ontology.ID2Node(areaID).LoadMesh(OntologyNode.OntologyNodeSide.Full));
-        //    await Task.WhenAll(tasks);
+        if (true)
+        {
+            List<Task> tasks = new();
+            foreach (int areaID in _referenceAtlas.DefaultAreas)
+                tasks.Add(_referenceAtlas.Ontology.ID2Node(areaID).LoadMesh(OntologyNode.OntologyNodeSide.Full));
+            await Task.WhenAll(tasks);
 
-        //    await Task.Delay(1000);
+            await Task.Delay(1000);
 
-        //    foreach (int areaID in _referenceAtlas.DefaultAreas)
-        //        _referenceAtlas.Ontology.ID2Node(areaID).SetVisibility(false);
+            foreach (int areaID in _referenceAtlas.DefaultAreas)
+                _referenceAtlas.Ontology.ID2Node(areaID).SetVisibility(false);
 
-        //    //Now let's load a sided area
-        //    _root = _referenceAtlas.Ontology.ID2Node(8);
-        //    await _root.LoadMesh(OntologyNode.OntologyNodeSide.Left);
-        //    _root.SetMaterial(_sideMaterialTest);
-        //    _root.SetColor(_sideColor);
+            //Now let's load a sided area
+            _root = _referenceAtlas.Ontology.ID2Node(8);
+            await _root.LoadMesh(OntologyNode.OntologyNodeSide.Left);
+            _root.SetMaterial(_sideMaterialTest);
+            _root.SetColor(_sideColor);
 
-        //    // Create a new custom transform that tilts up 90 degrees
-        //    AtlasTransform custom = new CustomAffineTransform(Vector3.one * 1.1f, Vector3.zero);
-        //    BrainAtlasManager.ActiveAtlasTransform = custom;
+            // Create a new custom transform that tilts up 90 degrees
+            AtlasTransform custom = new CustomAffineTransform(Vector3.one * 1.1f, Vector3.zero);
+            BrainAtlasManager.ActiveAtlasTransform = custom;
 
-        //    await Task.Delay(1000);
+            await Task.Delay(1000);
 
-        //    custom = new CustomAffineTransform(Vector3.one, new Vector3(0f, -90f, 0f));
-        //    BrainAtlasManager.ActiveAtlasTransform = custom;
+            custom = new CustomAffineTransform(Vector3.one, new Vector3(0f, -90f, 0f));
+            BrainAtlasManager.ActiveAtlasTransform = custom;
 
-        //    await Task.Delay(1000);
+            await Task.Delay(1000);
 
-        //    _root.ResetAtlasTransform();
-        //    AtlasTransform nullT = new NullTransform();
-        //    BrainAtlasManager.ActiveAtlasTransform = nullT;
-        //    _root.SetVisibility(false, OntologyNode.OntologyNodeSide.Left);
-        //    _root.SetVisibility(true, OntologyNode.OntologyNodeSide.Right);
+            _root.ResetAtlasTransform();
+            AtlasTransform nullT = new NullTransform();
+            BrainAtlasManager.ActiveAtlasTransform = nullT;
+            _root.SetVisibility(false, OntologyNode.OntologyNodeSide.Left);
+            _root.SetVisibility(true, OntologyNode.OntologyNodeSide.Right);
 
-        //    await Task.Delay(1000);
-        //}
+            await Task.Delay(1000);
+        }
 
         //// Test Texture3D loading
         //if (false)
@@ -143,10 +145,10 @@ public class BrainAtlasTest : MonoBehaviour
         //}
 
         // Test custom atlases
-        if (true)
-        {
-            BrainAtlasManager.CustomAtlas("MRI", new Vector3(384f * 0.5f, 384f * 0.5f, 216f * 0.5f), new Vector3(0.5f, 0.5f, 0.5f));
-        }
+        //if (true)
+        //{
+        //    BrainAtlasManager.CustomAtlas("MRI", new Vector3(384f * 0.5f, 384f * 0.5f, 216f * 0.5f), new Vector3(0.5f, 0.5f, 0.5f));
+        //}
     }
 
     private void ApplyTransform()
