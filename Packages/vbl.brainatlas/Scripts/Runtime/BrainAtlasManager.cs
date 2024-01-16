@@ -150,7 +150,7 @@ namespace BrainAtlas
         #region Active atlas transform functions
 
         /// <summary>
-        /// Convert a world coordinate into the corresponding world coordinate after transformation
+        /// Convert a worldU coordinate to the corresponding worldT coordinate
         /// </summary>
         /// <param name="coordWorld"></param>
         /// <returns></returns>
@@ -160,16 +160,45 @@ namespace BrainAtlas
                 Instance._atlasTransform.U2T(Instance._referenceAtlas.World2Atlas(coordWorld, useReference))), useReference);
         }
 
+        /// <summary>
+        /// Convert a worldT coordinate into the corresponding worldU coordinate
+        /// </summary>
+        /// <param name="coordWorldT"></param>
+        /// <param name="useReference"></param>
+        /// <returns></returns>
         public static Vector3 WorldT2WorldU(Vector3 coordWorldT, bool useReference = false)
         {
             return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U(
                 Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas(coordWorldT, useReference))), useReference);
         }
 
+        /// <summary>
+        /// Convert a WorldT VECTOR into a WorldU Vector
+        /// 
+        /// [This function should probably not get used!!]
+        /// </summary>
+        /// <param name="vectorWorldT"></param>
+        /// <returns></returns>
         public static Vector3 WorldT2WorldU_Vector(Vector3 vectorWorldT)
         {
             return Instance._referenceAtlas.Atlas2World_Vector(Instance._atlasTransform.T2U(
                 Instance._atlasTransform.U2T_Vector(Instance._referenceAtlas.World2Atlas_Vector(vectorWorldT))));
+        }
+
+        /// <summary>
+        /// Helper function
+        /// Convert a WorldU coordinate into the Transformed space
+        /// </summary>
+        /// <param name="coordWorld"></param>
+        /// <returns></returns>
+        public static Vector3 World2T(Vector3 coordWorld)
+        {
+            return Instance._atlasTransform.U2T(Instance._referenceAtlas.World2Atlas(coordWorld));
+        }
+
+        public static Vector3 T2World(Vector3 coordT)
+        {
+            return Instance._referenceAtlas.Atlas2World(Instance._atlasTransform.T2U(coordT));
         }
 
         /// <summary>
