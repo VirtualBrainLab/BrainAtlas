@@ -23,18 +23,26 @@ public class BrainAtlasTest : MonoBehaviour
         ReferenceAtlas _referenceAtlas;
         if (true)
         {
-            string atlasName = BrainAtlasManager.AtlasNames[3];
-            var loadTask = BrainAtlasManager.LoadAtlas(BrainAtlasManager.AtlasNames[3]);
+            string atlasName = BrainAtlasManager.AtlasNames[4];
+            var loadTask = BrainAtlasManager.LoadAtlas(atlasName);
             await loadTask;
 
             Debug.Log($"Atlas: {atlasName} loaded");
 
             // Load some nodes
             _referenceAtlas = loadTask.Result;
+
+
+            List<Task> tasks = new();
+            foreach (int areaID in _referenceAtlas.DefaultAreas)
+                tasks.Add(_referenceAtlas.Ontology.ID2Node(areaID).LoadMesh(OntologyNode.OntologyNodeSide.Full));
+            await Task.WhenAll(tasks);
+            foreach (int areaID in _referenceAtlas.DefaultAreas)
+                _referenceAtlas.Ontology.ID2Node(areaID).SetVisibility(true, OntologyNode.OntologyNodeSide.Full);
         }
 
         //// Test node loading, transforms, materials, colors
-        if (true)
+        if (false)
         {
             List<Task> tasks = new();
             foreach (int areaID in _referenceAtlas.DefaultAreas)

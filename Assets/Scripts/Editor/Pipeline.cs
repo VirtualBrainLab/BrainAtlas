@@ -85,7 +85,7 @@ namespace BrainAtlas.Editor
             AddressableAssetGroup atlasGroup = (_addressableSettings.groups.Any(x => x.Name == atlasInfo.atlasName)) ?
                 _addressableSettings.groups.Find(x => x.Name == atlasInfo.atlasName) :
                 _addressableSettings.CreateGroup(atlasInfo.atlasName, false, false, true, null);
-
+            
             // Set the bundle mode to pack separately
             BundledAssetGroupSchema schema = atlasGroup.GetSchema<BundledAssetGroupSchema>();
             if (schema == null)
@@ -97,6 +97,7 @@ namespace BrainAtlas.Editor
                         _addressableSettings.profileSettings.GetValueById("Default", "RemoteBuildPath"));
             schema.LoadPath.SetVariableByName(_addressableSettings,
                         _addressableSettings.profileSettings.GetValueById("Default", "RemoteLoadPath"));
+            schema.InternalIdNamingMode = BundledAssetGroupSchema.AssetNamingMode.GUID;
 
             return (atlasInfo.atlasName, atlasInfo.atlasPath, atlasGroup);
         }
