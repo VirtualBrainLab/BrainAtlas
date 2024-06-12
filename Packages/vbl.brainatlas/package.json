@@ -1,6 +1,6 @@
 {
   "name": "vbl.brainatlas",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Wrapper of the BrainGlobe Atlas (https://github.com/brainglobe/bg-atlasapi/) for Unity",
   "displayName": "BrainAtlas",
   "unity": "2022.3",

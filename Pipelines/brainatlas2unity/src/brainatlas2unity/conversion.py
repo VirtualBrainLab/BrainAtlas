@@ -257,3 +257,54 @@ def copy_mesh_files(atlas, atlas_name, data_path):
     with open(mesh_path_file, 'w') as f:
         f.write(local_folder)
         f.close()
+
+def downsample(source_atlas_name, destination_atlas_name, ds):
+    source_folder = f'./data/{source_atlas_name}/'
+    destination_folder = f'./data/{destination_atlas_name}/'
+
+    shutil.copytree(source_folder, destination_folder)
+
+
+    import json
+    # Load the metadata and change the dimensions
+    fname = f'{destination_folder}/meta.json'
+    with open(fname, 'r') as f:
+        metadata = json.load(f)
+        f.close()
+
+    res = metadata['resolution'][0]
+    shape = metadata['shape']
+    new_res = int(res) * ds
+
+    metadata['resolution'] = [new_res, new_res, new_res]
+    metadata['shape'] = [shape[0]/ds, shape[1]/ds, shape[2]/ds]
+
+    json.dump(metadata, open(fname, 'w'))
+
+    # Load the annotation and reference volumes and downsample
+    import os
+    import numpy as np
+
+    annotation_file = os.path.join(destination_folder,"annotation.bytes")
+
+    data_type = np.uintc  # Replace with the actual data type used when saving
+    shape = (shape[0], shape[1], shape[2])      # Replace with the actual shape of the array
+
+    # Load the data
+    loaded_data = np.fromfile(annotation_file, dtype=data_type)
+    loaded_data = loaded_data.reshape(shape)  # Reshape the loaded data to its original shape
+
+    downsampled_array = loaded_data[::ds, ::ds, ::ds]
+
+    downsampled_array.flatten().tofile(annotation_file)
+
+
+    reference_file = os.path.join(destination_folder,"reference.bytes")
+
+    # Load the data
+    loaded_data = np.fromfile(reference_file, dtype=data_type)
+    loaded_data = loaded_data.reshape(shape)  # Reshape the loaded data to its original shape
+
+    downsampled_array = loaded_data[::2, ::2, ::2]
+
+    downsampled_array.flatten().tofile(reference_file)

@@ -39,23 +39,35 @@ namespace BrainAtlas.Editor
             string atlasMetaPath = Path.Join("Assets/AddressableAssets", "metadataSO.asset");
             CreateAddressablesHelper(_atlasMetaData, atlasMetaPath, _addressableSettings.DefaultGroup);
 
-            //var atlasInfo = _atlasInfoList[2];
-            foreach (var atlasInfo in _atlasInfoList)
+
+            int[] skip = { 0, 1, 2, 3, 5, 6, 7};
+
+            for (int i = 0; i < _atlasInfoList.Count; i++)
             {
+                if (skip.Contains(i))
+                    continue;
+
+                var atlasInfo = _atlasInfoList[i];
+
                 Debug.Log($"(Pipeline) Running for {atlasInfo.atlasName}");
                 var updatedAtlasInfo = SetupAddressables(atlasInfo);
 
+                Debug.Log($"(Pipeline) Building SOs for {atlasInfo.atlasName}");
                 ////Build the Atlas ScriptableObjects
                 AtlasMeta2SO(updatedAtlasInfo);
 
+                Debug.Log($"(Pipeline) Converting mesh files into prefabs for {atlasInfo.atlasName}");
                 ////Convert mesh files 2 prefabs
                 MeshFiles2Prefabs(updatedAtlasInfo);
 
+                Debug.Log($"(Pipeline) Building textures for {atlasInfo.atlasName}");
                 AnnotationReference2Textures(updatedAtlasInfo);
             }
 
+            Debug.Log($"(Pipeline) Cleaning up...");
             EditorUtility.SetDirty(_addressableSettings);
             AssetDatabase.SaveAssets();
+            Debug.Log($"(Pipeline) Complete");
         }
 
         public static void GetAtlasList()
@@ -147,6 +159,14 @@ namespace BrainAtlas.Editor
                     break;
                 case "princeton_mouse_20um":
                     atlasData.DefaultAreas = new int[] { 184, 500, 453, 1057, 677, 247, 669, 31, 972, 44, 714, 95, 254, 22, 541, 922, 698, 895, 1089, 703, 623, 343, 512 };
+                    break;
+                case "allen_human_500um":
+                    atlasData.DefaultAreas = new int[] { 10467 , 10465 , 10390, 10331, 10159 ,
+                    12113, 12176, 12155, 12148, 12131, 12139, 12179,
+                    10595, 10557, 10654, 10669, 10668, 10649, 10651, 10650};
+                    break;
+                case "azba_zfish_8um":
+                    atlasData.DefaultAreas = new int[] { 9999 };
                     break;
                 default:
                     Debug.LogWarning($"No default areas for atlas {atlasInfo.atlasName}");
@@ -347,6 +367,7 @@ namespace BrainAtlas.Editor
         /// </summary>
         public static void AnnotationReference2Textures((string atlasName, string atlasPath, AddressableAssetGroup atlasGroup) atlasInfo)
         {
+            Debug.Log($"(Pipeline:{atlasInfo.atlasName}) Starting annotation file to reference texture conversion.");
             //// get the metadata for this atlas
             var atlasData = AssetDatabase.LoadAssetAtPath<ReferenceAtlasData>(Path.Join("Assets/AddressableAssets", atlasInfo.atlasName, $"{atlasInfo.atlasName}.asset"));
             var ontologyData = atlasData._privateOntologyData;
@@ -369,6 +390,8 @@ namespace BrainAtlas.Editor
             for (int i = 0; i < uannotationData.Length; i++)
                 annotationData[i] = (int)uannotationData[i];
 
+            Debug.Log($"(Pipeline:{atlasInfo.atlasName}) Annotations convered to int, flattening array.");
+
             // Also save the annotation data itself
             AnnotationData annotationDataSO = ScriptableObject.CreateInstance<AnnotationData>();
 
@@ -388,11 +411,14 @@ namespace BrainAtlas.Editor
                 }
             }
 
+            Debug.Log($"(Pipeline:{atlasInfo.atlasName}) Building annotation SO and addressables prefab.");
             annotationDataSO.Annotations = reorderedArray;
 
             string annotationDataSOPath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/annotations.asset";
             CreateAddressablesHelper(annotationDataSO, annotationDataSOPath, atlasInfo.atlasGroup);
 
+
+            Debug.Log($"(Pipeline:{atlasInfo.atlasName}) Annotations complete. Moving to atlas and reference textures.");
 
             //// Create the texture
 
@@ -400,7 +426,15 @@ namespace BrainAtlas.Editor
 
             // Save to an asset file
             string atlasTexturePath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/annotationTexture.asset";
-            CreateAddressablesHelper(atlasTexture, atlasTexturePath, atlasInfo.atlasGroup);
+
+            if (File.Exists(atlasTexturePath))
+                AssetDatabase.DeleteAsset(atlasTexturePath);
+            AssetDatabase.CreateAsset(atlasTexture, atlasTexturePath);
+            _addressableSettings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(atlasTexturePath), atlasInfo.atlasGroup);
+
+            //CreateAddressablesHelper(atlasTexture, atlasTexturePath, atlasInfo.atlasGroup);
+
+            Debug.Log($"(Pipeline:{atlasInfo.atlasName}) Annotation texture built. Moving to reference texture.");
 
             // Deal with the texture data
             byte[] referenceBytes = File.ReadAllBytes(Path.Join(atlasInfo.atlasPath, "reference.bytes"));
@@ -411,7 +445,13 @@ namespace BrainAtlas.Editor
             Texture3D referenceTexture = ConvertArrayToTexture(ureferenceData, apLength, mlWidth, dvDepth);
 
             string refTexturePath = $"Assets/AddressableAssets/{atlasInfo.atlasName}/referenceTexture.asset";
-            CreateAddressablesHelper(referenceTexture, refTexturePath, atlasInfo.atlasGroup);
+            if (File.Exists(refTexturePath))
+                AssetDatabase.DeleteAsset(refTexturePath);
+            AssetDatabase.CreateAsset(referenceTexture, refTexturePath);
+            _addressableSettings.CreateOrMoveEntry(AssetDatabase.AssetPathToGUID(refTexturePath), atlasInfo.atlasGroup);
+
+            //CreateAddressablesHelper(referenceTexture, refTexturePath, atlasInfo.atlasGroup);
+            Debug.Log($"(Pipeline:{atlasInfo.atlasName}) Reference texture built.");
         }
 
         #region private helpers
@@ -433,6 +473,7 @@ namespace BrainAtlas.Editor
         private static Texture3D ConvertArrayToTexture(int[] data, int apLength, int mlWidth, int dvDepth,
             Dictionary<int, (string acronym, string name, Color color, int[] path)> ontologyDict)
         {
+            Debug.Log($"(Pipeline: ConvertArray2Tex) Creating an array of size ({apLength},{mlWidth},{dvDepth}), this could take a lot of memory!");
 
             Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGBA32, false);
             //Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.BC7, false);
@@ -441,7 +482,19 @@ namespace BrainAtlas.Editor
 
             Color transparentBlack = new Color(0f, 0f, 0f, 0f);
 
-            Debug.Log((apLength, mlWidth, dvDepth));
+            //Color[] colorData = new Color[data.Length];
+            //for (int i = 0; i < data.Length; i++)
+            //{
+            //    int atlasID = data[i];
+
+            //    // but here we're back to ap/ml/dv because that's how we'll store it locally
+            //    if (atlasID <= 0)
+            //        colorData[i] = transparentBlack;
+            //    else if (ontologyDict.TryGetValue(atlasID, out var value))
+            //        colorData[i] = value.color;
+            //    else
+            //        colorData[i] = Color.black;
+            //}
 
             int idx = 0;
             // Note that the volume in the python pipeline is in ap/dv/ml order, so the loop here matches that
@@ -454,8 +507,8 @@ namespace BrainAtlas.Editor
                         // but here we're back to ap/ml/dv because that's how we'll store it locally
                         if (atlasID <= 0)
                             atlasTexture.SetPixel(ap, ml, dv, transparentBlack);
-                        else if (ontologyDict.ContainsKey(atlasID))
-                            atlasTexture.SetPixel(ap, ml, dv, ontologyDict[atlasID].color);
+                        else if (ontologyDict.TryGetValue(atlasID, out var value))
+                            atlasTexture.SetPixel(ap, ml, dv, value.color);
                         else
                             atlasTexture.SetPixel(ap, ml, dv, Color.black);
                     }
@@ -467,6 +520,8 @@ namespace BrainAtlas.Editor
 
         private static Texture3D ConvertArrayToTexture(float[] data, int apLength, int mlWidth, int dvDepth)
         {
+            Debug.Log($"(Pipeline: ConvertArray2Tex) Creating an array of size ({apLength},{mlWidth},{dvDepth}), this could take a lot of memory!");
+
             Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.RGB24, false);
             //Texture3D atlasTexture = new Texture3D(apLength, mlWidth, dvDepth, TextureFormat.BC4, false);
             atlasTexture.filterMode = FilterMode.Point;
