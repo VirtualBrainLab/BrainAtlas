@@ -40,7 +40,7 @@ namespace BrainAtlas.Editor
             CreateAddressablesHelper(_atlasMetaData, atlasMetaPath, _addressableSettings.DefaultGroup);
 
 
-            int[] skip = { 0, 1, 2, 3, 5, 6, 7};
+            int[] skip = {};
 
             for (int i = 0; i < _atlasInfoList.Count; i++)
             {

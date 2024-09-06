@@ -37,7 +37,7 @@ namespace BrainAtlas.Remote
         #endregion
 
         #region Private vars
-        private string _fileEnding = ".json";
+        private string _fileEnding = ".bin";
         private string _addressablesStorageTargetPath;
 
         private static TaskCompletionSource<bool> catalogLoadedSource;

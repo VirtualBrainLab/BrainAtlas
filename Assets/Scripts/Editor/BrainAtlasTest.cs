@@ -23,7 +23,7 @@ public class BrainAtlasTest : MonoBehaviour
         ReferenceAtlas _referenceAtlas;
         if (true)
         {
-            string atlasName = BrainAtlasManager.AtlasNames[4];
+            string atlasName = BrainAtlasManager.AtlasNames[0];
             var loadTask = BrainAtlasManager.LoadAtlas(atlasName);
             await loadTask;
 
