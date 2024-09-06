@@ -3,7 +3,7 @@
   "version": "1.5.0",
   "description": "Wrapper of the BrainGlobe Atlas (https://github.com/brainglobe/bg-atlasapi/) for Unity",
   "displayName": "BrainAtlas",
-  "unity": "2022.3",
+  "unity": "6000.0",
   "author": "VirtualBrainLab",
   "changelogUrl": "https://github.com/VirtualBrainLab/BrainAtlas/",
   "documentationUrl": "https://virtualbrainlab.org/misc/brain_atlas.html"
