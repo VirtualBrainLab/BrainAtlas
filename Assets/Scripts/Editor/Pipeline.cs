@@ -15,7 +15,7 @@ namespace BrainAtlas.Editor
 {
     public static class Pipeline
     {
-        public static string DataFolder = "C:\\proj\\VBL\\BrainAtlas\\Pipelines\\data";
+        public static string DataFolder = "D:\\VBL Common Bulk Files\\BrainAtlas\\Pipelines\\data";
 
         /// <summary>
         /// (string name, string fullPath)
@@ -39,7 +39,11 @@ namespace BrainAtlas.Editor
             string atlasMetaPath = Path.Join("Assets/AddressableAssets", "metadataSO.asset");
             CreateAddressablesHelper(_atlasMetaData, atlasMetaPath, _addressableSettings.DefaultGroup);
 
+            for (int i = 0; i < _atlasInfoList.Count; i++) {
+                Debug.Log(_atlasInfoList[i].atlasName);
+            }
 
+            // int[] skip = {0, 1, 2, 3, 5, 7, 10, 11};
             int[] skip = {};
 
             for (int i = 0; i < _atlasInfoList.Count; i++)
@@ -97,7 +101,7 @@ namespace BrainAtlas.Editor
             AddressableAssetGroup atlasGroup = (_addressableSettings.groups.Any(x => x.Name == atlasInfo.atlasName)) ?
                 _addressableSettings.groups.Find(x => x.Name == atlasInfo.atlasName) :
                 _addressableSettings.CreateGroup(atlasInfo.atlasName, false, false, true, null);
-            
+
             // Set the bundle mode to pack separately
             BundledAssetGroupSchema schema = atlasGroup.GetSchema<BundledAssetGroupSchema>();
             if (schema == null)
@@ -168,6 +172,22 @@ namespace BrainAtlas.Editor
                 case "azba_zfish_8um":
                     atlasData.DefaultAreas = new int[] { 9999 };
                     break;
+                case "prairie_vole_25um":
+                    atlasData.DefaultAreas = new int[] { 343, 512, 623, 688 };
+                    break;
+                case "sju_cavefish_2um":
+                    atlasData.DefaultAreas = new int[] {
+                        8, 21, 26, 7, 17, 24, 9, 2, 5, 10,
+                        13, 1, 11, 3, 4, 19, 6, 15, 14, 16,
+                        18, 25, 22, 23, 27, 20
+                    };
+                    break;
+                case "unam_axolotl_40um":
+                    atlasData.DefaultAreas = new int[] { 105, 106, 104, 102, 101, 103 };
+                    break;
+                case "allen_mouse_bluebrain_barrels_25um":
+                    atlasData.DefaultAreas = new int[] { 184, 500, 453, 1057, 677, 247, 669, 31, 972, 44, 714, 95, 254, 22, 541, 922, 698, 895, 1089, 703, 623, 343, 512 };
+                    break;
                 default:
                     Debug.LogWarning($"No default areas for atlas {atlasInfo.atlasName}");
                     break;
@@ -184,7 +204,7 @@ namespace BrainAtlas.Editor
             StructureListJSON structuresList = JsonUtility.FromJson<StructureListJSON>(wrappedStructuresListStr);
             // Now parse the structures
             List<OntologyTuple> ontologyData = new();
-                
+
                 //int, (string, string, Color, int[])> ontologyData = new();
 
             foreach (var structure in structuresList.structures)
@@ -203,9 +223,9 @@ namespace BrainAtlas.Editor
                 if (remap_defaults == 0)
                     remap_defaults = structure.id;
 
-                ontologyData.Add(new OntologyTuple(structure.id, 
-                    structure.acronym, 
-                    structure.name, 
+                ontologyData.Add(new OntologyTuple(structure.id,
+                    structure.acronym,
+                    structure.name,
                     new Color(structure.rgb_triplet[0] / 255f, structure.rgb_triplet[1] / 255f, structure.rgb_triplet[2] / 255f),
                     structure.structure_id_path,
                     remap_no_layers,

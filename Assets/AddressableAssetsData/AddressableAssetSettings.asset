@@ -59,8 +59,20 @@ MonoBehaviour:
   m_BuildAddressablesWithPlayerBuild: 2
   m_overridePlayerVersion: 1.5
   m_GroupAssets:
+  - {fileID: 11400000, guid: 6ffc765657d19604b9613b78bde49de6, type: 2}
+  - {fileID: 11400000, guid: 9a21f9de9a6551f47b2cc0a0c76a4283, type: 2}
+  - {fileID: 11400000, guid: 31d616063dead684aaa286aec68d9866, type: 2}
+  - {fileID: 11400000, guid: 7820b42251215ad42b2fa5d35f38854e, type: 2}
+  - {fileID: 11400000, guid: a3e1a844995d7ce43853f1b3060f4c70, type: 2}
+  - {fileID: 11400000, guid: 65a650ec40449a343bea887b99b86a2d, type: 2}
+  - {fileID: 11400000, guid: 33261aa5f615afc4e83f9954805750c5, type: 2}
+  - {fileID: 11400000, guid: 4c3632ddcf5ded54485263fce2b6a9ba, type: 2}
+  - {fileID: 11400000, guid: ee2d5e4412f3e6a419a4e88d2bbd3d54, type: 2}
+  - {fileID: 11400000, guid: d8e8e673a9344da43a6c498b757558a5, type: 2}
   - {fileID: 11400000, guid: 00da88e96c23d4436b4556538b52b7ed, type: 2}
   - {fileID: 11400000, guid: 54f389879d2cf1347a729003c27603fe, type: 2}
+  - {fileID: 11400000, guid: 1f4cb18790815334bafba0375e9f6710, type: 2}
+  - {fileID: 11400000, guid: 2a845f7ea0dc08d41afac8ae79b1d137, type: 2}
   m_BuildSettings:
     m_LogResourceManagerExceptions: 1
     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles

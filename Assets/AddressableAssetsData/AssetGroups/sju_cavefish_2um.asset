@@ -1,0 +1,452 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: sju_cavefish_2um
+  m_EditorClassIdentifier: 
+  m_GroupName: sju_cavefish_2um
+  m_GUID: 60e79af26c70e704cb828bf10418be79
+  m_SerializeEntries:
+  - m_GUID: 013629f3e2f343b4387c6942fefcfbfa
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/6.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0303af114159f92419cd279952548d10
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/7R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0443041d5a2c92144b50becc07e116bc
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/2R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 107fb311571f07a469c35fc4636f95de
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/14.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 113d931ce67c1754b819f50c417d5205
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/1L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 11d2e33472ba8fd4d9cb5417604786e2
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/9L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 145fff5b2a37699499006f9728d1a64c
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/9R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 27f0d8f49fe86464f87a413f87b84856
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/21R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29bc66bdc1cfa934fa7abfaf4986fb5c
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/24R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29dbb7d8db8d66645ba4a7c4a250a7d7
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/27.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2c28cbf8ef7f25740b53a448b035c0ed
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/sju_cavefish_2umParent.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2d0eb8480fae6f74096fbe4598ccd1f1
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/3.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2de9b9b22f7b3014a9652031311eab0f
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/27L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e4d4e3c46aa40043b4fb59aca790e52
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/18.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f16b7bae1202514db079f48bb994ca7
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/16L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 31db90eddd6c2bf4380715cc02ba77ef
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/25L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3325da499811ccc42adbed811def3064
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/5.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33cfe4f1e1e6cea47a492393bed2013e
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/10.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 38c31fee328553f4eb1c48e78e4e87c9
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/20.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 393f192a97cbe6a4b8ccaeaac6b0aeae
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/23.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3b6dd199f3eeb0c4899c0b9b389d8ed9
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/20L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41c31e10d21339344a6bae9993aaa950
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/22R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4210155338363544986c0863d92fce23
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/4R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 425cdf867c2cc2c4197b93972285e8ee
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/13L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 45831c8ac686b194fbab73b16e4f16f8
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/8.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 47897e925b07ab04fa39ae5f1461fa4b
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/25R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48376724acd82c4448aae4a290c431ec
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/999L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c3021c2e0f45fa43bf275f78306add3
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/15.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4db83c6c5b814a64faa70fa488bb3387
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/14L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4ee8a54da4dcb954fbcec4a8c0c18261
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/13R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 517b30a64c49c964bb8088adb25dfeff
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/10L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 552702b650b06ce4abee0e2302113a66
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/11R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5af7efa1c1339a04c8abf243dc63694e
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/15R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5b43923cf3f93c54493ee4cdb4661ec7
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/8L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5defbd190ae9b324d91acd626e9fde41
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/3L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 619d0ee464ef51948b45a3ea54a4d8e9
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/20R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6213722d035d01947996e546dd7fbaa8
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/26.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62b8ce486102f3442907485241e13d09
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/19.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 633e81f094dd1704fbbe7707c66955e8
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/13.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 650b0028c0d74ca4ab393ee86cc413d5
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/1R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 672467a71b7fce04e8416a35c9d5856d
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/19R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f3470bd92eb0de45b8258c5b524b142
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/annotations.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6fb706ddf110000498eb17226f9fd9db
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/999R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 776912709631dae46845732b2a8a6994
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/26R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 77dc23a24ab9fe4499a7b25b30e4a2fc
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/annotationTexture.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 792a52eb605f3794ab42c36bdfd178bf
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/17L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7f12322e362335746a5c93df88c6b2be
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/22L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 87cad64989d3411439c97b349a9ee07e
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/7.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8b2e1f9e0839a204b8a880d1d6e76ca1
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/19L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8e950f9c6dbad0a46b35b8142b9f03b0
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/17.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f8f85357e1eed842b4721be5eb2dd92
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/sju_cavefish_2um.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8fc510b8311215e47968405c0c305633
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/14R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97fd5ef1d368cb14f9b7bcaa769d81a7
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/11L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 98754f6f9684d45449f1e5a4a74f2d0b
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/2L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9b082ea43ebe60d489c9d10199c79555
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/referenceTexture.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9bb77c60d6aad734a9ef73c83c3fe535
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/999.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a07a8a9c1a734074aa7a2310836523ed
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/6L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a36f79676f042e94d9611875fac35fae
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/4L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a373f779d6f448242a3893c0db262e54
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/25.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a4376004f4a9b044dbce1354617cf6b4
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/17R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a595af55d6ee5e040ba6f19e400f6696
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/18R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5a50eac8241788479de16c1e5c83731
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/24.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aaf30e4430db2f84090bc2fda3e6c74a
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/4.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae62ed5bb11314748bb8a5faeef912d3
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/26L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b187880225652a147a3568aba790dd93
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/11.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b1e1f17f8e99c194692b1c99f8892fa5
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/23R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b22b627728b733c418ff6aa81f270d02
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/23L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bce41aac48a33834f8c813b1e7ce09ca
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/5L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bea45aadf40405645b876c6000b78c4b
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/24L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca158342f213abf4d84cc944dfbf0df4
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/21.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d40de66b1a0b88c44b52e8b5bb53d3bc
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/22.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d5d1b76e98f67f342a8715ff5cedc657
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/7L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d609561f662e60b4194740b5767ae6d5
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/10R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d662929f5b6b8b44c916b3799321c3dd
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/1.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da2cd4f893e4aac47860d65413cfdd7c
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/21L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: da7c5d9c1e2ab31478bb7f33113d358f
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/3R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: daa059b7db31d0440a3c103301b9d3a7
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/18L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e7b8d63dafa5fe8408fa354742de9ea5
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/9.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ead6bc4a72b66604baaaa2658854c4ee
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/27R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eb57ca0cd45d77a45aa870e63e279e31
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/16R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecdd7dbf22dacbf41b1db8f1f89ac5d8
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/8R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ecf15b863ec30864ab2b3ad68579ebd3
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/16.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ef4e7904e1d5dce43988d1531044d1c6
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/6R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f366fae49db6731429fdfad39a674364
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/2.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f8b35bad38198dc40a10059a1f4e36dd
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/5R.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f9cfd8d888f259b4ba937cfed9768e9f
+    m_Address: Assets/AddressableAssets/sju_cavefish_2um/meshes/15L.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0971657f09fdf46b293c2b86160286ad, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 87ac3755857c2874dbacffa9b729ae74, type: 2}

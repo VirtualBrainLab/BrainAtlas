@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5d17a21594effb4e9591490b009e7aa, type: 3}
   m_Name: allen_mouse_25um_BundledAssetGroupSchema
   m_EditorClassIdentifier: 
-  m_Group: {fileID: 11400000, guid: 54f389879d2cf1347a729003c27603fe, type: 2}
+  m_Group: {fileID: 11400000, guid: d8e8e673a9344da43a6c498b757558a5, type: 2}
   m_InternalBundleIdMode: 1
   m_Compression: 1
   m_IncludeAddressInCatalog: 1
@@ -34,9 +34,9 @@ MonoBehaviour:
   m_RedirectLimit: -1
   m_RetryCount: 0
   m_BuildPath:
-    m_Id: 8d294227e6e994fd3a0acbe9728872b1
+    m_Id: b1dd0f0e9a31a4757a408904e11c81a6
   m_LoadPath:
-    m_Id: 778b3b19aa73b43dd91db4f1321e90ed
+    m_Id: 4a1dc4d1ec3f14b27813ac643342b2ec
   m_BundleMode: 1
   m_AssetBundleProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

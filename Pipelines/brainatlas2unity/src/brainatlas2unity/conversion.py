@@ -6,7 +6,7 @@ import pandas as pd
 import shutil
 import bpy
 import os
-import bg_space as bg
+import brainglobe_space as bg
 
 def intermediate_meta(atlas, atlas_name, data_path):
     """Build the metadata file
@@ -66,7 +66,7 @@ def intermediate_annot_image(atlas, atlas_name, data_path):
 
 def intermediate_mesh_centers(atlas, atlas_name, data_path):
     """Build the intermediate mesh center CSV files"""
-    
+
     def f3f(val):
         return f'{val:0.3f}'
 
@@ -126,7 +126,7 @@ def modifiers_normals_smooth(obj_file, normals, smoothing):
     # Switch to Edit Mode and recalculate normals
     bpy.context.view_layer.objects.active = obj
     bpy.ops.object.mode_set(mode='EDIT')
-    
+
 
     # Apply the Smooth modifier with factor=1 and repeat=10
     if smoothing:
