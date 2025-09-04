@@ -355,12 +355,18 @@ namespace BrainAtlas
     {
         private Dictionary<int, (string acronym, string name, Color color, int[] path, int remap_layers, int remap_defaults)> _ontologyData;
         private Dictionary<string, int> _acronym2id;
+        private Dictionary<int, List<int>> _id2children;
 
         private Material _defaultMaterial;
 
         public Color ID2Color(int areaID)
         {
             return _ontologyData[areaID].color;
+        }
+
+        public List<int> ID2Children(int areaID)
+        {
+            return _id2children[areaID];
         }
 
         public string ID2Acronym(int areaID)
@@ -440,7 +446,10 @@ namespace BrainAtlas
             _ontologyData.Add(-1, ("out", "out", Color.black, new int[] { }, -1, -1));
             _ontologyData.Add(0, ("void", "void", Color.black, new int[] { }, 0, 0));
 
+            _id2children = new();
+
             foreach (OntologyTuple ontologyTuple in ontologyData)
+            {
                 _ontologyData.Add(ontologyTuple.id,
                     (ontologyTuple.acronym,
                     ontologyTuple.name,
@@ -448,6 +457,8 @@ namespace BrainAtlas
                     ontologyTuple.structure_id_path,
                     ontologyTuple.remap_no_layers,
                     ontologyTuple.remap_defaults));
+                _id2children[ontologyTuple.id] = new();
+            }
 
             ParseData(parentT);
         }
@@ -466,6 +477,14 @@ namespace BrainAtlas
                 // build the ontology tree
                 OntologyNode cNode = new OntologyNode();
                 cNode.SetData(dataKVP.Key, nodeData.acronym, nodeData.color, parentT, _defaultMaterial);
+
+                // parse path to get parent ID
+                int[] path = nodeData.path;
+                if (path.Length >= 2)
+                {
+                    int parentID = path[path.Length - 2];
+                    _id2children[parentID].Add(dataKVP.Key);
+                }
 
                 _nodes.Add(dataKVP.Key, cNode);
             }
