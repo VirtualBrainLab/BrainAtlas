@@ -531,6 +531,10 @@ namespace BrainAtlas
                     return _defaultColor;
             } 
         }
+
+        public int ID { get { return _id; } }
+
+        public string Acronym { get { return _acronym; } }
         #endregion
 
         #region GameObjects
